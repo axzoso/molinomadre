@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farine – Molino Madre Dal 1939</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rosso:      #8a2432;
+  --terracotta: #a9483d;
+  --grano:      #ddc9a2;
+  --lavanda:    #e3e0e5;
+  --oliva:      #888f64;
+  --bianco:     #f5f2ec;
+  --nero:       #1a1410;
+  --font-d:     'Bebas Neue', sans-serif;
+  --font-s:     'Cormorant Garamond', serif;
+  --font-b:     'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bianco); color: var(--nero); font-family: var(--font-b); overflow-x: hidden; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+/* ── LABEL / DIVIDER ─────────────────── */
+.label {
+  font-family: var(--font-b); font-size: 11px; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--terracotta); display: block; margin-bottom: 16px;
+}
+.divider { display: inline-block; width: 48px; height: 1px; background: var(--terracotta); margin-bottom: 20px; }
+.section-title {
+  font-family: var(--font-d); font-size: clamp(44px,6vw,88px);
+  line-height: .93; letter-spacing: .02em; color: var(--rosso);
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-b); font-size: 12px; font-weight: 500;
+  letter-spacing: .2em; text-transform: uppercase; text-decoration: none;
+  color: var(--rosso); border-bottom: 1.5px solid var(--rosso);
+  padding-bottom: 4px; transition: gap .3s;
+}
+.btn:hover { gap: 18px; }
+.btn-light { color: var(--grano); border-color: var(--grano); }
+
+/* ── NAV ──────────────────────────────── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index: 1000;
+  padding: 0 40px; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(245,242,236,.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(138,36,50,.1);
+}
+.nav-logo {
+  font-family: var(--font-d); font-size: 22px; letter-spacing: .12em;
+  color: var(--rosso); text-decoration: none;
+  display: flex; flex-direction: column; line-height: 1.1;
+}
+.nav-logo span {
+  font-family: var(--font-s); font-size: 10px; font-weight: 400;
+  letter-spacing: .3em; text-transform: uppercase; opacity: .7;
+}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  text-decoration: none; color: var(--nero); transition: color .3s; font-weight: 400;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--rosso); }
+.nav-cta {
+  padding: 9px 22px; border: 1.5px solid var(--rosso); border-radius: 2px;
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  text-decoration: none; color: var(--rosso); transition: all .3s; font-weight: 500;
+}
+.nav-cta:hover { background: var(--rosso); color: #fff; }
+
+/* ── BREADCRUMB ─────────────────────── */
+.breadcrumb { padding: 96px 0 0; background: var(--bianco); }
+.breadcrumb-inner {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(26,20,16,.4); padding: 20px 0 0;
+  border-top: 1px solid rgba(138,36,50,.1);
+}
+.breadcrumb-inner a { color: rgba(26,20,16,.4); text-decoration: none; transition: color .3s; }
+.breadcrumb-inner a:hover { color: var(--rosso); }
+.breadcrumb-sep { opacity: .3; }
+
+/* ── PAGE HERO ──────────────────────── */
+.page-hero {
+  padding: 56px 0 80px; background: var(--bianco);
+  position: relative; overflow: hidden;
+}
+.page-hero-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end;
+}
+.page-hero-eyebrow {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 28px;
+  opacity: 0; animation: fadeUp .8s .1s ease forwards;
+}
+.page-hero-eyebrow .hero-line { width: 40px; height: 1px; background: var(--terracotta); }
+.page-hero-eyebrow span { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--terracotta); }
+.page-hero-title {
+  font-family: var(--font-d); font-size: clamp(64px, 8vw, 120px);
+  line-height: .88; color: var(--rosso); margin-bottom: 32px;
+  opacity: 0; animation: fadeUp .9s .25s ease forwards;
+}
+.page-hero-title em {
+  font-family: var(--font-s); font-style: italic; font-size: .55em;
+  color: var(--terracotta); display: block; margin-bottom: 6px; font-weight: 300;
+}
+.page-hero-intro {
+  font-family: var(--font-s); font-size: 19px; font-weight: 300;
+  line-height: 1.75; color: #666; max-width: 520px;
+  opacity: 0; animation: fadeUp .9s .4s ease forwards; margin-bottom: 36px;
+}
+.page-hero-stats {
+  display: flex; gap: 40px; padding-top: 36px;
+  border-top: 1px solid rgba(138,36,50,.12);
+  opacity: 0; animation: fadeUp .9s .55s ease forwards;
+}
+.page-stat-num {
+  font-family: var(--font-d); font-size: 42px; letter-spacing: .04em;
+  color: var(--rosso); line-height: 1;
+}
+.page-stat-label { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #999; margin-top: 4px; }
+
+/* Hero right: decorative grain pattern */
+.page-hero-visual {
+  position: relative; opacity: 0; animation: fadeIn 1.1s .3s ease forwards;
+}
+.page-hero-visual-inner {
+  position: relative; width: 100%;
+}
+.hero-grain-bg {
+  width: 100%; aspect-ratio: 4/3;
+  background: linear-gradient(135deg, var(--nero) 0%, #2a1a12 50%, var(--rosso) 100%);
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(26,20,16,.18);
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-grain-bg img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center;
+  mix-blend-mode: multiply; opacity: .7;
+}
+.hero-badge {
+  position: absolute; bottom: -20px; left: -20px;
+  background: var(--rosso); color: var(--grano);
+  padding: 18px 24px; border-radius: 2px;
+  box-shadow: 0 8px 32px rgba(138,36,50,.35);
+}
+.hero-badge strong {
+  font-family: var(--font-d); font-size: 28px; display: block;
+  letter-spacing: .08em; line-height: 1;
+}
+.hero-badge span { font-size: 9px; letter-spacing: .24em; text-transform: uppercase; opacity: .75; margin-top: 3px; display: block; }
+
+/* Large decorative background text */
+.hero-watermark {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-family: var(--font-d); font-size: 180px; letter-spacing: .02em;
+  color: rgba(255,255,255,.06); white-space: nowrap; line-height: 1; pointer-events: none;
+}
+
+/* ── CATEGORY FILTER TABS ───────────── */
+.filter-bar {
+  padding: 0; background: var(--bianco);
+  border-bottom: 1px solid rgba(138,36,50,.1); position: sticky; top: 72px; z-index: 50;
+}
+.filter-inner { display: flex; gap: 0; }
+.filter-tab {
+  font-family: var(--font-b); font-size: 10px; letter-spacing: .22em;
+  text-transform: uppercase; font-weight: 500;
+  background: none; border: none; cursor: pointer; color: rgba(26,20,16,.4);
+  padding: 14px 28px; position: relative; transition: color .25s;
+}
+.filter-tab::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--rosso); transform: scaleX(0); transition: transform .25s;
+}
+.filter-tab:hover { color: var(--rosso); }
+.filter-tab.active { color: var(--rosso); }
+.filter-tab.active::after { transform: scaleX(1); }
+
+/* ── CATEGORY SECTION ───────────────── */
+.farine-section { padding: 80px 0; scroll-margin-top: 120px; }
+.dark-section { background: var(--nero); padding: 80px 0; position: relative; overflow: hidden; scroll-margin-top: 120px; }
+.farine-section + .farine-section { padding-top: 0; }
+.section-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 52px; padding-bottom: 24px;
+  border-bottom: 1px solid rgba(138,36,50,.08);
+}
+.section-header-left {}
+.category-eyebrow {
+  font-family: var(--font-b); font-size: 10px; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--terracotta); margin-bottom: 10px; display: block;
+}
+.category-title {
+  font-family: var(--font-d); font-size: clamp(36px,4.5vw,60px);
+  letter-spacing: .04em; color: var(--nero); line-height: .9;
+}
+.category-desc {
+  font-family: var(--font-s); font-size: 16px; font-weight: 300;
+  color: rgba(26,20,16,.55); line-height: 1.6; max-width: 380px; text-align: right;
+}
+
+/* ── SUB-CATEGORY ───────────────────── */
+.sub-category { margin-bottom: 64px; }
+.sub-category-label {
+  font-family: var(--font-b); font-size: 9px; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--oliva);
+  margin-bottom: 24px; display: flex; align-items: center; gap: 16px;
+}
+.sub-category-label::after { content: ''; flex: 1; height: 1px; background: rgba(136,143,100,.3); }
+
+/* ── PRODUCT GRID ───────────────────── */
+.product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.product-grid.grid-4 { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.product-grid.grid-2 { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+
+/* ── PRODUCT CARD ───────────────────── */
+.product-card {
+  background: #fff; border-radius: 2px;
+  box-shadow: 0 2px 12px rgba(26,20,16,.06);
+  overflow: hidden; transition: box-shadow .3s, transform .3s;
+  display: flex; flex-direction: column;
+}
+.product-card:hover { box-shadow: 0 12px 40px rgba(26,20,16,.14); transform: translateY(-4px); }
+
+.product-card-img {
+  width: 100%; aspect-ratio: 4/3; overflow: hidden; position: relative;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+}
+.product-card-img img {
+  width: 100%; height: 100%; object-fit: contain; object-position: center;
+  transition: transform .5s ease; padding: 12px;
+}
+.product-card:hover .product-card-img img { transform: scale(1.05); }
+
+/* "Linea" badge in top-left of image */
+.card-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--rosso); color: #fff;
+  font-family: var(--font-b); font-size: 8px; letter-spacing: .2em;
+  text-transform: uppercase; padding: 4px 10px; border-radius: 1px;
+}
+
+.product-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+.product-card-type {
+  font-family: var(--font-b); font-size: 8px; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--terracotta); margin-bottom: 8px;
+}
+.product-card-name {
+  font-family: var(--font-d); font-size: 22px; letter-spacing: .06em;
+  color: var(--nero); line-height: 1; margin-bottom: 10px;
+}
+.product-card-sub {
+  font-family: var(--font-s); font-size: 12px; font-weight: 400; font-style: italic;
+  color: rgba(26,20,16,.45); margin-bottom: 14px; line-height: 1.4;
+}
+.product-card-desc {
+  font-family: var(--font-s); font-size: 14px; font-weight: 300; line-height: 1.65;
+  color: rgba(26,20,16,.6); flex: 1; margin-bottom: 20px;
+}
+.product-card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 16px; border-top: 1px solid rgba(138,36,50,.08);
+}
+.product-card-ideal {
+  font-family: var(--font-b); font-size: 9px; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(26,20,16,.35);
+}
+.product-card-link {
+  font-family: var(--font-b); font-size: 9px; letter-spacing: .2em;
+  text-transform: uppercase; text-decoration: none; color: var(--rosso);
+  display: flex; align-items: center; gap: 6px; transition: gap .25s;
+}
+.product-card-link:hover { gap: 10px; }
+.product-card-link svg { width: 12px; height: 12px; }
+
+/* Scheda tecnica download */
+.card-download {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-b); font-size: 9px; letter-spacing: .2em;
+  text-transform: uppercase; text-decoration: none;
+  color: rgba(26,20,16,.4); transition: color .3s;
+}
+.card-download:hover { color: var(--rosso); }
+.card-download svg { width: 13px; height: 13px; }
+
+/* ── LARGE FEATURED CARD — rimosso ─── */
+
+/* ── USP STRIP ──────────────────────── */
+.usp-strip {
+  background: var(--rosso); padding: 48px 0;
+}
+.usp-inner { display: flex; gap: 0; }
+.usp-item {
+  flex: 1; text-align: center; padding: 0 24px;
+  border-right: 1px solid rgba(255,255,255,.12);
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.usp-item:last-child { border-right: none; }
+.usp-icon { font-size: 28px; }
+.usp-title { font-family: var(--font-d); font-size: 20px; letter-spacing: .08em; color: var(--grano); }
+.usp-text { font-family: var(--font-s); font-size: 13px; font-weight: 300; color: rgba(255,255,255,.65); line-height: 1.5; }
+
+/* ── DARK INTERLUDE ─────────────────── */
+.dark-section-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 50% 60% at 70% 50%, rgba(138,36,50,.15) 0%, transparent 65%);
+}
+.dark-section-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; }
+.dark-section-text {}
+.dark-section-text .category-eyebrow { color: var(--grano); opacity: .7; }
+.dark-section-text .category-title { color: #fff; }
+.dark-section-text .category-desc { color: rgba(255,255,255,.45); text-align: left; max-width: unset; }
+.dark-section-products { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.dark-product-card {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+  border-radius: 2px; padding: 24px; transition: background .3s, border-color .3s;
+}
+.dark-product-card:hover { background: rgba(138,36,50,.15); border-color: rgba(138,36,50,.4); }
+.dark-product-card .product-card-type { color: var(--grano); opacity: .65; }
+.dark-product-card .product-card-name { color: #fff; font-size: 20px; }
+.dark-product-card .product-card-sub { color: rgba(255,255,255,.35); }
+.dark-product-card .product-card-desc { color: rgba(255,255,255,.5); font-size: 13px; }
+.dark-product-card .product-card-footer { border-top-color: rgba(255,255,255,.06); }
+.dark-product-card .product-card-link { color: var(--grano); }
+.dark-product-card .product-card-ideal { color: rgba(255,255,255,.2); }
+
+/* ── FOOTER ─────────────────────────── */
+footer { background: var(--nero); padding: 60px 0 32px; }
+.footer-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+.footer-brand-name { font-family: var(--font-d); font-size: 28px; letter-spacing: .12em; color: #fff; line-height: 1; margin-bottom: 4px; }
+.footer-brand-sub { font-family: var(--font-s); font-size: 11px; letter-spacing: .28em; color: var(--grano); opacity: .6; text-transform: uppercase; margin-bottom: 16px; }
+.footer-tagline { font-family: var(--font-s); font-size: 13px; font-weight: 300; font-style: italic; color: rgba(255,255,255,.28); line-height: 1.6; max-width: 220px; }
+.footer-col h5 { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--grano); opacity: .7; margin-bottom: 18px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.footer-col ul li a { font-size: 13px; color: rgba(255,255,255,.38); text-decoration: none; transition: color .3s; font-family: var(--font-s); }
+.footer-col ul li a:hover { color: var(--grano); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.06); }
+.footer-copy { font-size: 10px; color: rgba(255,255,255,.18); letter-spacing: .06em; }
+.footer-socials { display: flex; gap: 10px; }
+.footer-social-link { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: rgba(255,255,255,.32); font-size: 10px; font-family: var(--font-b); font-weight: 500; transition: all .3s; }
+.footer-social-link:hover { border-color: var(--grano); color: var(--grano); }
+
+/* ── ANIMATIONS ─────────────────────── */
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(28px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity:0; }
+  to   { opacity:1; }
+}
+
+/* ── RESPONSIVE ─────────────────────── */
+@media (max-width: 1024px) {
+  .product-grid { grid-template-columns: repeat(2,1fr); }
+  .product-grid.grid-4 { grid-template-columns: repeat(2,1fr); }
+  .dark-section-inner { grid-template-columns: 1fr; }
+  .page-hero-inner { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .product-grid { grid-template-columns: 1fr; }
+  .section-header { flex-direction: column; gap: 16px; align-items: flex-start; }
+  .category-desc { text-align: left; }
+  .dark-section-products { grid-template-columns: 1fr; }
+  .usp-inner { flex-direction: column; }
+  .usp-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.12); padding: 20px 0; }
+  .usp-item:last-child { border-bottom: none; }
+  .filter-inner { overflow-x: auto; }
+  .footer-top { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ────────────────────────────────── -->
+<nav>
+  <a href="index.html" class="nav-logo">MOLINO MADRE<span>Dal 1939 · Calabria</span></a>
+  <ul class="nav-links">
+    <li><a href="il-molino.html">Il Mulino</a></li>
+    <li><a href="#" class="active">Prodotti</a></li>
+    <li><a href="#">Il Forno</a></li>
+    <li><a href="#">Consulenza</a></li>
+    <li><a href="#">News</a></li>
+  </ul>
+  <a href="#contatti" class="nav-cta">Contatti</a>
+</nav>
+
+<!-- ── BREADCRUMB ─────────────────────────── -->
+<div class="breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">&#8594;</span>
+      <a href="#">Prodotti</a>
+      <span class="breadcrumb-sep">&#8594;</span>
+      <span>Farine</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── PAGE HERO ──────────────────────────── -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="page-hero-text">
+        <div class="page-hero-eyebrow">
+          <div class="hero-line"></div>
+          <span>Macinazione lenta &middot; 24 passaggi &middot; Germinazione assistita</span>
+        </div>
+        <h1 class="page-hero-title">
+          <em>La materia prima.</em>
+          LE NOSTRE<br>FARINE
+        </h1>
+        <p class="page-hero-intro">Le nostre farine a corpo unico con germinazione assistita permettono di ottenere impasti facilmente digeribili e con un profumo ineguagliabile. Ideali per tutti i tipi di forni.</p>
+
+      </div>
+      <div class="page-hero-visual">
+        <div class="page-hero-visual-inner">
+          <div class="hero-grain-bg">
+            <img src="hero-farine.png" alt="Le farine Molino Madre" style="mix-blend-mode:normal; opacity:1; object-position:center;">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FILTER BAR ─────────────────────────── -->
+<div class="filter-bar">
+  <div class="container">
+    <div class="filter-inner">
+      <button class="filter-tab active" data-target="pizzeria">Pizzeria</button>
+      <button class="filter-tab" data-target="bakery">Bakery &amp; Forno</button>
+      <button class="filter-tab" data-target="pastificio">Pastificio</button>
+      <button class="filter-tab" data-target="speciali">Speciali</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SEZIONE PIZZERIA                            -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="farine-section" id="pizzeria">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-left">
+        <span class="category-eyebrow">01 — Linea</span>
+        <div class="category-title">PIZZERIA</div>
+      </div>
+      <p class="category-desc">Farine studiate per valorizzare ogni stile di pizza: dalla napoletana tradizionale alle basi sottili romane, fino al cornicione medio.</p>
+    </div>
+
+    <!-- Sub: Pizza Napoletana -->
+    <div class="sub-category">
+      <div class="sub-category-label">Pizza Napoletana</div>
+      <div class="product-grid">
+
+        <!-- Napoletana -->
+        <div class="product-card">
+          <div class="product-card-img">
+            <img src="placeholder-farina.jpg" alt="Farina Molino Madre">
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-type">Farina di grano tenero tipo 0</div>
+            <div class="product-card-name">NAPOLETANA</div>
+            <div class="product-card-sub">La classica pizza napoletana</div>
+            <p class="product-card-desc">Consigliata per chi vuole ottenere un cornicione alveolato, friabile e dorato, tipico della pizza classica napoletana. Ideale per medie e lunghe lievitazioni dalle 8h a temperatura ambiente, può essere portata a maturazione per 24h o 48h in cella frigorifera a +4°.</p>
+            <div class="product-card-footer">
+              <span class="product-card-ideal">Lievitazione 8–48h</span>
+              <a href="#" class="card-download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Scheda tecnica
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Napoletana 1 e 2 -->
+        <div class="product-card">
+          <div class="product-card-img">
+            <img src="placeholder-farina.jpg" alt="Farina Molino Madre">
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-type">Farina di grano tenero a lenta macinazione</div>
+            <div class="product-card-name">NAPOLETANA<br>TIPO 1 E 2</div>
+            <div class="product-card-sub">Focacce, teglia e pasticceria</div>
+            <p class="product-card-desc">Consigliata per la preparazione di focacce, pizze in teglia e alla pala. Ideale anche in pasticceria: pan di Spagna, torte soffici, plumcake, muffin e brioche. Contiene maggiori quantità di crusca e germe di grano.</p>
+            <div class="product-card-footer">
+              <span class="product-card-ideal">Media–lunga lievitazione</span>
+              <a href="#" class="card-download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Scheda tecnica
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Sub: Pizza Romana -->
+    <div class="sub-category">
+      <div class="sub-category-label">Pizza Romana</div>
+      <div class="product-grid">
+
+        <!-- La Romana -->
+        <div class="product-card">
+          <div class="product-card-img">
+            <img src="placeholder-farina.jpg" alt="Farina Molino Madre">
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-type">Blend di farine · Farina di riso · Soia · Pasta madre</div>
+            <div class="product-card-name">LA ROMANA</div>
+            <div class="product-card-sub">Base sottile, croccante e leggera</div>
+            <p class="product-card-desc">Consigliata per basi sottili, croccanti e leggere. Ideale per impasti ad alta idratazione, pizza in teglia, pizza alla pala e pinsa.</p>
+            <div class="product-card-footer">
+              <span class="product-card-ideal">Alta idratazione</span>
+              <a href="#" class="card-download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Scheda tecnica
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Sub: Pizze Cornicione Medio -->
+    <div class="sub-category">
+      <div class="sub-category-label">Pizze Cornicione Medio</div>
+      <div class="product-grid">
+
+        <!-- Rinforzata 00 -->
+        <div class="product-card">
+          <div class="product-card-img">
+            <img src="placeholder-farina.jpg" alt="Farina Molino Madre">
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-type">Farina di grano tenero '00' con germe di grano</div>
+            <div class="product-card-name">ROSSA<br>RINFORZATA '00'</div>
+            <div class="product-card-sub">Il giusto compromesso</div>
+            <p class="product-card-desc">Consigliata per la preparazione di pizze con uno spessore medio di cornicione. Il giusto compromesso tra pizza napoletana e romana. Adatta per lievitazioni dirette e indirette, dalle 8 alle 12 ore.</p>
+            <div class="product-card-footer">
+              <span class="product-card-ideal">Lievitazione 8–12h</span>
+              <a href="#" class="card-download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Scheda tecnica
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── USP STRIP ──────────────────────────── -->
+<div class="usp-strip">
+  <div class="container">
+    <div class="usp-inner">
+      <div class="usp-item">
+        <div class="usp-icon">🌾</div>
+        <div class="usp-title">SAPORE AUTENTICO</div>
+        <p class="usp-text">Garantito all'origine con filiera completamente tracciabile dal seme alla farina.</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">🗺️</div>
+        <div class="usp-title">GRANI ANTICHI LOCALI</div>
+        <p class="usp-text">Selezione di grani autoctoni calabresi che rispettano la biodiversità del territorio.</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">⚙️</div>
+        <div class="usp-title">LENTA MACINAZIONE</div>
+        <p class="usp-text">24 passaggi per preservare il germe e le sostanze nutritive di ogni chicco.</p>
+      </div>
+      <div class="usp-item">
+        <div class="usp-icon">🧬</div>
+        <div class="usp-title">GERMINAZIONE ASSISTITA</div>
+        <p class="usp-text">Impasti facilmente digeribili con profumo e carattere ineguagliabili.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SEZIONE BAKERY                              -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="farine-section" id="bakery">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-left">
+        <span class="category-eyebrow">02 — Linea</span>
+        <div class="category-title">BAKERY &amp;<br>PRODOTTI DA FORNO</div>
+      </div>
+      <p class="category-desc">Farine per ogni esigenza di panificazione: dai pani grandi rustici ai piccoli lievitati soffici, fino alla grande pasticceria e alle frolle.</p>
+    </div>
+
+    <!-- Sub: Pane Grosso -->
+    <div class="sub-category">
+      <div class="sub-category-label">Pane Grosso</div>
+      <div class="product-grid">
+
+        <!-- Semola di grano duro linea pastificio -->
+        <div class="product-card">
+          <div class="product-card-img">
+            <img src="placeholder-farina.jpg" alt="Farina Molino Madre">
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-type">Farina di grano duro a lenta macinazione</div>
+            <div class="product-card-name">SEMOLA GRANO DURO<br>LINEA PASTIFICIO</div>
+            <div class="product-card-sub">Versatile per pane e pasta</div>
+            <p class="product-card-desc">Ideale per pane grosso e per pasta fresca e secca. La lenta macinazione preserva il colore giallo intenso e il profumo autentico del grano duro.</p>
+            <div class="product-card-footer">
+              <span class="product-card-ideal">Pane &amp; pasta</span>
+              <a href="#" class="card-download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Scheda tecnica
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verde 00 -->
+        <div class="product-card">
+          <div class="product-card-img">
+            <img src="placeholder-farina.jpg" alt="Farina Molino Madre">
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-type">Farina di grano tenero tipo '00'</div>
+            <div class="product-card-name">VERDE '00'</div>
+            <div class="product-card-sub">Tutti gli usi, brevi lievitazioni</div>
+            <p class="product-card-desc">Ideale per tutti gli usi e in particolare per pane grosso. Indicata per brevi lievitazioni, offre risultati costanti e affidabili in ogni preparazione.</p>
+            <div class="product-card-footer">
+              <span class="product-card-ideal">Breve lievitazione</span>
+              <a href="#" class="card-download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Scheda tecnica
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Sub: Pane Piccolo -->
+    <div class="sub-category">
+      <div class="sub-category-label">Pane Piccolo</div>
+      <div class="product-grid">
+
+        <!-- Soffiato 00 -->
+        <div class="product-card">
+          <div class="product-card-img">
+            <img src="placeholder-farina.jpg" alt="Farina Molino Madre">
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-type">Farina di grano tenero tipo '0'</div>
+            <div class="product-card-name">SOFFIATO '00'</div>
+            <div class="product-card-sub">Rosette · Ciabatte · Forni industriali</div>
+            <p class="product-card-desc">Ideale per rosette, ciabatte, prodotti a lunga lievitazione, prodotti da forni industriali e surgelati. Garantisce leggerezza e alveolatura eccellente.</p>
+            <div class="product-card-footer">
+              <span class="product-card-ideal">Lievitazione 18–24h</span>
+              <a href="#" class="card-download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Scheda tecnica
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Sub: Dolci e Impasti -->
+    <div class="sub-category">
+      <div class="sub-category-label">Dolci &amp; Impasti</div>
+      <div class="product-grid">
+
+        <!-- Manitoba 0 -->
+        <div class="product-card">
+          <div class="product-card-img">
+            <img src="placeholder-farina.jpg" alt="Farina Molino Madre">
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-type">Farina di grani teneri ad elevato contenuto proteico</div>
+            <div class="product-card-name">MANITOBA '0'</div>
+            <div class="product-card-sub">Pasticceria &amp; impasti strutturati</div>
+            <p class="product-card-desc">Consigliata per l'impiego in pasticceria. Ideale per impasti diretti e indiretti, per pizza a lunga lievitazione, bighe e poolish.</p>
+            <div class="product-card-footer">
+              <span class="product-card-ideal">Bighe · Poolish · Pasticceria</span>
+              <a href="#" class="card-download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Scheda tecnica
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Napoletana 1 e 2 (repeat) -->
+        <div class="product-card">
+          <div class="product-card-img">
+            <img src="placeholder-farina.jpg" alt="Farina Molino Madre">
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-type">Farina di grano tenero a lenta macinazione</div>
+            <div class="product-card-name">NAPOLETANA<br>TIPO 1 E 2</div>
+            <div class="product-card-sub">Impasti da forno e pasticceria</div>
+            <p class="product-card-desc">Ideale per prodotti da forno a media e lunga lievitazione e per la preparazione di impasti molto idratati. Contiene maggiori quantità di crusca e germe di grano.</p>
+            <div class="product-card-footer">
+              <span class="product-card-ideal">Media–lunga lievitazione</span>
+              <a href="#" class="card-download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Scheda tecnica
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Sub: Per Frolle -->
+    <div class="sub-category">
+      <div class="sub-category-label">Per Frolle</div>
+      <div class="product-grid">
+
+        <!-- Verde 00 per frolle -->
+        <div class="product-card">
+          <div class="product-card-img">
+            <img src="placeholder-farina.jpg" alt="Farina Molino Madre">
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-type">Farina di grano tenero tipo '00'</div>
+            <div class="product-card-name">VERDE '00'<br>PER FROLLE</div>
+            <div class="product-card-sub">Pasta frolla e biscotteria</div>
+            <p class="product-card-desc">Ideale per tutti gli usi, in particolare per frolle, biscotti e preparazioni da pasticceria. Indicata per brevi lievitazioni e impasti sabbiati.</p>
+            <div class="product-card-footer">
+              <span class="product-card-ideal">Frolle · Biscotti · Brioches</span>
+              <a href="#" class="card-download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Scheda tecnica
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SEZIONE PASTIFICIO — dark bg               -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="dark-section" id="pastificio">
+  <div class="dark-section-glow"></div>
+  <div class="container">
+    <div class="dark-section-inner">
+      <div class="dark-section-text">
+        <span class="category-eyebrow">03 — Linea</span>
+        <div class="category-title">PASTIFICIO</div>
+        <div style="height:24px;"></div>
+        <p class="category-desc" style="color:rgba(255,255,255,.5); text-align:left; max-width:400px; font-family:var(--font-s); font-size:17px; font-weight:300; line-height:1.7;">Semole di grano duro lavorate in lenta macinazione per pasta fresca e secca di qualità superiore: colore giallo intenso, profumo di grano appena raccolto, sapore autentico e garantito all'origine.</p>
+        <div style="height:32px;"></div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; align-items:center; gap:12px; font-family:var(--font-b); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(221,201,162,.7);">
+            <span style="width:28px; height:1px; background:var(--grano); display:inline-block; opacity:.5;"></span>
+            Sapore autentico e garantito all'origine
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; font-family:var(--font-b); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(221,201,162,.7);">
+            <span style="width:28px; height:1px; background:var(--grano); display:inline-block; opacity:.5;"></span>
+            Filiera tracciabile dal seme alla farina
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; font-family:var(--font-b); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(221,201,162,.7);">
+            <span style="width:28px; height:1px; background:var(--grano); display:inline-block; opacity:.5;"></span>
+            Grani antichi locali calabresi
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; font-family:var(--font-b); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(221,201,162,.7);">
+            <span style="width:28px; height:1px; background:var(--grano); display:inline-block; opacity:.5;"></span>
+            Rispetta la biodiversità del territorio
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:20px;">
+
+        <!-- Semola linea pastificio -->
+        <div class="dark-product-card">
+          <div class="product-card-type">Farina di grano duro italiano</div>
+          <div class="product-card-name">SEMOLA GRANO DURO<br>LINEA PASTIFICIO</div>
+          <div class="product-card-sub">Pasta fresca e secca</div>
+          <p class="product-card-desc">Ideale per pasta fresca e secca. Ottenuta dalla lenta macinazione di grani duri italiani selezionati.</p>
+          <div class="product-card-footer">
+            <span class="product-card-ideal">Pasta fresca · Pasta secca</span>
+            <a href="#" class="product-card-link" style="color:var(--grano);">
+              Scheda
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Semola rimacinata -->
+        <div class="dark-product-card">
+          <div class="product-card-type">Farina di grano duro · Lenta macinazione</div>
+          <div class="product-card-name">SEMOLA RIMACINATA<br>LINEA PANIFICAZIONE</div>
+          <div class="product-card-sub">Pane di semola dal colore giallo intenso</div>
+          <p class="product-card-desc">Per la produzione di pane di semola dall'inconfondibile colore giallo intenso e dal profumo di grano appena raccolto.</p>
+          <div class="product-card-footer">
+            <span class="product-card-ideal">Pane di semola</span>
+            <a href="#" class="product-card-link" style="color:var(--grano);">
+              Scheda
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Semola per spolvero -->
+        <div class="dark-product-card">
+          <div class="product-card-type">Farina di grano duro</div>
+          <div class="product-card-name">SEMOLA<br>PER SPOLVERO</div>
+          <div class="product-card-sub">Impasti non appiccicosi e fragranti</div>
+          <p class="product-card-desc">Per un impasto che non appiccica: la fragranza è prolungata e la crosta risulta gradevole e croccante.</p>
+          <div class="product-card-footer">
+            <span class="product-card-ideal">Pizza · Pane · Pasta</span>
+            <a href="#" class="product-card-link" style="color:var(--grano);">
+              Scheda
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Rinforzata 00 -->
+        <div class="dark-product-card">
+          <div class="product-card-type">Farina di grano tenero '00' con germe di grano</div>
+          <div class="product-card-name">ROSSA RINFORZATA '00'</div>
+          <div class="product-card-sub">Lievitazioni dirette e indirette</div>
+          <p class="product-card-desc">La farina rinforzata a lenta macinazione adatta per lievitazioni dirette e indirette, dalle 8 alle 12 ore.</p>
+          <div class="product-card-footer">
+            <span class="product-card-ideal">Lievitazione 8–12h</span>
+            <a href="#" class="product-card-link" style="color:var(--grano);">
+              Scheda
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SEZIONE SPECIALI                            -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="farine-section" id="speciali">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-left">
+        <span class="category-eyebrow">04 — Linea</span>
+        <div class="category-title">SPECIALI</div>
+      </div>
+      <p class="category-desc">Farine integrali, miscele multicereali e lievito madre essiccato per i professionisti che ricercano carattere, nutrizione e profumi autentici.</p>
+    </div>
+
+    <div class="product-grid">
+
+      <!-- Integrale -->
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="placeholder-farina.jpg" alt="Farina Molino Madre">
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-type">Farina di grano tenero integrale</div>
+          <div class="product-card-name">INTEGRALE</div>
+          <div class="product-card-sub">Macinazione del seme intero</div>
+          <p class="product-card-desc">Adatta a tutti gli impasti diretti e indiretti dove si richiede ottima elasticità e elevato assorbimento d'acqua. Consigliata anche per impasti a lievitazione controllata (frigorifero). Si presta a un utilizzo diversificato: pasticceria, pizzeria e panificazione. Ottenuta dalla macinazione del seme intero, contiene un maggior quantitativo di sostanze nutritive e favorisce una migliore digestione.</p>
+          <div class="product-card-footer">
+            <span class="product-card-ideal">Pizzeria · Bakery · Pasticceria</span>
+            <a href="#" class="card-download">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Scheda tecnica
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selezione N.8 -->
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="placeholder-farina.jpg" alt="Farina Molino Madre">
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-type">Miscela multicereali alla segale</div>
+          <div class="product-card-name">SELEZIONE<br>N° 8</div>
+          <div class="product-card-sub">Multicereali con semi e cereali</div>
+          <p class="product-card-desc">Ideale per la preparazione di pane contadino, cracker, grissini, focacce e pizza. Farina di frumento, segale, semi di girasole, sesamo, lino nero e giallo, farina d'orzo e malto.</p>
+          <div class="product-card-footer">
+            <span class="product-card-ideal">Pane · Cracker · Focaccia</span>
+            <a href="#" class="card-download">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Scheda tecnica
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lievito madre naturale essiccato -->
+      <div class="product-card">
+        <div class="product-card-img">
+          <img src="placeholder-farina.jpg" alt="Farina Molino Madre">
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-type">Lievito madre naturale di grano duro</div>
+          <div class="product-card-name">LIEVITO MADRE<br>ESSICCATO</div>
+          <div class="product-card-sub">Stabilità, aroma e morbidezza</div>
+          <p class="product-card-desc">Aumenta stabilità e lievitazione, agisce sul glutine tramite l'acido lattico per rendere la maglia glutinica più stabile. Migliora gusto e aroma. Rende il prodotto finito più stabile e morbido nella masticazione a freddo.</p>
+          <div class="product-card-footer">
+            <span class="product-card-ideal">Tutti gli impasti</span>
+            <a href="#" class="card-download">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Scheda tecnica
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA BANNER ─────────────────────────── -->
+<section style="background: var(--grano); padding: 80px 0;">
+  <div class="container">
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:40px;">
+      <div>
+        <span style="font-family:var(--font-b); font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--rosso); display:block; margin-bottom:12px;">Professional</span>
+        <div style="font-family:var(--font-d); font-size:clamp(36px,4vw,56px); color:var(--nero); line-height:.9; letter-spacing:.04em;">HAI BISOGNO DI<br>CONSULENZA?</div>
+        <div style="width:48px; height:1px; background:var(--rosso); margin:20px 0;"></div>
+        <p style="font-family:var(--font-s); font-size:17px; font-weight:300; color:rgba(26,20,16,.65); line-height:1.7; max-width:480px;">I nostri tecnici di laboratorio e il centro impasti sono a tua disposizione per trovare la farina perfetta per la tua lavorazione.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:16px; flex-shrink:0;">
+        <a href="#contatti" style="display:inline-flex; align-items:center; gap:12px; background:var(--rosso); color:#fff; font-family:var(--font-b); font-size:11px; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; padding:16px 32px; border-radius:2px; font-weight:500; transition:background .3s;">
+          Richiedi consulenza
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#" style="display:inline-flex; align-items:center; gap:12px; background:transparent; color:var(--rosso); border:1.5px solid var(--rosso); font-family:var(--font-b); font-size:11px; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; padding:14px 32px; border-radius:2px; font-weight:500;">
+          Scarica catalogo
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────── -->
+<footer id="contatti">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">MOLINO MADRE</div>
+        <div class="footer-brand-sub">Dal 1939 &middot; Calabria</div>
+        <p class="footer-tagline">&ldquo;Il grano macinato lentamente, il lievito madre che fermenta con pazienza.&rdquo;</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigazione</h5>
+        <ul>
+          <li><a href="il-molino.html">Il Mulino</a></li>
+          <li><a href="#">Prodotti</a></li>
+          <li><a href="#">Il Forno del Mulino</a></li>
+          <li><a href="#">Consulenza</a></li>
+          <li><a href="#">News</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Farine</h5>
+        <ul>
+          <li><a href="#pizzeria">Linea Pizzeria</a></li>
+          <li><a href="#bakery">Bakery &amp; Forno</a></li>
+          <li><a href="#pastificio">Linea Pastificio</a></li>
+          <li><a href="#speciali">Farine Speciali</a></li>
+          <li><a href="#">Box Farine</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contatti</h5>
+        <ul>
+          <li><a href="/cdn-cgi/l/email-protection#84edeae2ebc4e9ebe8edeaebe9e5e0f6e1aaedf0"><span class="__cf_email__" data-cfemail="97fef9f1f8d7faf8fbfef9f8faf6f3e5f2b9fee3">[email&#160;protected]</span></a></li>
+          <li><a href="tel:+390000000000">+39 000 000 0000</a></li>
+          <li><a href="#">Calabria, Italia</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Molino Madre S.r.l. &nbsp;&middot;&nbsp; Privacy Policy &nbsp;&middot;&nbsp; Cookie Policy</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link">IG</a>
+        <a href="#" class="footer-social-link">FB</a>
+        <a href="#" class="footer-social-link">LI</a>
+        <a href="#" class="footer-social-link">YT</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var SECTIONS = ['pizzeria', 'bakery', 'pastificio', 'speciali'];
+  var NAV_H = 130;
+
+  document.querySelectorAll('.filter-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var id = tab.getAttribute('data-target');
+      var el = document.getElementById(id);
+      if (el) {
+        var top = el.getBoundingClientRect().top + window.pageYOffset - NAV_H;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+      document.querySelectorAll('.filter-tab').forEach(function(t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+    });
+  });
+
+  var tabs = document.querySelectorAll('.filter-tab');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var idx = SECTIONS.indexOf(entry.target.id);
+        if (idx !== -1) {
+          tabs.forEach(function(t) { t.classList.remove('active'); });
+          tabs[idx].classList.add('active');
+        }
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '-120px 0px -50% 0px' });
+
+  SECTIONS.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
