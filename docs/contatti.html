@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contatti – Molino Madre Dal 1939</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rosso:      #8a2432;
+  --terracotta: #a9483d;
+  --grano:      #ddc9a2;
+  --lavanda:    #e3e0e5;
+  --oliva:      #888f64;
+  --bianco:     #f5f2ec;
+  --nero:       #1a1410;
+  --font-d:     'Bebas Neue', sans-serif;
+  --font-s:     'Cormorant Garamond', serif;
+  --font-b:     'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bianco); color: var(--nero); font-family: var(--font-b); overflow-x: hidden; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+.label { font-family: var(--font-b); font-size: 11px; letter-spacing: .25em; text-transform: uppercase; color: var(--terracotta); display: block; margin-bottom: 16px; }
+.divider { display: inline-block; width: 48px; height: 1px; background: var(--terracotta); margin-bottom: 20px; }
+
+/* ── NAV ──────────────────────────────── */
+nav { position: fixed; top:0; left:0; right:0; z-index:1000; padding:0 40px; height:72px; display:flex; align-items:center; justify-content:space-between; transition:background .4s; }
+nav.scrolled { background:rgba(245,242,236,.96); backdrop-filter:blur(12px); border-bottom:1px solid rgba(138,36,50,.1); }
+.nav-logo { font-family:var(--font-d); font-size:22px; letter-spacing:.12em; color:#fff; text-decoration:none; display:flex; flex-direction:column; line-height:1.1; transition:color .4s; }
+nav.scrolled .nav-logo { color:var(--rosso); }
+.nav-logo span { font-family:var(--font-s); font-size:10px; letter-spacing:.3em; text-transform:uppercase; opacity:.7; }
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a { font-size:11px; letter-spacing:.18em; text-transform:uppercase; text-decoration:none; color:rgba(255,255,255,.85); transition:color .3s; }
+nav.scrolled .nav-links a { color:var(--nero); }
+.nav-links a:hover { color:var(--terracotta) !important; }
+.nav-cta { padding:9px 22px; border:1.5px solid rgba(255,255,255,.6); border-radius:2px; font-size:10px; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; color:#fff; transition:all .3s; font-weight:500; }
+nav.scrolled .nav-cta { border-color:var(--rosso); color:var(--rosso); background:var(--rosso); color:#fff; }
+
+/* ── HERO ────────────────────────────── */
+.hero { background:var(--nero); min-height:60vh; position:relative; overflow:hidden; display:flex; align-items:flex-end; padding-bottom:80px; }
+.hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 70% 90% at 30% 50%, rgba(138,36,50,.18) 0%, transparent 55%); }
+.hero-grain { position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); }
+.hero-visual-strip { position:absolute; right:0; top:0; bottom:0; width:40%; background:linear-gradient(145deg,#3a1a12 0%,#2a1008 50%,#1a0c06 100%); }
+.hero-visual-strip::before { content:''; position:absolute; left:0; inset-block:0; width:200px; background:linear-gradient(to right,var(--nero),transparent); }
+.hero-inner { position:relative; z-index:2; padding-top:160px; }
+.hero-eyebrow { display:flex; align-items:center; gap:16px; margin-bottom:24px; }
+.hero-line { width:48px; height:1px; background:var(--terracotta); }
+.hero-eyebrow span { font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--grano); opacity:.6; }
+.hero-title { font-family:var(--font-d); font-size:clamp(64px,9vw,120px); line-height:.85; color:#fff; margin-bottom:0; }
+.hero-title em { font-family:var(--font-s); font-style:italic; font-size:.38em; font-weight:300; color:var(--grano); display:block; margin-bottom:8px; }
+
+/* ── CONTACT MAIN ────────────────────── */
+.contact-main { padding:0; }
+.contact-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:2px; }
+
+/* Left — info panel */
+.contact-info { background:var(--bianco); padding:72px 60px 72px 0; }
+.contact-info-title { font-family:var(--font-d); font-size:clamp(32px,4vw,52px); line-height:.9; color:var(--rosso); margin-bottom:28px; }
+.contact-info-intro { font-family:var(--font-s); font-size:17px; font-weight:300; color:#777; line-height:1.8; margin-bottom:52px; max-width:400px; }
+.contact-blocks { display:flex; flex-direction:column; gap:0; }
+.contact-block { display:flex; gap:22px; align-items:flex-start; padding:26px 0; border-bottom:1px solid rgba(138,36,50,.07); }
+.contact-block:first-child { padding-top:0; }
+.cb-icon { width:40px; height:40px; border:1px solid rgba(138,36,50,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--rosso); font-size:14px; margin-top:2px; }
+.cb-label { font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:rgba(26,20,16,.35); margin-bottom:5px; }
+.cb-value { font-family:var(--font-d); font-size:18px; letter-spacing:.06em; color:var(--rosso); line-height:1; margin-bottom:3px; }
+.cb-sub { font-family:var(--font-s); font-size:13px; font-weight:300; color:#aaa; font-style:italic; }
+.cb-link { text-decoration:none; color:inherit; transition:opacity .3s; }
+.cb-link:hover { opacity:.65; }
+.contact-social { margin-top:44px; }
+.cs-title { font-size:9px; letter-spacing:.25em; text-transform:uppercase; color:rgba(26,20,16,.3); margin-bottom:16px; }
+.cs-links { display:flex; gap:10px; }
+.cs-link { width:36px; height:36px; border:1px solid rgba(138,36,50,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; color:rgba(26,20,16,.35); font-size:11px; font-family:var(--font-b); transition:all .3s; }
+.cs-link:hover { background:var(--rosso); border-color:var(--rosso); color:#fff; }
+
+/* Right — form panel */
+.contact-form-panel { background:var(--nero); padding:72px 0 72px 60px; }
+.cf-title { font-family:var(--font-d); font-size:22px; letter-spacing:.12em; color:var(--grano); margin-bottom:6px; }
+.cf-sub { font-family:var(--font-s); font-size:14px; font-weight:300; color:rgba(255,255,255,.35); margin-bottom:36px; font-style:italic; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.form-field { display:flex; flex-direction:column; gap:7px; margin-bottom:14px; }
+.form-field.full { grid-column:1/-1; }
+.form-field label { font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.35); }
+.form-field input,
+.form-field select,
+.form-field textarea { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:2px; padding:13px 15px; color:#fff; font-size:14px; font-family:var(--font-b); outline:none; transition:border-color .3s; -webkit-appearance:none; width:100%; }
+.form-field textarea { resize:vertical; min-height:110px; }
+.form-field input::placeholder,
+.form-field textarea::placeholder { color:rgba(255,255,255,.22); }
+.form-field select option { background:var(--nero); }
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus { border-color:rgba(221,201,162,.45); }
+.btn-submit { width:100%; padding:16px; background:var(--rosso); color:var(--grano); border:none; font-size:11px; letter-spacing:.25em; text-transform:uppercase; font-weight:600; font-family:var(--font-b); cursor:pointer; transition:background .3s; border-radius:2px; margin-top:4px; }
+.btn-submit:hover { background:var(--terracotta); }
+
+/* ── MAP PLACEHOLDER ─────────────────── */
+.map-section { background:var(--nero); height:320px; position:relative; overflow:hidden; border-top:1px solid rgba(255,255,255,.04); }
+.map-placeholder { position:absolute; inset:0; background:linear-gradient(145deg,#1e1208 0%,#160e06 50%,#0e0804 100%); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px; }
+.map-label-main { font-family:var(--font-d); font-size:clamp(24px,4vw,48px); letter-spacing:.1em; color:rgba(255,255,255,.06); }
+.map-pin { display:flex; align-items:center; gap:10px; background:rgba(221,201,162,.08); border:1px solid rgba(221,201,162,.12); backdrop-filter:blur(8px); padding:14px 24px; border-radius:2px; }
+.map-pin-dot { width:8px; height:8px; border-radius:50%; background:var(--rosso); }
+.map-pin-text { font-family:var(--font-d); font-size:14px; letter-spacing:.14em; color:var(--grano); opacity:.7; }
+.map-grid { position:absolute; inset:0; background:repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,.015) 60px,rgba(255,255,255,.015) 61px), repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,.015) 60px,rgba(255,255,255,.015) 61px); }
+.map-cross { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
+.map-cross::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:1px; height:40px; background:rgba(138,36,50,.4); }
+.map-cross::after { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:1px; background:rgba(138,36,50,.4); }
+
+/* ── FOOTER & STICKY ─────────────────── */
+footer { background:var(--nero); border-top:1px solid rgba(255,255,255,.04); padding:80px 0 40px; }
+.footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:56px; border-bottom:1px solid rgba(255,255,255,.05); margin-bottom:36px; }
+.footer-brand-name { font-family:var(--font-d); font-size:30px; letter-spacing:.12em; color:#fff; margin-bottom:4px; }
+.footer-brand-sub { font-family:var(--font-s); font-size:11px; letter-spacing:.28em; color:var(--grano); opacity:.6; text-transform:uppercase; margin-bottom:20px; }
+.footer-tagline { font-family:var(--font-s); font-size:14px; font-weight:300; font-style:italic; color:rgba(255,255,255,.32); line-height:1.6; max-width:240px; }
+.footer-col h5 { font-size:9px; letter-spacing:.28em; text-transform:uppercase; color:var(--grano); opacity:.7; margin-bottom:20px; }
+.footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.footer-col ul li a { font-size:13px; color:rgba(255,255,255,.4); text-decoration:none; transition:color .3s; font-family:var(--font-s); }
+.footer-col ul li a:hover { color:var(--grano); }
+.footer-bottom { display:flex; align-items:center; justify-content:space-between; }
+.footer-copy { font-size:10px; color:rgba(255,255,255,.2); letter-spacing:.06em; }
+.footer-socials { display:flex; gap:12px; }
+.footer-social-link { width:34px; height:34px; border:1px solid rgba(255,255,255,.1); border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; color:rgba(255,255,255,.35); font-size:11px; font-family:var(--font-b); transition:all .3s; }
+.footer-social-link:hover { border-color:var(--grano); color:var(--grano); }
+.sticky-contact { position:fixed; bottom:24px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; align-items:flex-end; }
+.sticky-btn { display:flex; align-items:center; gap:10px; padding:11px 20px; border-radius:40px; font-size:10px; letter-spacing:.14em; text-transform:uppercase; font-weight:500; text-decoration:none; box-shadow:0 4px 20px rgba(0,0,0,.22); transition:transform .3s; font-family:var(--font-b); }
+.sticky-btn:hover { transform:translateY(-2px); }
+.sticky-main { background:var(--rosso); color:var(--grano); }
+.sticky-wa { background:#25D366; color:#fff; }
+.icon-svg { width:14px; height:14px; }
+.reveal { opacity:0; transform:translateY(36px); transition:opacity .85s ease,transform .85s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@media (max-width:1024px) {
+  .contact-grid { grid-template-columns:1fr; }
+  .contact-info { padding:60px 40px; }
+  .contact-form-panel { padding:60px 40px; }
+  .footer-top { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:768px) {
+  .container { padding:0 20px; }
+  nav { padding:0 20px; }
+  .nav-links { display:none; }
+  .hero-visual-strip { display:none; }
+  .form-row { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">MOLINO MADRE<span>Dal 1939 · Calabria</span></a>
+  <ul class="nav-links">
+    <li><a href="il-molino.html">Il Mulino</a></li>
+    <li><a href="farine.html">Farine</a></li>
+    <li><a href="basi.html">Basi</a></li>
+    <li><a href="panetti.html">Panetti</a></li>
+    <li><a href="il-forno-del-mulino.html">Il Forno</a></li>
+    <li><a href="consulenza.html">Consulenza</a></li>
+  </ul>
+  <a href="contatti.html" class="nav-cta" style="background:var(--rosso);border-color:var(--rosso);color:#fff;">Contatti</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-visual-strip"></div>
+  <div class="container hero-inner">
+    <div class="hero-eyebrow reveal">
+      <div class="hero-line"></div>
+      <span>Siamo in Calabria &middot; Solo B2B &middot; Risposta entro 24 ore</span>
+    </div>
+    <h1 class="hero-title reveal">
+      <em>Parliamo del tuo progetto.</em>
+      CONTATTACI
+    </h1>
+  </div>
+</section>
+
+<!-- CONTACT MAIN -->
+<section class="contact-main">
+  <div class="container" style="padding:0;">
+    <div class="contact-grid">
+
+      <!-- INFO -->
+      <div class="contact-info reveal">
+        <h2 class="contact-info-title">SIAMO QUI<br>PER TE</h2>
+        <p class="contact-info-intro">Che tu abbia una domanda su un prodotto, voglia richiedere una consulenza o cerchi un partner per la tua attivit&agrave;, il team di Molino Madre ti risponder&agrave; entro il giorno lavorativo successivo.</p>
+        <div class="contact-blocks">
+          <div class="contact-block">
+            <div class="cb-icon">&#9993;</div>
+            <div>
+              <div class="cb-label">Email</div>
+              <a href="mailto:info@molinomadre.it" class="cb-link">
+                <div class="cb-value">info@molinomadre.it</div>
+              </a>
+              <div class="cb-sub">Per richieste commerciali e consulenza</div>
+            </div>
+          </div>
+          <div class="contact-block">
+            <div class="cb-icon">&#9742;</div>
+            <div>
+              <div class="cb-label">Telefono</div>
+              <a href="tel:+390000000000" class="cb-link">
+                <div class="cb-value">+39 000 000 0000</div>
+              </a>
+              <div class="cb-sub">Lun–Ven 8:30–17:30</div>
+            </div>
+          </div>
+          <div class="contact-block">
+            <div class="cb-icon">&#10149;</div>
+            <div>
+              <div class="cb-label">WhatsApp</div>
+              <a href="https://wa.me/39000000000" class="cb-link">
+                <div class="cb-value">+39 000 000 0000</div>
+              </a>
+              <div class="cb-sub">Risposta rapida anche in orari flessibili</div>
+            </div>
+          </div>
+          <div class="contact-block">
+            <div class="cb-icon">&#9679;</div>
+            <div>
+              <div class="cb-label">Sede</div>
+              <div class="cb-value">Calabria, Italia</div>
+              <div class="cb-sub">Spedizioni su tutto il territorio nazionale e all&rsquo;estero</div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-social">
+          <div class="cs-title">Seguici sui social</div>
+          <div class="cs-links">
+            <a href="#" class="cs-link" title="Instagram">IG</a>
+            <a href="#" class="cs-link" title="Facebook">FB</a>
+            <a href="#" class="cs-link" title="LinkedIn">LI</a>
+            <a href="#" class="cs-link" title="YouTube">YT</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="contact-form-panel reveal">
+        <div class="cf-title">SCRIVICI</div>
+        <div class="cf-sub">Ti risponderemo entro 24 ore lavorative</div>
+        <div class="form-row">
+          <div class="form-field"><label>Nome *</label><input type="text" placeholder="Il tuo nome"></div>
+          <div class="form-field"><label>Cognome *</label><input type="text" placeholder="Il tuo cognome"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Email *</label><input type="email" placeholder="email@tuolocale.it"></div>
+          <div class="form-field"><label>Telefono</label><input type="tel" placeholder="+39 000 000 0000"></div>
+        </div>
+        <div class="form-field full"><label>Azienda / Attivit&agrave;</label><input type="text" placeholder="Nome del locale o dell'attivit&agrave;"></div>
+        <div class="form-field full">
+          <label>Oggetto della richiesta</label>
+          <select>
+            <option value="" disabled selected>Seleziona il motivo del contatto</option>
+            <option>Informazioni su farine professionali</option>
+            <option>Informazioni su basi per pizza</option>
+            <option>Informazioni su panetti surgelati</option>
+            <option>Richiesta di consulenza tecnica</option>
+            <option>Distribuzione e prezzi</option>
+            <option>Collaborazione commerciale</option>
+            <option>Altro</option>
+          </select>
+        </div>
+        <div class="form-field full"><label>Messaggio *</label><textarea placeholder="Descrivi brevemente la tua richiesta..."></textarea></div>
+        <button type="submit" class="btn-submit">Invia Messaggio &#8594;</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<div class="map-section">
+  <div class="map-grid"></div>
+  <div class="map-placeholder">
+    <div class="map-label-main">CALABRIA</div>
+    <div class="map-cross"></div>
+    <div class="map-pin">
+      <div class="map-pin-dot"></div>
+      <div class="map-pin-text">Molino Madre &middot; Calabria, Italia &middot; Dal 1939</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">MOLINO MADRE</div>
+        <div class="footer-brand-sub">Dal 1939 &middot; Calabria</div>
+        <p class="footer-tagline">&ldquo;Il grano macinato lentamente, il lievito madre che fermenta con pazienza, la tradizione che innova.&rdquo;</p>
+      </div>
+      <div class="footer-col"><h5>Prodotti</h5><ul>
+        <li><a href="farine.html">Farine</a></li>
+        <li><a href="basi.html">Basi per Pizza</a></li>
+        <li><a href="panetti.html">Panetti Surgelati</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Azienda</h5><ul>
+        <li><a href="il-molino.html">Il Molino</a></li>
+        <li><a href="il-forno-del-mulino.html">Il Forno del Mulino</a></li>
+        <li><a href="consulenza.html">Consulenza</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Contatti</h5><ul>
+        <li><a href="mailto:info@molinomadre.it">info@molinomadre.it</a></li>
+        <li><a href="tel:+390000000000">+39 000 000 0000</a></li>
+        <li><a href="#">Calabria, Italia</a></li>
+        <li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Molino Madre S.r.l. &nbsp;&middot;&nbsp; Privacy Policy &nbsp;&middot;&nbsp; Cookie Policy</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link">IG</a><a href="#" class="footer-social-link">FB</a>
+        <a href="#" class="footer-social-link">LI</a><a href="#" class="footer-social-link">YT</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-contact">
+  <a href="https://wa.me/39000000000" class="sticky-btn sticky-wa">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.552 4.107 1.516 5.842L0 24l6.336-1.483A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.861 0-3.601-.5-5.1-1.371l-.364-.217-3.762.881.941-3.673-.237-.374A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </a>
+  <a href="contatti.html" class="sticky-btn sticky-main">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    Contatti
+  </a>
+</div>
+
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); },{passive:true});
+const revEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+},{threshold:0.08});
+revEls.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

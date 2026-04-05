@@ -8,16 +8,28 @@ This is a **static HTML/CSS website demo** for **Molino Madre**, a Calabrian flo
 
 There is no build system, no package manager, no server framework — open the HTML files directly in a browser.
 
+## Deployment
+
+The site is deployed via **GitHub Pages** from the `/docs` folder on the `main` branch.
+To enable: repo Settings → Pages → Source: `main` branch, `/docs` folder.
+
 ## Site Structure
 
-Pages live under `Demo sito/html/`:
-- `Home.html` — homepage with hero slider, product overview, certifications, consulting form
-- `il molino/il-molino.html` — company history, milling process, brand values
-- `farine/farine-def.html` — flour product catalogue (multiple variants exist; `farine-def.html` is the current reference)
-- Product pages for basi and panetti are referenced in content docs but not yet in HTML form
+All deployable files live in `docs/` (flat — no subdirectories per page):
+- `docs/index.html` — homepage with hero slider, product overview, certifications, consulting form
+- `docs/il-molino.html` — company history, milling process, brand values
+- `docs/farine.html` — flour product catalogue
+- `docs/basi.html` — pre-cooked pizza bases catalogue
+- `docs/panetti.html` — frozen dough balls catalogue
+- `docs/il-forno-del-mulino.html` — the wood-fired oven section
+- `docs/consulenza.html` — consulting/contact form
+- `docs/contatti.html` — contacts page
+- `docs/news.html` — news section
+- `docs/images/` — all images (extracted from base64 + static assets)
 
-Supporting assets:
-- `Materiali ricevuti/` — all client-supplied content: photos (organized by subject), text documents, site map, brief
+Source/working files (not deployed):
+- `Demo sito/` — original working files with old subdirectory structure
+- `Materiali ricevuti/` — all client-supplied content: photos, text documents, site map, brief
 - `Logo/` — brand logo files and guidelines
 
 ## Design System

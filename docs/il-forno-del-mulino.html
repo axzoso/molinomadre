@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il Forno del Mulino – Molino Madre Dal 1939</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rosso:      #8a2432;
+  --terracotta: #a9483d;
+  --grano:      #ddc9a2;
+  --lavanda:    #e3e0e5;
+  --oliva:      #888f64;
+  --bianco:     #f5f2ec;
+  --nero:       #1a1410;
+  --font-d:     'Bebas Neue', sans-serif;
+  --font-s:     'Cormorant Garamond', serif;
+  --font-b:     'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bianco); color: var(--nero); font-family: var(--font-b); overflow-x: hidden; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+.label { font-family: var(--font-b); font-size: 11px; letter-spacing: .25em; text-transform: uppercase; color: var(--terracotta); display: block; margin-bottom: 16px; }
+.divider { display: inline-block; width: 48px; height: 1px; background: var(--terracotta); margin-bottom: 20px; }
+.section-title { font-family: var(--font-d); font-size: clamp(44px,6vw,88px); line-height: .93; letter-spacing: .02em; color: var(--rosso); }
+
+/* ── NAV ──────────────────────────────── */
+nav { position: fixed; top:0; left:0; right:0; z-index:1000; padding:0 40px; height:72px; display:flex; align-items:center; justify-content:space-between; transition: background .4s; }
+nav.scrolled { background: rgba(245,242,236,.96); backdrop-filter:blur(12px); border-bottom:1px solid rgba(138,36,50,.1); }
+.nav-logo { font-family: var(--font-d); font-size: 22px; letter-spacing: .12em; color: #fff; text-decoration: none; display: flex; flex-direction: column; line-height: 1.1; transition: color .4s; }
+nav.scrolled .nav-logo { color: var(--rosso); }
+.nav-logo span { font-family: var(--font-s); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; opacity: .7; }
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a { font-size:11px; letter-spacing:.18em; text-transform:uppercase; text-decoration:none; color:rgba(255,255,255,.85); transition:color .3s; font-weight:400; }
+nav.scrolled .nav-links a { color: var(--nero); }
+.nav-links a:hover, .nav-links a.active { color: var(--terracotta) !important; }
+.nav-cta { padding:9px 22px; border:1.5px solid rgba(255,255,255,.6); border-radius:2px; font-size:10px; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; color:#fff; transition:all .3s; font-weight:500; }
+nav.scrolled .nav-cta { border-color: var(--rosso); color: var(--rosso); }
+.nav-cta:hover { background: var(--rosso); border-color: var(--rosso); color: #fff; }
+
+/* ── HERO ────────────────────────────── */
+.hero { background: var(--nero); min-height: 100vh; position: relative; overflow: hidden; display: flex; align-items: center; }
+.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 80% at 60% 50%, rgba(138,36,50,.2) 0%, transparent 55%); }
+.hero-lines { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent, transparent 120px, rgba(255,255,255,.018) 120px, rgba(255,255,255,.018) 121px); }
+.hero-grain { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); }
+.hero-year { position: absolute; right: -20px; bottom: -40px; font-family: var(--font-d); font-size: clamp(180px,20vw,280px); color: rgba(255,255,255,.025); line-height: 1; letter-spacing: -.02em; pointer-events: none; }
+.hero-inner { position: relative; z-index: 2; padding: 140px 0 100px; width: 100%; }
+.hero-eyebrow { display: flex; align-items: center; gap: 18px; margin-bottom: 32px; }
+.hero-line { width: 56px; height: 1px; background: var(--terracotta); }
+.hero-eyebrow span { font-size: 10px; letter-spacing: .32em; text-transform: uppercase; color: var(--grano); opacity: .6; }
+.hero-title { font-family: var(--font-d); font-size: clamp(64px,9vw,130px); line-height: .85; letter-spacing: .02em; color: #fff; max-width: 900px; }
+.hero-title em { font-family: var(--font-s); font-style: italic; font-size: .4em; font-weight: 300; color: var(--grano); display: block; margin-bottom: 12px; letter-spacing: .06em; }
+.hero-subtitle { font-family: var(--font-s); font-size: 20px; font-weight: 300; color: rgba(255,255,255,.45); line-height: 1.75; max-width: 560px; margin-top: 32px; margin-bottom: 56px; }
+.hero-ctas { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+.btn-primary { display: inline-flex; align-items: center; gap: 12px; padding: 15px 32px; background: var(--grano); color: var(--rosso); font-family: var(--font-b); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; font-weight: 600; text-decoration: none; border-radius: 2px; transition: background .3s; }
+.btn-primary:hover { background: #fff; }
+.btn-ghost { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-b); font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,.55); border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 3px; transition: gap .3s, color .3s; }
+.btn-ghost:hover { gap: 18px; color: var(--grano); }
+.hero-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 80px; border-top: 1px solid rgba(255,255,255,.06); padding-top: 40px; }
+.hero-stat { }
+.hero-stat-num { font-family: var(--font-d); font-size: 44px; letter-spacing: .04em; color: var(--grano); line-height: 1; }
+.hero-stat-label { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-top: 5px; }
+.hero-scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.hero-scroll span { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,255,255,.25); }
+.scroll-line { width: 1px; height: 44px; background: linear-gradient(to bottom, rgba(255,255,255,.25), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100%{opacity:.4}50%{opacity:1} }
+
+/* ── MANIFESTO ───────────────────────── */
+.manifesto { padding: 120px 0; background: var(--bianco); }
+.manifesto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.manifesto-text { }
+.manifesto-quote { font-family: var(--font-s); font-size: clamp(22px,3vw,36px); font-style: italic; font-weight: 300; color: var(--rosso); line-height: 1.45; margin-bottom: 36px; position: relative; padding-left: 32px; }
+.manifesto-quote::before { content: '\201C'; position: absolute; left: 0; top: -10px; font-size: 80px; color: rgba(138,36,50,.1); font-family: var(--font-s); line-height: 1; }
+.manifesto-body { font-family: var(--font-s); font-size: 16px; font-weight: 300; color: #666; line-height: 1.85; margin-bottom: 36px; }
+.manifesto-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.manifesto-img { aspect-ratio: 1; position: relative; overflow: hidden; }
+.manifesto-img:first-child { grid-column: span 2; aspect-ratio: 16/9; }
+.mi-1 { background: linear-gradient(145deg, #3d1a10 0%, #2a1008 100%); }
+.mi-2 { background: linear-gradient(145deg, #5a2a18 0%, #3a1a10 100%); }
+.mi-3 { background: linear-gradient(145deg, #2a3018 0%, #1a2010 100%); }
+.manifesto-img-label { position: absolute; bottom: 16px; left: 20px; font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.35); }
+
+/* ── SERVICE BOXES ───────────────────── */
+.services { padding: 0 0 100px; }
+.services-intro { padding: 0 0 64px; }
+.services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+.service-card { background: var(--nero); padding: 52px 40px; position: relative; overflow: hidden; transition: background .4s; }
+.service-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: transparent; transition: background .4s; }
+.sc-farine::after { background: var(--rosso); opacity: 0; transition: opacity .4s; }
+.sc-basi::after   { background: var(--terracotta); opacity: 0; transition: opacity .4s; }
+.sc-panetti::after{ background: var(--oliva); opacity: 0; transition: opacity .4s; }
+.service-card:hover::after { opacity: 1; }
+.sc-num { font-family: var(--font-d); font-size: 80px; color: rgba(255,255,255,.04); line-height: 1; position: absolute; top: 16px; right: 24px; }
+.sc-icon-line { width: 40px; height: 2px; margin-bottom: 28px; }
+.sc-farine .sc-icon-line { background: var(--rosso); }
+.sc-basi   .sc-icon-line { background: var(--terracotta); }
+.sc-panetti .sc-icon-line{ background: var(--oliva); }
+.sc-tag { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 10px; }
+.sc-name { font-family: var(--font-d); font-size: 38px; letter-spacing: .04em; color: #fff; line-height: 1; margin-bottom: 8px; }
+.sc-sub { font-family: var(--font-s); font-style: italic; font-size: 15px; font-weight: 300; color: var(--grano); opacity: .6; margin-bottom: 24px; }
+.sc-desc { font-family: var(--font-s); font-size: 15px; font-weight: 300; color: rgba(255,255,255,.45); line-height: 1.7; margin-bottom: 32px; }
+.sc-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }
+.sc-feat { display: flex; align-items: flex-start; gap: 12px; font-family: var(--font-s); font-size: 13px; font-weight: 300; color: rgba(255,255,255,.45); }
+.sc-feat-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--grano); opacity: .4; margin-top: 8px; flex-shrink: 0; }
+.sc-link { display: inline-flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--grano); text-decoration: none; opacity: .5; transition: opacity .3s, gap .3s; }
+.service-card:hover .sc-link { opacity: 1; gap: 18px; }
+.sc-link::after { content: '→'; }
+
+/* ── PERCHÉ NOI ──────────────────────── */
+.perche { padding: 100px 0; background: var(--lavanda); }
+.perche-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 64px; }
+.perche-list { display: flex; flex-direction: column; gap: 0; }
+.perche-item { display: flex; gap: 24px; padding: 28px 0; border-bottom: 1px solid rgba(138,36,50,.08); cursor: pointer; transition: padding-left .3s; }
+.perche-item:hover { padding-left: 8px; }
+.perche-item:first-child { padding-top: 0; }
+.pi-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(138,36,50,.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; color: var(--rosso); font-size: 10px; transition: background .3s, border-color .3s; }
+.perche-item:hover .pi-check { background: var(--rosso); border-color: var(--rosso); color: #fff; }
+.pi-body h4 { font-family: var(--font-d); font-size: 18px; letter-spacing: .08em; color: var(--rosso); margin-bottom: 5px; }
+.pi-body p { font-family: var(--font-s); font-size: 14px; font-weight: 300; color: #777; line-height: 1.6; }
+.perche-aside { display: flex; flex-direction: column; gap: 20px; }
+.certif-block { background: #fff; padding: 40px; }
+.certif-title { font-family: var(--font-d); font-size: 16px; letter-spacing: .12em; color: var(--rosso); margin-bottom: 28px; }
+.certif-badges { display: flex; flex-direction: column; gap: 16px; }
+.certif-badge { display: flex; align-items: center; gap: 20px; padding: 18px 20px; border: 1px solid rgba(138,36,50,.1); border-radius: 2px; }
+.certif-badge-code { font-family: var(--font-d); font-size: 20px; letter-spacing: .1em; color: var(--rosso); min-width: 60px; }
+.certif-badge-text h5 { font-family: var(--font-d); font-size: 13px; letter-spacing: .1em; color: var(--rosso); margin-bottom: 2px; }
+.certif-badge-text p { font-size: 11px; color: #999; line-height: 1.4; }
+.partner-block { background: var(--rosso); padding: 36px; text-align: center; }
+.partner-block-title { font-family: var(--font-d); font-size: 18px; letter-spacing: .1em; color: var(--grano); margin-bottom: 12px; }
+.partner-block p { font-family: var(--font-s); font-size: 14px; font-weight: 300; color: rgba(255,255,255,.6); line-height: 1.65; margin-bottom: 20px; }
+.partner-link { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--grano); text-decoration: none; border-bottom: 1px solid rgba(221,201,162,.3); padding-bottom: 3px; transition: gap .3s; }
+.partner-link:hover { gap: 16px; }
+
+/* ── FOOTER & STICKY (shared) ────────── */
+footer { background: var(--nero); padding: 80px 0 40px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,.05); margin-bottom: 36px; }
+.footer-brand-name { font-family: var(--font-d); font-size: 30px; letter-spacing: .12em; color: #fff; margin-bottom: 4px; }
+.footer-brand-sub { font-family: var(--font-s); font-size: 11px; letter-spacing: .28em; color: var(--grano); opacity: .6; text-transform: uppercase; margin-bottom: 20px; }
+.footer-tagline { font-family: var(--font-s); font-size: 14px; font-weight: 300; font-style: italic; color: rgba(255,255,255,.32); line-height: 1.6; max-width: 240px; }
+.footer-col h5 { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--grano); opacity: .7; margin-bottom: 20px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul li a { font-size: 13px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .3s; font-family: var(--font-s); }
+.footer-col ul li a:hover { color: var(--grano); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; }
+.footer-copy { font-size: 10px; color: rgba(255,255,255,.2); letter-spacing: .06em; }
+.footer-socials { display: flex; gap: 12px; }
+.footer-social-link { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: rgba(255,255,255,.35); font-size: 11px; font-family: var(--font-b); transition: all .3s; }
+.footer-social-link:hover { border-color: var(--grano); color: var(--grano); }
+.sticky-contact { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+.sticky-btn { display: flex; align-items: center; gap: 10px; padding: 11px 20px; border-radius: 40px; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; text-decoration: none; box-shadow: 0 4px 20px rgba(0,0,0,.22); transition: transform .3s; font-family: var(--font-b); }
+.sticky-btn:hover { transform: translateY(-2px); }
+.sticky-main { background: var(--rosso); color: var(--grano); }
+.sticky-wa { background: #25D366; color: #fff; }
+.icon-svg { width: 14px; height: 14px; }
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .85s ease, transform .85s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 1024px) {
+  .hero-stats { grid-template-columns: repeat(2,1fr); }
+  .manifesto-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr; }
+  .perche-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .hero-ctas { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">MOLINO MADRE<span>Dal 1939 · Calabria</span></a>
+  <ul class="nav-links">
+    <li><a href="il-molino.html">Il Mulino</a></li>
+    <li><a href="farine.html">Farine</a></li>
+    <li><a href="basi.html">Basi</a></li>
+    <li><a href="panetti.html">Panetti</a></li>
+    <li><a href="il-forno-del-mulino.html" class="active">Il Forno</a></li>
+    <li><a href="consulenza.html">Consulenza</a></li>
+  </ul>
+  <a href="contatti.html" class="nav-cta">Contatti</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-year">FORNO</div>
+  <div class="container hero-inner">
+    <div class="hero-eyebrow reveal">
+      <div class="hero-line"></div>
+      <span>Hub Professionale &middot; B2B &middot; Ho.Re.Ca. &middot; Food Service</span>
+    </div>
+    <h1 class="hero-title reveal">
+      <em>Al servizio dei professionisti.</em>
+      IL FORNO<br>DEL MULINO
+    </h1>
+    <p class="hero-subtitle reveal">Dall&rsquo;impasto alla tavola: Molino Madre &egrave; l&rsquo;unico molino italiano che affianca il ristoratore lungo l&rsquo;intero processo. Farine, basi e panetti per ogni esigenza professionale.</p>
+    <div class="hero-ctas reveal">
+      <a href="consulenza.html" class="btn-primary">Parla con un tecnico &#8594;</a>
+      <a href="#services" class="btn-ghost">Scopri le soluzioni &#8594;</a>
+    </div>
+    <div class="hero-stats reveal">
+      <div class="hero-stat">
+        <div class="hero-stat-num">1939</div>
+        <div class="hero-stat-label">Anno di fondazione</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">80+</div>
+        <div class="hero-stat-label">Anni di esperienza molitoria</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Linee di prodotto</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">B2B</div>
+        <div class="hero-stat-label">Solo professionisti</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="container">
+    <div class="manifesto-grid">
+      <div class="manifesto-text reveal">
+        <span class="label">La nostra visione</span>
+        <div class="divider"></div>
+        <h2 class="section-title">LA NOSTRA<br>ESPERIENZA</h2>
+        <p class="manifesto-quote">Dall&rsquo;impasto alla tavola: siamo l&rsquo;unico molino italiano che ti affianca in ogni passo del processo.</p>
+        <p class="manifesto-body">Da oltre ottant&rsquo;anni selezioniamo e lavoriamo le migliori materie prime per offrire farine e mix ad alte prestazioni, pensati per chef, pizzaioli, fornai e pasticceri che cercano impasti performanti, pronti e costanti nel tempo.<br><br>Con la tradizione della scuola molitoria, unita all&rsquo;innovazione tecnologica svizzera e al valore esclusivo del lievito madre, Molino Madre &egrave; il partner tecnico e di fiducia per i professionisti della ristorazione.</p>
+        <a href="il-molino.html" style="display:inline-flex;align-items:center;gap:10px;font-family:var(--font-b);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--rosso);border-bottom:1.5px solid var(--rosso);padding-bottom:4px;transition:gap .3s;" onmouseover="this.style.gap='18px'" onmouseout="this.style.gap='10px'">Scopri la nostra storia &#8594;</a>
+      </div>
+      <div class="manifesto-visual reveal">
+        <div class="manifesto-img mi-1"><div class="manifesto-img-label">Macinazione &middot; 24 passaggi</div></div>
+        <div class="manifesto-img mi-2"><div class="manifesto-img-label">Forno a legna</div></div>
+        <div class="manifesto-img mi-3"><div class="manifesto-img-label">Lievito madre</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE BOXES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="services-intro reveal">
+      <span class="label">Le nostre soluzioni</span>
+      <div class="divider"></div>
+      <h2 class="section-title">TI AFFIANCHIAMO<br>NELLA SCELTA</h2>
+      <p style="font-family:var(--font-s);font-size:17px;font-weight:300;color:#666;line-height:1.75;max-width:580px;margin-top:16px;">Che tu abbia una pizzeria, un ristorante, un bar o gestisca una catena, abbiamo la soluzione giusta per te. Un consulente ti guider&agrave; nel prodotto pi&ugrave; adatto.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card sc-farine">
+        <div class="sc-num">01</div>
+        <div class="sc-icon-line"></div>
+        <div class="sc-tag">Per pizzerie, panifici, pasticcerie</div>
+        <div class="sc-name">FARINE</div>
+        <div class="sc-sub">La farina giusta per ogni professionista</div>
+        <p class="sc-desc">Hai una pizzeria, un panificio o una pasticceria? Abbiamo la farina giusta per te. Un nostro consulente ti guider&agrave; nel prodotto pi&ugrave; adatto alle tue esigenze specifiche.</p>
+        <div class="sc-features">
+          <div class="sc-feat"><div class="sc-feat-dot"></div>Farine per pizzeria (napoletana, romana, classica)</div>
+          <div class="sc-feat"><div class="sc-feat-dot"></div>Farine bakery (pane, dolci, pastificio)</div>
+          <div class="sc-feat"><div class="sc-feat-dot"></div>Linee speciali (integrale, multicereali, lievito madre)</div>
+          <div class="sc-feat"><div class="sc-feat-dot"></div>Schede tecniche e supporto all&rsquo;utilizzo</div>
+        </div>
+        <a href="farine.html" class="sc-link">Scopri le farine</a>
+      </div>
+      <div class="service-card sc-basi">
+        <div class="sc-num">02</div>
+        <div class="sc-icon-line"></div>
+        <div class="sc-tag">Per bistrot, bar, gastronomie, take away</div>
+        <div class="sc-name">BASI</div>
+        <div class="sc-sub">La base perfetta per semplificare il lavoro</div>
+        <p class="sc-desc">Hai un bistrot, un bar o una gastronomia? Abbiamo la base perfetta per semplificare il tuo lavoro, migliorare la velocit&agrave; del servizio senza rinunciare alla qualit&agrave; artigianale.</p>
+        <div class="sc-features">
+          <div class="sc-feat"><div class="sc-feat-dot"></div>Piccoli formati (pinsa, pizza tonda, pizza al pomodoro)</div>
+          <div class="sc-feat"><div class="sc-feat-dot"></div>Formati grandi (teglia, focaccia romana, pala)</div>
+          <div class="sc-feat"><div class="sc-feat-dot"></div>I Regionali (pitta, pizza a ruota di carro)</div>
+          <div class="sc-feat"><div class="sc-feat-dot"></div>Formati personalizzabili e distribuzione estero</div>
+        </div>
+        <a href="basi.html" class="sc-link">Scopri le basi</a>
+      </div>
+      <div class="service-card sc-panetti">
+        <div class="sc-num">03</div>
+        <div class="sc-icon-line"></div>
+        <div class="sc-tag">Per ristoranti, alberghi, catene di pizzerie</div>
+        <div class="sc-name">PANETTI</div>
+        <div class="sc-sub">Qualit&agrave; artigianale, velocit&agrave; industriale</div>
+        <p class="sc-desc">Sei un professionista della ristorazione e vuoi aumentare l&rsquo;offerta per i tuoi clienti? Panetti tecnici frozen per unire bont&agrave; a velocit&agrave; di servizio senza personale specializzato.</p>
+        <div class="sc-features">
+          <div class="sc-feat"><div class="sc-feat-dot"></div>Grano tenero, grano duro, integrale, Tipo 1, multicereali</div>
+          <div class="sc-feat"><div class="sc-feat-dot"></div>Grammature personalizzate dai 180 g ai 600 g</div>
+          <div class="sc-feat"><div class="sc-feat-dot"></div>Pasta madre fresca, altamente digeribile</div>
+          <div class="sc-feat"><div class="sc-feat-dot"></div>Istruzioni d&rsquo;uso semplificate, risultato garantito</div>
+        </div>
+        <a href="panetti.html" class="sc-link">Scopri i panetti</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERCHÉ NOI -->
+<section class="perche" id="partner">
+  <div class="container">
+    <div class="reveal">
+      <span class="label">Il partner giusto</span>
+      <div class="divider"></div>
+      <h2 class="section-title">SIAMO IL PARTNER<br>GIUSTO SE VUOI&hellip;</h2>
+    </div>
+    <div class="perche-grid">
+      <div class="perche-list reveal">
+        <div class="perche-item">
+          <div class="pi-check">&#10003;</div>
+          <div class="pi-body">
+            <h4>Ampliare il tuo ventaglio d&rsquo;offerta</h4>
+            <p>Prodotti altamente performanti per arricchire il men&ugrave; e distinguerti dalla concorrenza con proposte di qualit&agrave; superiore.</p>
+          </div>
+        </div>
+        <div class="perche-item">
+          <div class="pi-check">&#10003;</div>
+          <div class="pi-body">
+            <h4>Risparmiare tempo e costi di personale</h4>
+            <p>Le nostre basi e i nostri panetti ti permettono di offrire un impasto eccellente, stabile e pronto all&rsquo;uso, senza personale specializzato.</p>
+          </div>
+        </div>
+        <div class="perche-item">
+          <div class="pi-check">&#10003;</div>
+          <div class="pi-body">
+            <h4>Specializzarti su nuove tecniche</h4>
+            <p>I nostri tecnici ti affiancheranno per ottimizzare i processi produttivi, migliorare le prestazioni degli impasti e valorizzare la tua offerta.</p>
+          </div>
+        </div>
+        <div class="perche-item">
+          <div class="pi-check">&#10003;</div>
+          <div class="pi-body">
+            <h4>Imparare nuove preparazioni</h4>
+            <p>Formazione dedicata: worksho pratici, supporto telefonico e visite in sede per imparare nuove ricette e tecniche di lavorazione.</p>
+          </div>
+        </div>
+        <div class="perche-item">
+          <div class="pi-check">&#10003;</div>
+          <div class="pi-body">
+            <h4>Aprire un nuovo locale o pizzeria</h4>
+            <p>Assistenza start-up completa: dalla scelta dei prodotti all&rsquo;ottimizzazione del processo produttivo, siamo al tuo fianco dal primo giorno.</p>
+          </div>
+        </div>
+      </div>
+      <div class="perche-aside reveal">
+        <div class="certif-block">
+          <div class="certif-title">CERTIFICAZIONI</div>
+          <div class="certif-badges">
+            <div class="certif-badge">
+              <div class="certif-badge-code">IFS</div>
+              <div class="certif-badge-text">
+                <h5>IFS Food</h5>
+                <p>Sicurezza alimentare e qualit&agrave; di processi e prodotti lungo la catena di fornitura</p>
+              </div>
+            </div>
+            <div class="certif-badge">
+              <div class="certif-badge-code">BRC</div>
+              <div class="certif-badge-text">
+                <h5>BRC Food</h5>
+                <p>Standard di sicurezza alimentare richiesto dalla grande distribuzione e dai grandi gruppi</p>
+              </div>
+            </div>
+          </div>
+          <p style="font-family:var(--font-s);font-size:12px;font-weight:300;color:#aaa;line-height:1.5;margin-top:20px;font-style:italic;">Una presa di responsabilit&agrave; verso il cliente a garanzia della sicurezza alimentare e della costanza qualitativa.</p>
+        </div>
+        <div class="partner-block">
+          <div class="partner-block-title">HAI UN PROGETTO?</div>
+          <p>Da sempre la cultura del nostro Molino &egrave; fondata sul valore del servizio personalizzato al cliente, seguito in un rapporto di vera partnership.</p>
+          <a href="consulenza.html" class="partner-link">Richiedi consulenza &#8594;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">MOLINO MADRE</div>
+        <div class="footer-brand-sub">Dal 1939 &middot; Calabria</div>
+        <p class="footer-tagline">&ldquo;Il grano macinato lentamente, il lievito madre che fermenta con pazienza, la tradizione che innova.&rdquo;</p>
+      </div>
+      <div class="footer-col"><h5>Prodotti</h5><ul>
+        <li><a href="farine.html">Farine</a></li>
+        <li><a href="basi.html">Basi per Pizza</a></li>
+        <li><a href="panetti.html">Panetti Surgelati</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Azienda</h5><ul>
+        <li><a href="il-molino.html">Il Molino</a></li>
+        <li><a href="il-forno-del-mulino.html">Il Forno del Mulino</a></li>
+        <li><a href="consulenza.html">Consulenza</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Contatti</h5><ul>
+        <li><a href="mailto:info@molinomadre.it">info@molinomadre.it</a></li>
+        <li><a href="tel:+390000000000">+39 000 000 0000</a></li>
+        <li><a href="#">Calabria, Italia</a></li>
+        <li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Molino Madre S.r.l. &nbsp;&middot;&nbsp; Privacy Policy &nbsp;&middot;&nbsp; Cookie Policy</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link">IG</a><a href="#" class="footer-social-link">FB</a>
+        <a href="#" class="footer-social-link">LI</a><a href="#" class="footer-social-link">YT</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-contact">
+  <a href="https://wa.me/39000000000" class="sticky-btn sticky-wa">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.552 4.107 1.516 5.842L0 24l6.336-1.483A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.861 0-3.601-.5-5.1-1.371l-.364-.217-3.762.881.941-3.673-.237-.374A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </a>
+  <a href="contatti.html" class="sticky-btn sticky-main">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    Contatti
+  </a>
+</div>
+
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); }, {passive:true});
+const revEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, {threshold:0.08});
+revEls.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

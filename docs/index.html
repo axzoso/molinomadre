@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Molino Madre – Dal 1939</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rosso:       #8a2432;
+  --terracotta:  #a9483d;
+  --grano:       #ddc9a2;
+  --lavanda:     #e3e0e5;
+  --oliva:       #888f64;
+  --bianco:      #f5f2ec;
+  --nero:        #1a1410;
+  --font-display:'Bebas Neue', sans-serif;
+  --font-serif:  'Cormorant Garamond', serif;
+  --font-body:   'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bianco);
+  color: var(--nero);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+.container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+.hero .container { max-width: 100%; padding-left: 48px; padding-right: 0; }
+#hero-text-container { margin: 0 20px 0 120px; }
+.label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  display: block;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 88px);
+  line-height: .95;
+  letter-spacing: .02em;
+  color: var(--rosso);
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-body); font-size: 12px; font-weight: 500;
+  letter-spacing: .2em; text-transform: uppercase; text-decoration: none;
+  color: var(--rosso); border-bottom: 1.5px solid var(--rosso);
+  padding-bottom: 4px; transition: gap .3s;
+}
+.btn:hover { gap: 18px; }
+.btn-light { color: var(--grano); border-color: var(--grano); }
+.divider {
+  display: inline-block; width: 48px; height: 1px;
+  background: var(--terracotta); margin-bottom: 20px;
+}
+
+/* ── NAV ──────────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000; padding: 0 40px; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background .4s, backdrop-filter .4s;
+}
+nav.scrolled {
+  background: rgba(245,242,236,.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(138,36,50,.1);
+}
+.nav-logo {
+  font-family: var(--font-display); font-size: 22px;
+  letter-spacing: .12em; color: #fff; text-decoration: none;
+  transition: color .4s; display: flex; flex-direction: column; line-height: 1.1;
+}
+nav.scrolled .nav-logo { color: var(--rosso); }
+.nav-logo span {
+  font-family: var(--font-serif); font-size: 10px; font-weight: 400;
+  letter-spacing: .3em; text-transform: uppercase; opacity: .7;
+}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  text-decoration: none; color: rgba(255,255,255,.85); transition: color .3s; font-weight: 400;
+}
+nav.scrolled .nav-links a { color: var(--nero); }
+.nav-links a:hover { color: var(--terracotta) !important; }
+.nav-cta {
+  padding: 9px 22px; border: 1.5px solid rgba(255,255,255,.6);
+  border-radius: 2px; font-size: 10px; letter-spacing: .2em;
+  text-transform: uppercase; text-decoration: none; color: #fff; transition: all .3s; font-weight: 500;
+}
+nav.scrolled .nav-cta { border-color: var(--rosso); color: var(--rosso); }
+.nav-cta:hover { background: var(--rosso); border-color: var(--rosso); color: #fff !important; }
+
+/* ── HERO ─────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  height: 100vh; min-height: 700px;
+  background: var(--nero);
+  overflow: hidden;
+  display: flex;
+  align-items: center;       /* centrato verticalmente */
+  padding-bottom: 0;
+}
+
+/* ── SLIDE CONTAINER ─────────────────────────────────────────── */
+.hero-slides {
+  position: absolute; inset: 0; z-index: 1;
+}
+.hero-slide {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+.hero-slide.active { opacity: 1; }
+
+/*
+  La foto occupa la metà destra (dal 45% al 100%)
+  e si estende dal 20% in alto al fondo.
+  Sfuma: verso sinistra (sparisce a ~45%) e verso l'alto (~20%).
+  Lo sfondo nero delle foto si fonde naturalmente col fondo della hero.
+*/
+.hero-slide-photo {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 58%;
+  height: 88%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  -webkit-mask-image:
+    linear-gradient(to right,  transparent 0%, rgba(0,0,0,.5) 18%, rgba(0,0,0,.85) 40%, black 70%),
+    linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.6) 14%, black 38%);
+  -webkit-mask-composite: multiply;
+  mask-image:
+    linear-gradient(to right,  transparent 0%, rgba(0,0,0,.5) 18%, rgba(0,0,0,.85) 40%, black 70%),
+    linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.6) 14%, black 38%);
+  mask-composite: intersect;
+}
+
+/* Immagine 1: mani con la farina – soggetto a destra nell'originale, ottimo */
+.hero-slide:nth-child(1) .hero-slide-photo {
+  background-image: url('images/index-03.png');
+  background-position: 60% center;
+}
+/* Immagine 2: sacchi farina – soggetti centrati, li porto leggermente a sinistra */
+.hero-slide:nth-child(2) .hero-slide-photo {
+  background-image: url('images/index-04.png');
+  background-position: 45% 55%;
+  width: 62%;
+  height: 82%;
+}
+
+/* Gradiente diagonale: rosso pieno in alto, sfuma verso il basso-destra dove c'è la foto */
+.hero-color-layer {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background:
+    linear-gradient(135deg,
+      #8a2432 0%,
+      rgba(138,36,50,.95) 20%,
+      rgba(138,36,50,.80) 38%,
+      rgba(138,36,50,.45) 55%,
+      rgba(138,36,50,.12) 72%,
+      transparent 88%
+    );
+}
+
+/* Grain texture */
+.hero-grain {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* Anno watermark */
+.hero-year {
+  position: absolute; right: 40px; top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: var(--font-display); font-size: 150px;
+  color: rgba(255,255,255,.035); letter-spacing: .1em;
+  pointer-events: none; user-select: none; white-space: nowrap; z-index: 4;
+}
+
+/* ── TESTO HERO ─────────────────────────────────────────────── */
+.hero-content {
+  position: relative; z-index: 5;
+  width: 100%;
+  max-width: 100%;
+  padding-left: 0;
+}
+.hero-eyebrow {
+  display: flex; align-items: flex-start; gap: 16px; margin-bottom: 30px;
+  opacity: 0; animation: fadeUp .8s .2s ease forwards;
+}
+.hero-eyebrow span {
+  font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--grano); font-weight: 300;
+}
+.hero-line { width: 40px; height: 1px; background: var(--grano); }
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(60px, 8vw, 118px);
+  line-height: .88; color: #fff; margin-bottom: 28px;
+  opacity: 0; animation: fadeUp .9s .4s ease forwards;
+}
+.hero-title em {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: .7em; color: var(--grano);
+  display: block; margin-bottom: 6px; font-weight: 300;
+}
+.hero-sub {
+  font-family: var(--font-serif); font-size: clamp(15px, 1.6vw, 18px);
+  font-weight: 300; color: rgba(255,255,255,.72);
+  max-width: 420px; line-height: 1.7; margin-bottom: 40px;
+  opacity: 0; animation: fadeUp .9s .6s ease forwards;
+}
+.hero-actions {
+  display: flex; gap: 28px; align-items: center;
+  opacity: 0; animation: fadeUp .9s .8s ease forwards;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 15px 34px; background: var(--grano); color: var(--rosso);
+  font-size: 11px; font-weight: 500; letter-spacing: .2em;
+  text-transform: uppercase; text-decoration: none; transition: background .3s;
+}
+.btn-primary:hover { background: #fff; }
+
+/* Caption slide (angolo basso destra) */
+.hero-slide-caption {
+  position: absolute; bottom: 52px; right: 52px; z-index: 4;
+  text-align: right; opacity: 0; transition: opacity .7s;
+  pointer-events: none;
+}
+.hero-slide.active .hero-slide-caption { opacity: 1; transition-delay: 1s; }
+.hero-slide-caption span {
+  font-size: 9px; letter-spacing: .25em; text-transform: uppercase;
+  color: rgba(255,255,255,.38); display: block;
+}
+
+/* Dots slider */
+.hero-dots {
+  position: absolute; bottom: 36px; left: 48px; z-index: 6;
+  display: flex; gap: 10px; align-items: center;
+  opacity: 0; animation: fadeIn 1s 1.2s ease forwards;
+}
+.hero-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.45);
+  cursor: pointer; transition: all .3s;
+}
+.hero-dot.active {
+  background: var(--grano); border-color: var(--grano);
+  width: 24px; border-radius: 3px;
+}
+
+/* Scroll indicator */
+.hero-scroll {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: fadeIn 1s 1.4s ease forwards;
+}
+.hero-scroll span {
+  font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+  color: rgba(255,255,255,.38);
+}
+.scroll-line {
+  width: 1px; height: 42px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.4), transparent);
+  animation: scrollPulse 2s 2s infinite;
+}
+
+/* ── TICKER ───────────────────────────────────────────────────── */
+.ticker-wrap {
+  overflow: hidden; background: var(--grano); padding: 13px 0;
+  border-top: 1px solid rgba(138,36,50,.1);
+  border-bottom: 1px solid rgba(138,36,50,.1);
+}
+.ticker-track {
+  display: flex; width: max-content;
+  animation: marquee 26s linear infinite;
+}
+.ticker-item {
+  display: flex; align-items: center; gap: 28px; padding: 0 28px;
+  font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--rosso); white-space: nowrap;
+}
+.ticker-sep {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: var(--terracotta); flex-shrink: 0;
+}
+
+/* ── STRIP NUMERI ────────────────────────────────────────────── */
+.strip {
+  background: var(--rosso); padding: 22px 40px;
+  display: flex; align-items: center; justify-content: center; gap: 64px;
+}
+.strip-item {
+  display: flex; align-items: center; gap: 16px;
+  color: var(--grano); font-size: 11px; letter-spacing: .2em;
+  text-transform: uppercase; white-space: nowrap;
+}
+.strip-item strong {
+  font-family: var(--font-display); font-size: 30px;
+  line-height: 1; letter-spacing: .05em; color: #fff;
+}
+.strip-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--grano); opacity: .35; }
+
+/* ── SEZIONI ─────────────────────────────────────────────────── */
+.section { padding: 120px 0; }
+.section-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 72px; gap: 40px;
+}
+.section-header-text { flex: 1; }
+.section-intro {
+  max-width: 500px; font-family: var(--font-serif);
+  font-size: 17px; font-weight: 300; line-height: 1.75; color: #666;
+}
+
+/* ── PRODUCTS ────────────────────────────────────────────────── */
+.products-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
+.product-card {
+  position: relative; aspect-ratio: 3/4; overflow: hidden;
+  cursor: pointer; text-decoration: none;
+}
+.product-card-bg {
+  position: absolute; inset: 0; transition: transform .7s cubic-bezier(.25,.46,.45,.94);
+  background-size: cover; background-position: center;
+}
+.product-card:hover .product-card-bg { transform: scale(1.07); }
+.pc-farine    .product-card-bg { background-color: #3d0e18; }
+.pc-basi      .product-card-bg { background-color: #5a2020; }
+.pc-panetti   .product-card-bg { background-color: #2d3520; }
+.pc-regionali .product-card-bg { background-color: #3d2e1a; }
+.product-card-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  transition: opacity .45s ease;
+}
+/* Default: colore pieno del brand copre quasi tutta la card */
+.pc-farine    .product-card-overlay {
+  background: linear-gradient(to top,
+    rgba(58,10,18,.96) 0%, rgba(138,36,50,.88) 40%,
+    rgba(138,36,50,.70) 70%, rgba(138,36,50,.55) 100%);
+}
+.pc-basi      .product-card-overlay {
+  background: linear-gradient(to top,
+    rgba(90,32,32,.96) 0%, rgba(169,72,61,.88) 40%,
+    rgba(169,72,61,.70) 70%, rgba(169,72,61,.55) 100%);
+}
+.pc-panetti   .product-card-overlay {
+  background: linear-gradient(to top,
+    rgba(30,37,15,.96) 0%, rgba(80,90,50,.88) 40%,
+    rgba(80,90,50,.70) 70%, rgba(80,90,50,.55) 100%);
+}
+.pc-regionali .product-card-overlay {
+  background: linear-gradient(to top,
+    rgba(40,26,8,.96) 0%, rgba(107,82,52,.88) 40%,
+    rgba(107,82,52,.70) 70%, rgba(107,82,52,.55) 100%);
+}
+/* Hover: overlay si alleggerisce, la foto emerge */
+.pc-farine:hover    .product-card-overlay { opacity: .35; }
+.pc-basi:hover      .product-card-overlay { opacity: .35; }
+.pc-panetti:hover   .product-card-overlay { opacity: .35; }
+.pc-regionali:hover .product-card-overlay { opacity: .35; }
+.product-card-inner {
+  position: absolute; inset: 0; z-index: 2;
+  padding: 40px 32px; display: flex; flex-direction: column; justify-content: flex-end;
+}
+.pc-number {
+  position: absolute; top: 28px; right: 24px;
+  font-family: var(--font-display); font-size: 56px;
+  color: rgba(255,255,255,.08); line-height: 1;
+}
+.pc-tag { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--grano); margin-bottom: 8px; opacity: .85; }
+.pc-name { font-family: var(--font-display); font-size: 38px; letter-spacing: .04em; color: #fff; line-height: 1; margin-bottom: 16px; }
+.pc-desc { font-family: var(--font-serif); font-size: 13px; font-weight: 300; color: rgba(255,255,255,.72); line-height: 1.55; margin-bottom: 22px; max-width: 200px; }
+.pc-arrow {
+  width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.35);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 14px; transition: all .3s;
+}
+.product-card:hover .pc-arrow { background: var(--grano); border-color: var(--grano); color: var(--rosso); }
+
+.boxes-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 2px; }
+.box-card {
+  background: var(--grano); padding: 36px;
+  display: flex; align-items: center; gap: 20px;
+  text-decoration: none; transition: background .3s;
+}
+.box-card:hover { background: #cbb98a; }
+.box-card-line { width: 3px; height: 40px; background: var(--rosso); opacity: .4; flex-shrink: 0; }
+.box-name { font-family: var(--font-display); font-size: 24px; letter-spacing: .06em; color: var(--rosso); display: block; }
+.box-sub { font-size: 11px; letter-spacing: .12em; color: var(--rosso); opacity: .55; text-transform: uppercase; display: block; margin-top: 3px; }
+.box-arrow { margin-left: auto; font-size: 18px; color: var(--rosso); opacity: .4; transition: opacity .3s, transform .3s; }
+.box-card:hover .box-arrow { opacity: 1; transform: translateX(4px); }
+
+/* ── FORNO ───────────────────────────────────────────────────── */
+.forno { background: var(--nero); position: relative; overflow: hidden; }
+.forno-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(138,36,50,.22) 0%, transparent 60%); }
+.forno-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 600px; }
+.forno-content {
+  padding: 120px 60px 120px 0; position: relative; z-index: 2;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.forno-content .section-title { color: var(--grano); }
+.forno-text { font-family: var(--font-serif); font-size: 16px; font-weight: 300; color: rgba(255,255,255,.58); line-height: 1.8; margin: 26px 0 30px; max-width: 400px; }
+.forno-features { display: flex; flex-direction: column; gap: 14px; margin-bottom: 38px; }
+.forno-feat { display: flex; align-items: flex-start; gap: 14px; color: rgba(255,255,255,.68); font-size: 14px; font-family: var(--font-serif); font-weight: 300; }
+.forno-feat-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--terracotta); margin-top: 8px; flex-shrink: 0; }
+.forno-visual { position: relative; overflow: hidden; }
+.forno-img { position: absolute; inset: 0; background-color: #2a1210; background-size: cover; background-position: center; }
+.forno-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--nero) 0%, rgba(26,20,16,.3) 30%, transparent 55%); }
+.forno-pills { position: absolute; bottom: 44px; left: 44px; right: 44px; display: flex; flex-direction: column; gap: 10px; z-index: 2; }
+.forno-pill { background: rgba(221,201,162,.07); border: 1px solid rgba(221,201,162,.14); backdrop-filter: blur(12px); border-radius: 3px; padding: 14px 18px; display: flex; align-items: center; gap: 16px; }
+.pill-label { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--grano); opacity: .7; white-space: nowrap; }
+.pill-sep { width: 1px; height: 22px; background: rgba(221,201,162,.18); }
+.pill-val { font-family: var(--font-serif); font-size: 15px; font-style: italic; color: rgba(255,255,255,.85); }
+
+/* ── VALORI ──────────────────────────────────────────────────── */
+.valori { background: var(--bianco); }
+.valori-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 48px; margin-top: 72px; padding-top: 60px; border-top: 1px solid rgba(138,36,50,.1); }
+.valore { display: flex; flex-direction: column; gap: 14px; }
+.valore-num { font-family: var(--font-display); font-size: 64px; color: rgba(138,36,50,.07); line-height: 1; margin-bottom: -12px; }
+.valore-name { font-family: var(--font-display); font-size: 20px; letter-spacing: .08em; color: var(--rosso); text-transform: uppercase; }
+.valore-text { font-family: var(--font-serif); font-size: 15px; font-weight: 300; color: #666; line-height: 1.7; }
+
+
+/* ── AMBASSADOR VIDEO BLOCK ──────────────────────────────────── */
+.amb-video-block {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 64px;
+  align-items: center;
+  margin-bottom: 72px;
+}
+.amb-video-thumb {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.amb-video-img {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform .7s ease;
+}
+.amb-video-thumb:hover .amb-video-img { transform: scale(1.04); }
+.amb-video-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.15) 55%, transparent 100%);
+  z-index: 1;
+}
+.amb-play-btn {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%); z-index: 2;
+  width: 72px; height: 72px;
+  border: 1.5px solid rgba(255,255,255,.65);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .35s; padding-left: 5px;
+}
+.amb-play-btn svg { width: 22px; height: 22px; fill: #fff; }
+.amb-play-btn:hover { background: rgba(255,255,255,.18); border-color: #fff; transform: translate(-50%,-50%) scale(1.1); }
+.amb-video-caption {
+  position: absolute; bottom: 28px; left: 32px; right: 32px; z-index: 2;
+}
+.amb-video-caption .label { color: var(--grano); margin-bottom: 8px; }
+.amb-video-caption h3 {
+  font-family: var(--font-display); font-size: 28px;
+  color: #fff; letter-spacing: .04em; line-height: 1.1;
+}
+.amb-video-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.5vw, 52px);
+  letter-spacing: .04em; line-height: .95;
+  color: var(--rosso); margin-bottom: 20px;
+}
+.amb-video-desc {
+  font-family: var(--font-serif);
+  font-size: 16px; font-weight: 300;
+  color: #666; line-height: 1.75;
+  margin-bottom: 32px;
+  max-width: 400px;
+}
+
+/* ── GALLERY UNIFORME ────────────────────────────────────────── */
+.amb-gallery {
+  width: 100%;
+  margin-top: 0;
+  padding-bottom: 60px;
+}
+/* Due righe, altezza fissa uguale per tutte le tile */
+.amb-masonry {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  grid-template-rows: 340px 340px;
+  gap: 3px;
+}
+.amb-tile {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  /* Nessun row-span: tutte le tile hanno la stessa altezza */
+}
+/* Tile wide occupa 2 colonne ma stessa altezza */
+.amb-tile--wide  { grid-column: span 2; }
+.amb-tile-img {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform .7s cubic-bezier(.25,.46,.45,.94);
+}
+.amb-tile:hover .amb-tile-img { transform: scale(1.06); }
+.amb-tile-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26,20,16,.78) 0%, rgba(26,20,16,.08) 55%, transparent 100%);
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px 22px;
+  opacity: 0;
+  transition: opacity .4s;
+}
+.amb-tile:hover .amb-tile-overlay { opacity: 1; }
+.amb-tile-quote {
+  font-family: var(--font-serif);
+  font-size: 14px; font-style: italic; font-weight: 300;
+  color: #fff; line-height: 1.45;
+  margin-bottom: 6px;
+}
+.amb-tile-overlay span {
+  font-size: 9px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--grano);
+}
+@media (max-width: 1024px) {
+  .amb-video-block { grid-template-columns: 1fr; gap: 40px; }
+  .amb-masonry {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 280px 280px 280px;
+  }
+  .amb-tile--wide { grid-column: span 2; }
+}
+@media (max-width: 768px) {
+  .amb-masonry {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 220px);
+  }
+  .amb-tile--wide { grid-column: span 1; }
+}
+
+/* ── AMBASSADOR (legacy kept for safety) ───────────────────── */
+.ambassador { background: var(--bianco); }
+.ambassador-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 64px; }
+.amb-main { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--nero); }
+.amb-main-img { position: absolute; inset: 0; background-size: cover; background-position: center; background-color: #2a1010; transition: transform .7s ease; }
+.amb-main:hover .amb-main-img { transform: scale(1.04); }
+.amb-main-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.18) 60%, transparent 100%); z-index: 1; }
+.amb-play-btn {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%); z-index: 2;
+  width: 72px; height: 72px; border: 1.5px solid rgba(255,255,255,.55);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all .3s; padding-left: 5px;
+}
+.amb-play-btn svg { width: 22px; height: 22px; fill: #fff; }
+.amb-play-btn:hover { background: rgba(255,255,255,.15); border-color: #fff; transform: translate(-50%,-50%) scale(1.08); }
+.amb-caption { position: absolute; bottom: 32px; left: 36px; right: 36px; z-index: 2; }
+.amb-caption .label { color: var(--grano); }
+.amb-caption h3 { font-family: var(--font-display); font-size: 26px; color: #fff; letter-spacing: .04em; line-height: 1.1; }
+.amb-sidebar { display: grid; grid-template-rows: 1fr 1fr; gap: 2px; }
+.amb-card { position: relative; overflow: hidden; min-height: 220px; }
+.amb-card-img { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform .7s ease; }
+.amb-card:nth-child(1) .amb-card-img { background-color: #7a2a20; }
+.amb-card:nth-child(2) .amb-card-img { background-color: #4a5230; }
+.amb-card:hover .amb-card-img { transform: scale(1.05); }
+.amb-card-inner { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.12) 60%, transparent 100%); padding: 28px 32px; display: flex; flex-direction: column; justify-content: flex-end; z-index: 1; }
+.amb-card h4 { font-family: var(--font-serif); font-size: 17px; font-style: italic; font-weight: 300; color: #fff; line-height: 1.45; }
+.amb-card p { font-size: 11px; letter-spacing: .1em; color: rgba(255,255,255,.55); margin-top: 8px; text-transform: uppercase; }
+.quote-strip { background: transparent; padding: 60px 40px; text-align: center; margin-top: 2px; }
+.quote-strip blockquote { font-family: var(--font-serif); font-size: clamp(18px,2.2vw,26px); font-style: italic; font-weight: 300; color: var(--rosso); max-width: 760px; margin: 0 auto; line-height: 1.65; }
+.quote-strip cite { display: block; margin-top: 18px; font-size: 10px; letter-spacing: .25em; text-transform: uppercase; color: var(--terracotta); font-style: normal; }
+
+/* ── CERTIF ──────────────────────────────────────────────────── */
+.certif { background: var(--lavanda); padding: 56px 0; }
+.certif-inner { display: flex; align-items: center; gap: 40px; justify-content: center; flex-wrap: wrap; }
+.certif-badge { display: flex; align-items: center; gap: 20px; background: #fff; border-radius: 3px; padding: 20px 32px; box-shadow: 0 2px 16px rgba(0,0,0,.06); }
+.certif-logo { height: 52px; width: auto; object-fit: contain; flex-shrink: 0; }
+.certif-info h4 { font-family: var(--font-display); font-size: 15px; letter-spacing: .12em; color: var(--rosso); }
+.certif-info p { font-size: 12px; color: #888; max-width: 200px; line-height: 1.4; margin-top: 3px; }
+.certif-sep { width: 1px; height: 56px; background: rgba(138,36,50,.12); }
+
+/* ── CONSULENZA ──────────────────────────────────────────────── */
+.consulenza { background: var(--rosso); position: relative; overflow: hidden; }
+.consulenza-pattern { position: absolute; inset: 0; background: repeating-linear-gradient(90deg,transparent,transparent 80px,rgba(255,255,255,.025) 80px,rgba(255,255,255,.025) 81px), repeating-linear-gradient(0deg,transparent,transparent 80px,rgba(255,255,255,.025) 80px,rgba(255,255,255,.025) 81px); }
+.consulenza-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; position: relative; z-index: 2; }
+.consulenza-left .section-title { color: #fff; }
+.consulenza-intro { font-family: var(--font-serif); font-size: 16px; font-weight: 300; color: rgba(255,255,255,.65); line-height: 1.8; margin: 22px 0 8px; max-width: 380px; }
+.consulenza-form { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 3px; padding: 44px; }
+.form-title { font-family: var(--font-display); font-size: 18px; letter-spacing: .12em; color: var(--grano); margin-bottom: 28px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+.form-field.full { grid-column: 1/-1; }
+.form-field label { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+.form-field input, .form-field select { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); border-radius: 2px; padding: 12px 14px; color: #fff; font-size: 14px; font-family: var(--font-body); outline: none; transition: border-color .3s; -webkit-appearance: none; }
+.form-field input::placeholder { color: rgba(255,255,255,.28); }
+.form-field select option { background: var(--rosso); color: #fff; }
+.form-field input:focus, .form-field select:focus { border-color: var(--grano); }
+.btn-submit { width: 100%; padding: 15px; background: var(--grano); color: var(--rosso); border: none; font-size: 11px; letter-spacing: .25em; text-transform: uppercase; font-weight: 600; font-family: var(--font-body); cursor: pointer; margin-top: 6px; transition: background .3s; border-radius: 2px; }
+.btn-submit:hover { background: #fff; }
+
+/* ── FOOTER ──────────────────────────────────────────────────── */
+footer { background: var(--nero); padding: 80px 0 40px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,.05); margin-bottom: 36px; }
+.footer-brand-name { font-family: var(--font-display); font-size: 30px; letter-spacing: .12em; color: #fff; line-height: 1; margin-bottom: 4px; }
+.footer-brand-sub { font-family: var(--font-serif); font-size: 11px; letter-spacing: .28em; color: var(--grano); opacity: .6; text-transform: uppercase; margin-bottom: 20px; }
+.footer-tagline { font-family: var(--font-serif); font-size: 14px; font-weight: 300; font-style: italic; color: rgba(255,255,255,.32); line-height: 1.6; max-width: 240px; }
+.footer-col h5 { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--grano); opacity: .7; margin-bottom: 20px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul li a { font-size: 13px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .3s; font-family: var(--font-serif); }
+.footer-col ul li a:hover { color: var(--grano); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; }
+.footer-copy { font-size: 10px; color: rgba(255,255,255,.2); letter-spacing: .06em; }
+.footer-socials { display: flex; gap: 12px; }
+.footer-social-link { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: rgba(255,255,255,.35); font-size: 11px; font-family: var(--font-body); font-weight: 500; transition: all .3s; letter-spacing: 0; }
+.footer-social-link:hover { border-color: var(--grano); color: var(--grano); }
+
+/* ── STICKY ──────────────────────────────────────────────────── */
+.sticky-contact { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+.sticky-btn { display: flex; align-items: center; gap: 10px; padding: 11px 20px; border-radius: 40px; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; text-decoration: none; box-shadow: 0 4px 20px rgba(0,0,0,.22); transition: transform .3s, box-shadow .3s; font-family: var(--font-body); }
+.sticky-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.28); }
+.sticky-main { background: var(--rosso); color: var(--grano); }
+.sticky-wa { background: #25D366; color: #fff; }
+.icon-svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* ── REVEAL ──────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .85s ease, transform .85s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── KEYFRAMES ───────────────────────────────────────────────── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes scrollPulse { 0%,100% { opacity:.4; } 50% { opacity:1; } }
+@keyframes marquee { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width:1024px) {
+  .hero-content { max-width: 70%; width: 70%; }
+  .hero-slide-photo { width: 70%; }
+  .products-grid { grid-template-columns:repeat(2,1fr); }
+  .forno-grid { grid-template-columns:1fr; }
+  .forno-visual { min-height:340px; }
+  .forno-content { padding:80px 0; }
+  .ambassador-grid { grid-template-columns:1fr; }
+  .consulenza-grid { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr 1fr; }
+  .valori-grid { grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:768px) {
+  .container { padding:0 20px; }
+  nav { padding:0 20px; }
+  .nav-links { display:none; }
+  .section { padding:72px 0; }
+  .hero-content { max-width:90%; width:90%; }
+  .hero-slide-photo { width:100%; height:70%; opacity:.5; }
+  .hero-color-layer { background: linear-gradient(to right, rgba(138,36,50,.97) 0%, rgba(138,36,50,.90) 50%, rgba(138,36,50,.70) 100%); }
+  .products-grid { grid-template-columns:1fr; }
+  .boxes-strip { grid-template-columns:1fr; }
+  .strip { flex-direction:column; gap:20px; padding:28px 20px; }
+  .section-header { flex-direction:column; }
+  .valori-grid { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr; }
+  .form-row { grid-template-columns:1fr; }
+  .hero-year { display:none; }
+  .footer-bottom { flex-direction:column; gap:16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">MOLINO MADRE<span>Dal 1939 · Calabria</span></a>
+  <ul class="nav-links">
+    <li><a href="#mulino">Il Mulino</a></li>
+    <li><a href="#prodotti">Prodotti</a></li>
+    <li><a href="#forno">Il Forno</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#consulenza">Consulenza</a></li>
+    <li><a href="#news">News</a></li>
+  </ul>
+  <a href="#contatti" class="nav-cta">Contatti</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+
+  <div class="hero-slides">
+    <!-- Slide 1: mani con farina -->
+    <div class="hero-slide active" id="slide-0">
+      <div class="hero-slide-photo"></div>
+      <div class="hero-slide-caption"><span>Ambassador Molino Madre &middot; L'arte della farina</span></div>
+    </div>
+    <!-- Slide 2: sacchi di farina -->
+    <div class="hero-slide" id="slide-1">
+      <div class="hero-slide-photo"></div>
+      <div class="hero-slide-caption"><span>Le nostre farine &middot; Qualit&agrave; certificata dal 1939</span></div>
+    </div>
+  </div>
+
+  <div class="hero-color-layer"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-year">1939</div>
+
+  <div class="container" id="hero-text-container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-line"></div>
+        <span>Molino Madre &middot; Calabria &middot; Dal 1939</span>
+      </div>
+      <h1 class="hero-title">
+        <em>Dal grano all&rsquo;impasto.</em>
+        LA TRADIZIONE<br>CHE INNOVA.
+      </h1>
+      <p class="hero-sub">Il partner tecnico al fianco dei professionisti della ristorazione. Farine professionali, basi artigianali, soluzioni di qualit&agrave; senza compromessi.</p>
+      <div class="hero-actions">
+        <a href="#prodotti" class="btn-primary">Scopri i Prodotti &nbsp;&#8594;</a>
+        <a href="#consulenza" class="btn btn-light">Richiedi Consulenza &#8594;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dots in basso a sinistra, allineati col testo -->
+  <div class="hero-dots" id="heroDots">
+    <div class="hero-dot active" onclick="goSlide(0)"></div>
+    <div class="hero-dot" onclick="goSlide(1)"></div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <div class="ticker-item"><span class="ticker-sep"></span>Farine Professionali</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Basi per Pizza Artigianali</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Panetti Surgelati di Qualit&agrave;</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Lievito Madre Naturale</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>24 Passaggi di Macinazione</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Dal 1939 &middot; Calabria</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Certificazioni IFS &amp; BRC</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Farine Professionali</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Basi per Pizza Artigianali</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Panetti Surgelati di Qualit&agrave;</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Lievito Madre Naturale</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>24 Passaggi di Macinazione</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Dal 1939 &middot; Calabria</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Certificazioni IFS &amp; BRC</div>
+  </div>
+</div>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item"><strong>1939</strong><span>Anno di fondazione</span></div>
+  <div class="strip-dot"></div>
+  <div class="strip-item"><strong>24</strong><span>Passaggi di macinazione</span></div>
+  <div class="strip-dot"></div>
+  <div class="strip-item"><strong>100%</strong><span>Lievito madre naturale</span></div>
+  <div class="strip-dot"></div>
+  <div class="strip-item"><strong>IFS+BRC</strong><span>Certificazioni di qualit&agrave;</span></div>
+</div>
+
+<!-- PRODOTTI -->
+<section class="section" id="prodotti">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header-text">
+        <span class="label">I Nostri Prodotti</span>
+        <div class="divider"></div>
+        <h2 class="section-title">SOLUZIONI<br>PER OGNI<br>PROFESSIONISTA</h2>
+      </div>
+      <p class="section-intro">Dalla selezione di farine professionali alle basi realizzate con cura artigianale, offriamo soluzioni su misura pensate per chi non vuole rinunciare alla qualit&agrave;.</p>
+    </div>
+    <div class="products-grid reveal">
+      <a href="#farine" class="product-card pc-farine">
+        <div class="product-card-bg" style="background-image:url('images/index-05.png')"></div><div class="product-card-overlay"></div>
+        <div class="product-card-inner">
+          <div class="pc-number">01</div>
+          <div class="pc-tag">Farine Professionali</div>
+          <div class="pc-name">FARINE</div>
+          <p class="pc-desc">Pizzeria, Bakery, Pastificio e Speciali. 24 passaggi di macinazione per una resa superiore.</p>
+          <div class="pc-arrow">&#8594;</div>
+        </div>
+      </a>
+      <a href="#basi" class="product-card pc-basi">
+        <div class="product-card-bg" style="background-image:url('images/index-06.jpg');background-position:center 30%"></div><div class="product-card-overlay"></div>
+        <div class="product-card-inner">
+          <div class="pc-number">02</div>
+          <div class="pc-tag">Pronte per il Forno</div>
+          <div class="pc-name">BASI</div>
+          <p class="pc-desc">Basi con lievito madre naturale. Pinsa, Pizza Tonda, Focaccia, Pizza alla Romana.</p>
+          <div class="pc-arrow">&#8594;</div>
+        </div>
+      </a>
+      <a href="#panetti" class="product-card pc-panetti">
+        <div class="product-card-bg" style="background-image:url('images/index-07.jpg');background-position:center 40%"></div><div class="product-card-overlay"></div>
+        <div class="product-card-inner">
+          <div class="pc-number">03</div>
+          <div class="pc-tag">Surgelati Premium</div>
+          <div class="pc-name">PANETTI</div>
+          <p class="pc-desc">Linea innovativa di panetti surgelati: qualit&agrave; artigianale, risparmio di tempo e spazi.</p>
+          <div class="pc-arrow">&#8594;</div>
+        </div>
+      </a>
+      <a href="#regionali" class="product-card pc-regionali">
+        <div class="product-card-bg" style="background-image:url('images/index-08.jpg');background-position:center 50%"></div><div class="product-card-overlay"></div>
+        <div class="product-card-inner">
+          <div class="pc-number">04</div>
+          <div class="pc-tag">Tradizione Italiana</div>
+          <div class="pc-name">I REGIONALI</div>
+          <p class="pc-desc">Pitta Calabrese, Casareccia, Pizza ruota di carro. Ricette della tradizione.</p>
+          <div class="pc-arrow">&#8594;</div>
+        </div>
+      </a>
+    </div>
+    <div class="boxes-strip reveal">
+      <a href="#box-farine" class="box-card">
+        <div class="box-card-line"></div>
+        <div><span class="box-name">BOX FARINE</span><span class="box-sub">Selezione Professionale</span></div>
+        <span class="box-arrow">&#8594;</span>
+      </a>
+      <a href="#box-basi" class="box-card">
+        <div class="box-card-line"></div>
+        <div><span class="box-name">BOX BASI</span><span class="box-sub">Pronte all&rsquo;uso</span></div>
+        <span class="box-arrow">&#8594;</span>
+      </a>
+      <a href="#box-panetti" class="box-card">
+        <div class="box-card-line"></div>
+        <div><span class="box-name">BOX PANETTI</span><span class="box-sub">Surgelati di qualit&agrave;</span></div>
+        <span class="box-arrow">&#8594;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FORNO DEL MULINO -->
+<section class="section forno" id="forno">
+  <div class="forno-bg"></div>
+  <div class="container">
+    <div class="forno-grid">
+      <div class="forno-content reveal">
+        <span class="label" style="color:rgba(221,201,162,.6)">Innovazione &amp; Artigianalit&agrave;</span>
+        <div class="divider" style="background:var(--grano)"></div>
+        <h2 class="section-title">IL FORNO<br>DEL MULINO</h2>
+        <p class="forno-text">Molino Madre, specialista della farina dal 1939, ha messo l&rsquo;expertise molitoria al servizio di prodotti pronti all&rsquo;uso di altissima qualit&agrave;.</p>
+        <div class="forno-features">
+          <div class="forno-feat"><div class="forno-feat-dot"></div><span>Basi precotte personalizzabili per ogni esigenza professionale</span></div>
+          <div class="forno-feat"><div class="forno-feat-dot"></div><span>Panetti surgelati con lievito madre, pronti in pochi minuti</span></div>
+          <div class="forno-feat"><div class="forno-feat-dot"></div><span>Formati speciali e produzione flessibile per il food service</span></div>
+          <div class="forno-feat"><div class="forno-feat-dot"></div><span>Packaging professionale per catene e grandi volumi</span></div>
+        </div>
+        <a href="#prodotti" class="btn btn-light">Scopri la linea &#8594;</a>
+      </div>
+      <div class="forno-visual">
+        <div class="forno-img" style="background-image:url('images/index-09.jpg');background-position:center 60%;"></div>
+        <div class="forno-pills">
+          <div class="forno-pill"><div class="pill-label">Linea Professional</div><div class="pill-sep"></div><div class="pill-val">Ristoranti &amp; Bistrot</div></div>
+          <div class="forno-pill"><div class="pill-label">Soluzioni Box</div><div class="pill-sep"></div><div class="pill-val">Take Away &amp; Catene</div></div>
+          <div class="forno-pill"><div class="pill-label">Certificazione</div><div class="pill-sep"></div><div class="pill-val">IFS &middot; BRC Food</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALORI -->
+<section class="section valori" id="mulino">
+  <div class="container">
+    <div class="reveal">
+      <span class="label">I Nostri Valori</span>
+      <div class="divider"></div>
+      <h2 class="section-title">QUALIT&Agrave;<br>E RESPONSABILIT&Agrave;</h2>
+      <p style="font-family:var(--font-serif);font-size:16px;font-weight:300;color:#888;margin-top:18px;max-width:580px;line-height:1.75;">Crediamo in una produzione responsabile che tutela l&rsquo;ambiente e valorizza le persone.</p>
+    </div>
+    <div class="valori-grid">
+      <div class="valore reveal"><div class="valore-num">01</div><div class="valore-name">Educazione</div><p class="valore-text">Far comprendere cos&rsquo;&egrave; la farina, come si produce e le differenze tra i tipi.</p></div>
+      <div class="valore reveal" style="transition-delay:.15s"><div class="valore-num">02</div><div class="valore-name">Artigianalit&agrave;</div><p class="valore-text">Valorizzare il fattore umano, i lavoratori del mulino e la Calabria terra di agricoltura.</p></div>
+      <div class="valore reveal" style="transition-delay:.3s"><div class="valore-num">03</div><div class="valore-name">Qualit&agrave;</div><p class="valore-text">Prodotti certificati IFS e BRC. 24 passaggi di macinazione per una farina d&rsquo;eccellenza.</p></div>
+      <div class="valore reveal" style="transition-delay:.45s"><div class="valore-num">04</div><div class="valore-name">Innovazione</div><p class="valore-text">Basi pronte e panetti surgelati che portano l&rsquo;artigianalità dove c&rsquo;&egrave; bisogno di velocit&agrave;.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AMBASSADOR -->
+<section class="section ambassador" id="community">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-header-text">
+        <span class="label">Community &amp; Brand Ambassador</span>
+        <div class="divider"></div>
+        <h2 class="section-title">I NOSTRI<br>PIZZAIOLI</h2>
+      </div>
+      <p class="section-intro">Una community dove i clienti vengono seguiti per consigli tecnici e imprenditoriali. Video di showcooking e interviste con Calabriafoodtour.</p>
+    </div>
+
+    <!-- VIDEO SHOWCOOKING -->
+    <div class="amb-video-block reveal">
+      <div class="amb-video-thumb">
+        <div class="amb-video-img" style="background-image:url('images/index-10.jpg')"></div>
+        <div class="amb-video-overlay"></div>
+        <div class="amb-play-btn">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="amb-video-caption">
+          <span class="label">Showcooking &middot; Calabriafoodtour &middot; Sigep 2024</span>
+          <h3>L&rsquo;Arte della Pizza<br>con Lievito Madre</h3>
+        </div>
+      </div>
+      <div class="amb-video-text">
+        <span class="label" style="color:var(--terracotta)">Il nostro evento</span>
+        <div class="divider"></div>
+        <h3 class="amb-video-title">DAL MULINO<br>ALLA FIERA</h3>
+        <p class="amb-video-desc">I nostri Brand Ambassador portano l&rsquo;eccellenza Molino Madre nei pi&ugrave; importanti eventi del settore. Showcooking, dimostrazioni live e interviste con Calabriafoodtour raccontano la nostra storia attraverso chi la vive ogni giorno.</p>
+        <a href="#consulenza" class="btn">Diventa Ambassador &#8594;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MASONRY GALLERY – full width -->
+  <div class="amb-gallery reveal">
+    <div class="amb-masonry">
+      <div class="amb-tile">
+        <div class="amb-tile-img" style="background-image:url('images/index-11.jpg')"></div>
+        <div class="amb-tile-overlay">
+          <p class="amb-tile-quote">&ldquo;La qualit&agrave; si sente dall&rsquo;impasto.&rdquo;</p>
+          <span>Molino Madre Ambassador</span>
+        </div>
+      </div>
+      <div class="amb-tile">
+        <div class="amb-tile-img" style="background-image:url('images/index-12.jpg')"></div>
+        <div class="amb-tile-overlay">
+          <p class="amb-tile-quote">&ldquo;Artigianalit&agrave; in ogni gesto.&rdquo;</p>
+          <span>Laboratorio Molino Madre</span>
+        </div>
+      </div>
+      <div class="amb-tile amb-tile--wide">
+        <div class="amb-tile-img" style="background-image:url('images/index-13.jpg');background-position:center 40%"></div>
+        <div class="amb-tile-overlay">
+          <p class="amb-tile-quote">&ldquo;Il pane nasce dalle mani.&rdquo;</p>
+          <span>Produzione artigianale</span>
+        </div>
+      </div>
+      <div class="amb-tile">
+        <div class="amb-tile-img" style="background-image:url('images/index-14.jpg')"></div>
+        <div class="amb-tile-overlay">
+          <p class="amb-tile-quote">&ldquo;Ogni panetto &egrave; una promessa.&rdquo;</p>
+          <span>Molino Madre Ambassador</span>
+        </div>
+      </div>
+      <div class="amb-tile">
+        <div class="amb-tile-img" style="background-image:url('images/index-15.jpg')"></div>
+        <div class="amb-tile-overlay">
+          <p class="amb-tile-quote">&ldquo;La passione &egrave; il segreto.&rdquo;</p>
+          <span>Team Molino Madre</span>
+        </div>
+      </div>
+      <div class="amb-tile">
+        <div class="amb-tile-img" style="background-image:url('images/index-16.jpg')"></div>
+        <div class="amb-tile-overlay">
+          <p class="amb-tile-quote">&ldquo;Innovazione con radici.&rdquo;</p>
+          <span>Laboratorio · Calabria</span>
+        </div>
+      </div>
+      <div class="amb-tile">
+        <div class="amb-tile-img" style="background-image:url('images/index-17.jpg')"></div>
+        <div class="amb-tile-overlay">
+          <p class="amb-tile-quote">&ldquo;Dal 1939, la stessa cura.&rdquo;</p>
+          <span>Produzione Molino Madre</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="quote-strip reveal">
+      <blockquote>&ldquo;Ogni chicco racconta una storia. Dal 1939 la maciniamo con amore, la selezioniamo con rigore, la consegniamo con orgoglio.&rdquo;</blockquote>
+      <cite>Molino Madre &middot; Calabria &middot; Dal 1939</cite>
+    </div>
+  </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICAZIONI -->
+<div class="certif">
+  <div class="certif-inner reveal">
+    <div class="certif-badge">
+      <img src="images/index-01.png" class="certif-logo" alt="IFS Food Certificate">
+      <div class="certif-info"><h4>IFS &ndash; FOOD</h4><p>Sicurezza alimentare e qualit&agrave; lungo tutta la catena di fornitura.</p></div>
+    </div>
+    <div class="certif-sep"></div>
+    <div class="certif-badge">
+      <img src="images/index-02.png" class="certif-logo" alt="BRC Food Certificate">
+      <div class="certif-info"><h4>BRC &ndash; FOOD</h4><p>Standard per la sicurezza alimentare richiesto dalla GDO.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONSULENZA -->
+<section class="section consulenza" id="consulenza">
+  <div class="consulenza-pattern"></div>
+  <div class="container">
+    <div class="consulenza-grid">
+      <div class="consulenza-left reveal">
+        <span class="label" style="color:rgba(221,201,162,.6)">Supporto su Misura</span>
+        <div class="divider" style="background:var(--grano)"></div>
+        <h2 class="section-title">HAI BISOGNO<br>DI SUPPORTO?</h2>
+        <p class="consulenza-intro">Contattaci per ricevere la formula di consulenza, supporto o formazione costruita sulle tue necessit&agrave;.</p>
+        <p class="consulenza-intro">I nostri tecnici ti forniranno supporto specializzato per ottimizzare i processi produttivi.</p>
+        <a href="#contatti" class="btn btn-light" style="margin-top:12px">Contattaci direttamente &#8594;</a>
+      </div>
+      <div class="consulenza-form reveal" style="transition-delay:.2s">
+        <div class="form-title">RICHIEDI CONSULENZA</div>
+        <div class="form-row">
+          <div class="form-field"><label>Nome</label><input type="text" placeholder="Il tuo nome"></div>
+          <div class="form-field"><label>Cognome</label><input type="text" placeholder="Il tuo cognome"></div>
+        </div>
+        <div class="form-field full"><label>Nome Attivit&agrave;</label><input type="text" placeholder="Ristorante, Pizzeria, Bakery&hellip;"></div>
+        <div class="form-field full">
+          <label>Come ti qualifichi?</label>
+          <select>
+            <option value="" disabled selected>Seleziona la tua figura professionale</option>
+            <option>Pizzaiolo</option><option>Panettiere</option><option>Pasticcere</option>
+            <option>Titolare dell&rsquo;attivit&agrave;</option><option>Altro</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Telefono</label><input type="tel" placeholder="+39 000 000 0000"></div>
+          <div class="form-field"><label>Email</label><input type="email" placeholder="email@esempio.it"></div>
+        </div>
+        <button class="btn-submit" type="button">Invia Richiesta &#8594;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contatti">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">MOLINO MADRE</div>
+        <div class="footer-brand-sub">Dal 1939 &middot; Calabria</div>
+        <p class="footer-tagline">&ldquo;Il grano macinato lentamente, il lievito madre che fermenta con pazienza, la tradizione che innova.&rdquo;</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigazione</h5>
+        <ul>
+          <li><a href="#mulino">Il Mulino</a></li><li><a href="#prodotti">Prodotti</a></li>
+          <li><a href="#forno">Il Forno del Mulino</a></li><li><a href="#community">Community</a></li>
+          <li><a href="#consulenza">Consulenza</a></li><li><a href="#news">News</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Prodotti</h5>
+        <ul>
+          <li><a href="#">Farine Pizzeria</a></li><li><a href="#">Farine Bakery</a></li>
+          <li><a href="#">Farine Pastificio</a></li><li><a href="#">Basi per Pizza</a></li>
+          <li><a href="#">Panetti Surgelati</a></li><li><a href="#">I Regionali</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contatti</h5>
+        <ul>
+          <li><a href="mailto:info@molinomadre.it">info@molinomadre.it</a></li>
+          <li><a href="tel:+390000000000">+39 000 000 0000</a></li>
+          <li><a href="#">Calabria, Italia</a></li>
+          <li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Molino Madre S.r.l. &nbsp;&middot;&nbsp; Privacy Policy &nbsp;&middot;&nbsp; Cookie Policy</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link" title="Instagram">IG</a>
+        <a href="#" class="footer-social-link" title="Facebook">FB</a>
+        <a href="#" class="footer-social-link" title="LinkedIn">LI</a>
+        <a href="#" class="footer-social-link" title="YouTube">YT</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY BAR -->
+<div class="sticky-contact">
+  <a href="https://wa.me/39000000000" class="sticky-btn sticky-wa">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.552 4.107 1.516 5.842L0 24l6.336-1.483A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.861 0-3.601-.5-5.1-1.371l-.364-.217-3.762.881.941-3.673-.237-.374A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </a>
+  <a href="mailto:info@molinomadre.it" class="sticky-btn sticky-main">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    Contatti
+  </a>
+</div>
+
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); }, {passive:true});
+
+let cur = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const dots   = document.querySelectorAll('.hero-dot');
+let timer;
+
+function goSlide(i) {
+  slides[cur].classList.remove('active');
+  dots[cur].classList.remove('active');
+  cur = i;
+  slides[cur].classList.add('active');
+  dots[cur].classList.add('active');
+}
+function next() { goSlide((cur+1) % slides.length); }
+function start() { timer = setInterval(next, 5500); }
+start();
+document.querySelector('.hero').addEventListener('mouseenter', () => clearInterval(timer));
+document.querySelector('.hero').addEventListener('mouseleave', start);
+
+const revEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, {threshold:0.08});
+revEls.forEach(el => obs.observe(el));
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if(id==='#') return;
+    const el = document.querySelector(id);
+    if(el) { e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
+});
+</script>
+</body>
+</html>

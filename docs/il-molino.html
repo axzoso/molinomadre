@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il Molino – Molino Madre Dal 1939</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rosso:      #8a2432;
+  --terracotta: #a9483d;
+  --grano:      #ddc9a2;
+  --lavanda:    #e3e0e5;
+  --oliva:      #888f64;
+  --bianco:     #f5f2ec;
+  --nero:       #1a1410;
+  --font-d:     'Bebas Neue', sans-serif;
+  --font-s:     'Cormorant Garamond', serif;
+  --font-b:     'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bianco); color: var(--nero); font-family: var(--font-b); overflow-x: hidden; }
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+/* ── LABEL / DIVIDER ─────────────────── */
+.label {
+  font-family: var(--font-b); font-size: 11px; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--terracotta); display: block; margin-bottom: 16px;
+}
+.divider { display: inline-block; width: 48px; height: 1px; background: var(--terracotta); margin-bottom: 20px; }
+.section-title {
+  font-family: var(--font-d); font-size: clamp(44px,6vw,88px);
+  line-height: .93; letter-spacing: .02em; color: var(--rosso);
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-b); font-size: 12px; font-weight: 500;
+  letter-spacing: .2em; text-transform: uppercase; text-decoration: none;
+  color: var(--rosso); border-bottom: 1.5px solid var(--rosso);
+  padding-bottom: 4px; transition: gap .3s;
+}
+.btn:hover { gap: 18px; }
+.btn-light { color: var(--grano); border-color: var(--grano); }
+
+/* ── NAV ──────────────────────────────── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index: 1000;
+  padding: 0 40px; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(245,242,236,.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(138,36,50,.1);
+}
+.nav-logo {
+  font-family: var(--font-d); font-size: 22px; letter-spacing: .12em;
+  color: var(--rosso); text-decoration: none;
+  display: flex; flex-direction: column; line-height: 1.1;
+}
+.nav-logo span {
+  font-family: var(--font-s); font-size: 10px; font-weight: 400;
+  letter-spacing: .3em; text-transform: uppercase; opacity: .7;
+}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  text-decoration: none; color: var(--nero); transition: color .3s; font-weight: 400;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--rosso); }
+.nav-cta {
+  padding: 9px 22px; border: 1.5px solid var(--rosso); border-radius: 2px;
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  text-decoration: none; color: var(--rosso); transition: all .3s; font-weight: 500;
+}
+.nav-cta:hover { background: var(--rosso); color: #fff; }
+
+/* ── BREADCRUMB ───────────────────────── */
+.breadcrumb {
+  padding: 96px 0 0;
+  background: var(--bianco);
+}
+.breadcrumb-inner {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(26,20,16,.4); padding: 20px 0 0;
+  border-top: 1px solid rgba(138,36,50,.1);
+}
+.breadcrumb-inner a { color: rgba(26,20,16,.4); text-decoration: none; transition: color .3s; }
+.breadcrumb-inner a:hover { color: var(--rosso); }
+.breadcrumb-sep { opacity: .3; }
+
+/* ── PAGE HERO (interno) ──────────────── */
+.page-hero {
+  padding: 56px 0 80px;
+  background: var(--bianco);
+  position: relative;
+  overflow: hidden;
+}
+.page-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: end;
+}
+.page-hero-text { padding-bottom: 8px; }
+.page-hero-eyebrow {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 28px;
+  opacity: 0; animation: fadeUp .8s .1s ease forwards;
+}
+.page-hero-eyebrow .hero-line { width: 40px; height: 1px; background: var(--terracotta); }
+.page-hero-eyebrow span { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--terracotta); }
+.page-hero-title {
+  font-family: var(--font-d); font-size: clamp(64px, 8vw, 120px);
+  line-height: .88; color: var(--rosso); margin-bottom: 32px;
+  opacity: 0; animation: fadeUp .9s .25s ease forwards;
+}
+.page-hero-title em {
+  font-family: var(--font-s); font-style: italic; font-size: .65em;
+  color: var(--terracotta); display: block; margin-bottom: 6px; font-weight: 300;
+}
+.page-hero-intro {
+  font-family: var(--font-s); font-size: 19px; font-weight: 300;
+  line-height: 1.75; color: #666; max-width: 520px;
+  opacity: 0; animation: fadeUp .9s .4s ease forwards;
+  margin-bottom: 36px;
+}
+.page-hero-stats {
+  display: flex; gap: 40px; padding-top: 36px;
+  border-top: 1px solid rgba(138,36,50,.12);
+  opacity: 0; animation: fadeUp .9s .55s ease forwards;
+}
+.page-stat-num {
+  font-family: var(--font-d); font-size: 42px; letter-spacing: .04em;
+  color: var(--rosso); line-height: 1;
+}
+.page-stat-label {
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: #999; margin-top: 4px;
+}
+.page-hero-img {
+  position: relative;
+  opacity: 0; animation: fadeIn 1.1s .3s ease forwards;
+}
+.page-hero-photo {
+  width: 100%; aspect-ratio: 4/3;
+  object-fit: cover; object-position: center top;
+  border-radius: 2px;
+  box-shadow: 0 24px 60px rgba(26,20,16,.18);
+}
+.page-hero-photo-badge {
+  position: absolute; bottom: -20px; left: -20px;
+  background: var(--rosso); color: var(--grano);
+  padding: 18px 24px; border-radius: 2px;
+  box-shadow: 0 8px 32px rgba(138,36,50,.35);
+}
+.page-hero-photo-badge strong {
+  font-family: var(--font-d); font-size: 28px; display: block;
+  letter-spacing: .08em; line-height: 1;
+}
+.page-hero-photo-badge span {
+  font-size: 9px; letter-spacing: .24em; text-transform: uppercase;
+  opacity: .75; margin-top: 3px; display: block;
+}
+
+/* ── SEZIONE STORIA ───────────────────── */
+.storia { padding: 120px 0; background: var(--nero); position: relative; overflow: hidden; }
+.storia-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 55% 60% at 75% 50%, rgba(138,36,50,.18) 0%, transparent 65%);
+}
+.storia-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.storia-photos { position: relative; }
+.storia-photo-main {
+  width: 100%;
+  aspect-ratio: 5/4;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+.storia-photo-secondary {
+  position: absolute;
+  bottom: -32px;
+  right: -24px;
+  width: 52%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 2px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.6);
+  border: 3px solid var(--nero);
+}
+.storia-year-watermark {
+  position: absolute; top: -30px; left: -10px;
+  font-family: var(--font-d); font-size: 140px;
+  color: rgba(255,255,255,.04); line-height: 1;
+  pointer-events: none; user-select: none; white-space: nowrap;
+}
+.storia-content { padding-left: 20px; }
+.storia-content .section-title { color: var(--grano); }
+.storia-text {
+  font-family: var(--font-s); font-size: 17px; font-weight: 300;
+  color: rgba(255,255,255,.62); line-height: 1.85; margin: 28px 0;
+  max-width: 460px;
+}
+.storia-text + .storia-text { margin-top: -8px; }
+.storia-quote {
+  border-left: 2px solid var(--terracotta);
+  padding-left: 24px; margin: 36px 0;
+}
+.storia-quote p {
+  font-family: var(--font-s); font-size: 19px; font-style: italic;
+  font-weight: 300; color: rgba(255,255,255,.82); line-height: 1.65;
+}
+.storia-quote cite {
+  display: block; margin-top: 10px; font-size: 10px;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--terracotta); font-style: normal;
+}
+
+/* ── TRADIZIONE E INNOVAZIONE ─────────── */
+.tradizione { padding: 120px 0; background: var(--bianco); }
+.tradizione-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.tradizione-content { order: 2; }
+.tradizione-visual { order: 1; position: relative; }
+.tradizione-photo {
+  width: 100%; aspect-ratio: 4/3;
+  object-fit: cover; object-position: center top;
+  border-radius: 2px;
+  box-shadow: 0 20px 56px rgba(26,20,16,.14);
+}
+.tradizione-caption {
+  margin-top: 16px;
+  display: flex; align-items: center; gap: 16px;
+}
+.tradizione-caption-line { flex: 1; height: 1px; background: rgba(138,36,50,.15); }
+.tradizione-caption p {
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(26,20,16,.4); white-space: nowrap;
+}
+.tradizione-text {
+  font-family: var(--font-s); font-size: 17px; font-weight: 300;
+  color: #666; line-height: 1.85; margin: 24px 0 28px;
+}
+.tradizione-names {
+  display: flex; gap: 24px; margin-top: 32px;
+  padding-top: 28px; border-top: 1px solid rgba(138,36,50,.1);
+}
+.tradizione-name {
+  font-family: var(--font-d); font-size: 20px; letter-spacing: .08em;
+  color: var(--rosso); display: flex; flex-direction: column; gap: 4px;
+}
+.tradizione-name span {
+  font-family: var(--font-b); font-size: 10px; font-weight: 300;
+  letter-spacing: .18em; text-transform: uppercase; color: #999;
+}
+
+/* ── PUNTI DI FORZA ───────────────────── */
+.forza { padding: 120px 0; background: var(--rosso); position: relative; overflow: hidden; }
+.forza-pattern {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,.025) 80px, rgba(255,255,255,.025) 81px),
+    repeating-linear-gradient(0deg,  transparent, transparent 80px, rgba(255,255,255,.025) 80px, rgba(255,255,255,.025) 81px);
+}
+.forza-inner { position: relative; z-index: 2; }
+.forza-header {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  margin-bottom: 72px; align-items: end;
+}
+.forza-header .section-title { color: #fff; }
+.forza-intro {
+  font-family: var(--font-s); font-size: 17px; font-weight: 300;
+  color: rgba(255,255,255,.65); line-height: 1.8; max-width: 460px;
+}
+.forza-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+}
+.forza-card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  padding: 36px 32px;
+  transition: background .3s;
+}
+.forza-card:hover { background: rgba(255,255,255,.1); }
+.forza-card-num {
+  font-family: var(--font-d); font-size: 52px;
+  color: rgba(255,255,255,.08); line-height: 1; margin-bottom: 4px;
+}
+.forza-card-title {
+  font-family: var(--font-d); font-size: 18px; letter-spacing: .1em;
+  color: var(--grano); margin-bottom: 12px;
+}
+.forza-card-text {
+  font-family: var(--font-s); font-size: 15px; font-weight: 300;
+  color: rgba(255,255,255,.6); line-height: 1.65;
+}
+
+/* ── GERME DI GRANO – INFOGRAFICA ─────── */
+.germe {
+  padding: 0;
+  background: var(--nero);
+  position: relative;
+  overflow: hidden;
+}
+.germe-intro {
+  padding: 100px 0 0;
+  position: relative; z-index: 2;
+}
+.germe-intro-grid {
+  display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; align-items: end;
+  padding-bottom: 72px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.germe-content .section-title { color: var(--grano); font-size: clamp(44px,5.5vw,80px); }
+.germe-text {
+  font-family: var(--font-s); font-size: 18px; font-weight: 300;
+  color: rgba(255,255,255,.62); line-height: 1.85; margin: 24px 0 0;
+}
+
+/* Anatomy strip */
+.germe-anatomy {
+  position: relative; z-index: 2;
+  padding: 80px 0 0;
+}
+.germe-anatomy-label {
+  font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); margin-bottom: 48px; display: block;
+}
+
+/* Grain cross-section illustration */
+.grain-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 320px;
+  margin-bottom: 0;
+}
+.grain-shape {
+  position: relative;
+  width: 120px;
+  height: 260px;
+  flex-shrink: 0;
+}
+/* Outer bran layer */
+.grain-bran {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, #c8a86e 0%, #9a7a40 60%, #7a5a28 100%);
+  border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+  box-shadow: 0 12px 40px rgba(0,0,0,.6), inset 0 2px 8px rgba(255,255,255,.15);
+}
+/* Endosperm layer */
+.grain-endosperm {
+  position: absolute;
+  inset: 8px 10px;
+  background: linear-gradient(160deg, #e8d0a0 0%, #c8a868 60%, #a88040 100%);
+  border-radius: 50% 50% 42% 42% / 58% 58% 38% 38%;
+}
+/* Germ highlighted zone */
+.grain-germ {
+  position: absolute;
+  bottom: 14px; left: 50%; transform: translateX(-50%);
+  width: 40px; height: 52px;
+  background: linear-gradient(160deg, var(--grano) 0%, #c8a030 100%);
+  border-radius: 50% 50% 40% 40% / 55% 55% 40% 40%;
+  box-shadow: 0 0 24px rgba(221,201,162,.6), 0 0 48px rgba(221,201,162,.25);
+  animation: germPulse 3s ease-in-out infinite;
+}
+@keyframes germPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(221,201,162,.5), 0 0 40px rgba(221,201,162,.2); }
+  50%       { box-shadow: 0 0 36px rgba(221,201,162,.8), 0 0 72px rgba(221,201,162,.4); }
+}
+/* Germ label */
+.grain-germ-label {
+  position: absolute;
+  bottom: -2px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-d); font-size: 9px; letter-spacing: .18em;
+  color: rgba(26,20,16,.7); white-space: nowrap;
+  pointer-events: none;
+}
+/* Layer labels on the grain */
+.grain-layer-label {
+  position: absolute;
+  right: -10px;
+  font-size: 8px; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,.35); white-space: nowrap;
+  display: flex; align-items: center; gap: 6px;
+}
+.grain-layer-label::before { content:''; width: 20px; height: 1px; background: rgba(255,255,255,.2); }
+.grain-layer-label.bran     { top: 28px; }
+.grain-layer-label.endo     { top: 88px; }
+.grain-layer-label.germ-lbl { bottom: 28px; color: var(--grano); opacity: .9; }
+.grain-layer-label.germ-lbl::before { background: var(--grano); }
+
+/* Benefits radial layout */
+.germe-benefits-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  padding: 0 40px;
+  justify-content: space-between;
+}
+.germe-benefits-left,
+.germe-benefits-right {
+  display: flex; flex-direction: column; gap: 0;
+  flex: 1;
+}
+.germe-benefits-left { align-items: flex-end; }
+.germe-benefits-right { align-items: flex-start; }
+
+.germe-benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  padding: 28px 0;
+  border-top: 1px solid rgba(255,255,255,.06);
+  width: 100%;
+  position: relative;
+  cursor: default;
+  transition: background .3s;
+}
+.germe-benefit:last-child { border-bottom: 1px solid rgba(255,255,255,.06); }
+
+/* Left benefits: text right-aligned with connector line to grain */
+.germe-benefits-left .germe-benefit {
+  flex-direction: row-reverse;
+  text-align: right;
+  padding-right: 48px;
+}
+.germe-benefits-right .germe-benefit {
+  padding-left: 48px;
+}
+
+/* Connector line from benefit to center */
+.germe-benefits-left .germe-benefit::after {
+  content: '';
+  position: absolute; right: 0; top: 50%;
+  width: 40px; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(221,201,162,.25));
+  transform: translateY(-50%);
+}
+.germe-benefits-right .germe-benefit::before {
+  content: '';
+  position: absolute; left: 0; top: 50%;
+  width: 40px; height: 1px;
+  background: linear-gradient(to left, transparent, rgba(221,201,162,.25));
+  transform: translateY(-50%);
+}
+
+.germe-benefit-num {
+  font-family: var(--font-d);
+  font-size: 52px; line-height: 1;
+  color: rgba(221,201,162,.07);
+  flex-shrink: 0;
+  margin-right: 16px;
+  transition: color .4s;
+}
+.germe-benefits-left .germe-benefit-num { margin-right: 0; margin-left: 16px; }
+.germe-benefit:hover .germe-benefit-num { color: rgba(221,201,162,.18); }
+
+.germe-benefit-text {}
+.germe-benefit-title {
+  font-family: var(--font-d);
+  font-size: 15px; letter-spacing: .1em; color: var(--grano);
+  margin-bottom: 6px; line-height: 1;
+}
+.germe-benefit-desc {
+  font-family: var(--font-s);
+  font-size: 13px; font-weight: 300; line-height: 1.55;
+  color: rgba(255,255,255,.45); max-width: 240px;
+}
+.germe-benefits-left .germe-benefit-desc { margin-left: auto; }
+
+/* Bottom stat bar */
+.germe-stat-bar {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  border-top: 1px solid rgba(255,255,255,.06);
+  margin-top: 40px;
+}
+.germe-stat-item {
+  padding: 36px 32px;
+  border-right: 1px solid rgba(255,255,255,.06);
+  position: relative;
+  overflow: hidden;
+}
+.germe-stat-item:last-child { border-right: none; }
+.germe-stat-item::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--terracotta); transform: scaleX(0);
+  transform-origin: left; transition: transform .5s ease;
+}
+.germe-stat-item:hover::before { transform: scaleX(1); }
+.germe-stat-big {
+  font-family: var(--font-d); font-size: 48px; letter-spacing: .04em;
+  color: var(--grano); line-height: 1; margin-bottom: 8px;
+}
+.germe-stat-sub {
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); line-height: 1.5;
+}
+
+/* Background grain watermark */
+.germe-watermark {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-family: var(--font-d); font-size: 320px; letter-spacing: .05em;
+  color: rgba(255,255,255,.015); white-space: nowrap; pointer-events: none;
+  user-select: none; line-height: 1; z-index: 1;
+}
+
+.germe-content .label { color: rgba(221,201,162,.6); }
+.germe-content .divider { background: var(--grano); }
+.germe-content .btn { color: var(--grano); border-color: var(--grano); margin-top: 32px; display: inline-flex; }
+
+@media (max-width:1024px) {
+  .germe-intro-grid { grid-template-columns:1fr; gap:32px; }
+  .germe-benefits-wrap { flex-direction:column; padding: 0; }
+  .germe-benefits-left, .germe-benefits-right { width:100%; align-items:flex-start; }
+  .germe-benefits-left .germe-benefit { flex-direction:row; text-align:left; padding-right:0; padding-left:48px; }
+  .germe-benefits-left .germe-benefit-num { margin-left:0; margin-right:16px; }
+  .germe-benefits-left .germe-benefit::after { display:none; }
+  .grain-illustration { display:none; }
+  .germe-stat-bar { grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:768px) {
+  .germe-stat-bar { grid-template-columns:1fr 1fr; }
+}
+
+/* ── CTA STRIP ────────────────────────── */
+.cta-strip {
+  background: var(--grano);
+  padding: 80px 0;
+  text-align: center;
+}
+.cta-strip-eyebrow {
+  font-size: 11px; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--terracotta); margin-bottom: 16px; display: block;
+}
+.cta-strip-title {
+  font-family: var(--font-d); font-size: clamp(36px,5vw,72px);
+  color: var(--rosso); line-height: .95; margin-bottom: 28px;
+}
+.cta-strip-sub {
+  font-family: var(--font-s); font-size: 17px; font-weight: 300;
+  color: rgba(26,20,16,.6); margin-bottom: 40px; max-width: 480px;
+  margin-left: auto; margin-right: auto; line-height: 1.7;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 36px; background: var(--rosso); color: var(--grano);
+  font-size: 11px; font-weight: 500; letter-spacing: .2em;
+  text-transform: uppercase; text-decoration: none; transition: background .3s;
+}
+.btn-primary:hover { background: var(--nero); }
+
+/* ── FOOTER ───────────────────────────── */
+footer { background: var(--nero); padding: 60px 0 32px; }
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+  padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,.05); margin-bottom: 28px;
+}
+.footer-brand-name { font-family: var(--font-d); font-size: 28px; letter-spacing: .12em; color: #fff; line-height: 1; margin-bottom: 4px; }
+.footer-brand-sub { font-family: var(--font-s); font-size: 11px; letter-spacing: .28em; color: var(--grano); opacity: .6; text-transform: uppercase; margin-bottom: 16px; }
+.footer-tagline { font-family: var(--font-s); font-size: 13px; font-weight: 300; font-style: italic; color: rgba(255,255,255,.28); line-height: 1.6; max-width: 220px; }
+.footer-col h5 { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--grano); opacity: .7; margin-bottom: 18px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.footer-col ul li a { font-size: 13px; color: rgba(255,255,255,.38); text-decoration: none; transition: color .3s; font-family: var(--font-s); }
+.footer-col ul li a:hover { color: var(--grano); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; }
+.footer-copy { font-size: 10px; color: rgba(255,255,255,.18); letter-spacing: .06em; }
+.footer-socials { display: flex; gap: 10px; }
+.footer-social-link { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: rgba(255,255,255,.32); font-size: 10px; font-family: var(--font-b); font-weight: 500; transition: all .3s; }
+.footer-social-link:hover { border-color: var(--grano); color: var(--grano); }
+
+/* ── STICKY BAR ───────────────────────── */
+.sticky-contact { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+.sticky-btn { display: flex; align-items: center; gap: 10px; padding: 11px 20px; border-radius: 40px; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; text-decoration: none; box-shadow: 0 4px 20px rgba(0,0,0,.22); transition: transform .3s, box-shadow .3s; font-family: var(--font-b); }
+.sticky-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.28); }
+.sticky-main { background: var(--rosso); color: var(--grano); }
+.sticky-wa { background: #25D366; color: #fff; }
+.icon-svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* ── REVEAL ───────────────────────────── */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .85s ease, transform .85s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── KEYFRAMES ────────────────────────── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+/* ── RESPONSIVE ───────────────────────── */
+@media (max-width:1024px) {
+  .page-hero-inner, .storia-grid, .tradizione-grid, .germe-grid { grid-template-columns:1fr; gap:48px; }
+  .forza-grid { grid-template-columns:repeat(2,1fr); }
+  .forza-header { grid-template-columns:1fr; gap:24px; }
+  .tradizione-visual { order:1; } .tradizione-content { order:2; }
+  .footer-top { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:768px) {
+  .container { padding:0 20px; }
+  nav { padding:0 20px; }
+  .nav-links { display:none; }
+  .forza-grid { grid-template-columns:1fr; }
+  .germe-visual { grid-template-columns:1fr 1fr; }
+  .storia-photo-secondary { display:none; }
+  .footer-top { grid-template-columns:1fr; }
+  .footer-bottom { flex-direction:column; gap:16px; }
+  .tradizione-names { flex-direction:column; gap:16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">MOLINO MADRE<span>Dal 1939 · Calabria</span></a>
+  <ul class="nav-links">
+    <li><a href="il-molino.html" class="active">Il Mulino</a></li>
+    <li><a href="#">Prodotti</a></li>
+    <li><a href="#">Il Forno</a></li>
+    <li><a href="#">Community</a></li>
+    <li><a href="#">Consulenza</a></li>
+    <li><a href="#">News</a></li>
+  </ul>
+  <a href="#contatti" class="nav-cta">Contatti</a>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">&#8594;</span>
+      <span>Il Molino</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="page-hero-text">
+        <div class="page-hero-eyebrow">
+          <div class="hero-line"></div>
+          <span>Dal 1939 &middot; Calabria &middot; Tre Generazioni</span>
+        </div>
+        <h1 class="page-hero-title">
+          <em>La nostra storia.</em>
+          IL MOLINO<br>CALABRESE
+        </h1>
+        <p class="page-hero-intro">La storia del nostro Molino nasce nel 1939 con nonno Amodio e nonna Angelina. Un&rsquo;eredit&agrave; di passione, tecnica e territorio che oggi continua con la terza generazione.</p>
+        <div class="page-hero-stats">
+          <div>
+            <div class="page-stat-num">1939</div>
+            <div class="page-stat-label">Anno di fondazione</div>
+          </div>
+          <div>
+            <div class="page-stat-num">24</div>
+            <div class="page-stat-label">Passaggi di macinazione</div>
+          </div>
+          <div>
+            <div class="page-stat-num">3</div>
+            <div class="page-stat-label">Generazioni</div>
+          </div>
+        </div>
+      </div>
+      <div class="page-hero-img">
+        <img src="images/ilmolino-01.png" class="page-hero-photo" alt="La direzione di Molino Madre – Amodio, Vittoria e il team">
+        <div class="page-hero-photo-badge">
+          <strong>DAL</strong>
+          <strong>1939</strong>
+          <span>Molino Madre &middot; Calabria</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORIA -->
+<section class="storia">
+  <div class="storia-glow"></div>
+  <div class="container">
+    <div class="storia-grid">
+      <div class="storia-photos reveal">
+        <div class="storia-year-watermark">1939</div>
+        <img src="images/foto-storia-2.jpg" class="storia-photo-main" alt="Molino storico – sacchi di grano">
+        <img src="images/foto-storia-2-600x626.jpg" class="storia-photo-secondary" alt="Preparazione pane 1939">
+      </div>
+      <div class="storia-content reveal" style="transition-delay:.2s">
+        <span class="label" style="color:rgba(221,201,162,.6)">Le nostre radici</span>
+        <div class="divider" style="background:var(--grano)"></div>
+        <h2 class="section-title">DAL 1939<br>UNA STORIA<br>LUNGA TRE<br>GENERAZIONI</h2>
+        <p class="storia-text">La storia del nostro Molino nasce nel 1939 con nonno Amodio e nonna Angelina. Nel susseguirsi delle generazioni abbiamo elaborato tecniche di macinazione esclusive, come la lenta macinazione in 24 passaggi.</p>
+        <div class="storia-quote">
+          <p>&ldquo;Era il 1939 quando nostra nonna Angelina ha iniziato a produrre il pane per la gente del suo paese, iniziando cos&igrave; a conservare il lievito madre.&rdquo;</p>
+          <cite>La storia di Molino Madre</cite>
+        </div>
+        <p class="storia-text">Le farine a corpo unico preservano tutte le propriet&agrave; nutritive del germe di grano, proponendo una linea di farine Italiane ideata e studiata per semplificare il lavoro di ogni professionista.</p>
+        <a href="#prodotti" class="btn btn-light" style="margin-top:12px">Scopri i nostri prodotti &#8594;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRADIZIONE E INNOVAZIONE -->
+<section class="tradizione" id="tradizione">
+  <div class="container">
+    <div class="tradizione-grid">
+      <div class="tradizione-visual reveal">
+        <img src="images/ilmolino-02.png" class="tradizione-photo" alt="Amodio e Vittoria – la terza generazione di Molino Madre">
+        <div class="tradizione-caption">
+          <div class="tradizione-caption-line"></div>
+          <p>Amodio &amp; Vittoria &middot; Terza Generazione</p>
+          <div class="tradizione-caption-line"></div>
+        </div>
+      </div>
+      <div class="tradizione-content reveal" style="transition-delay:.2s">
+        <span class="label">Tradizione &amp; Innovazione</span>
+        <div class="divider"></div>
+        <h2 class="section-title">RADICI<br>ANTICHE,<br>SGUARDO<br>AL FUTURO</h2>
+        <p class="tradizione-text">Ancora oggi la nostra antica ricetta &egrave; caratterizzata dall&rsquo;utilizzo dello stesso lievito madre conservato dalla nonna Angelina nel 1939. Oggi i nipoti Amodio e Vittoria continuano questo lavoro.</p>
+        <p class="tradizione-text">Rimanendo ancorati alla tradizione ma con uno sguardo rivolto al futuro, hanno sviluppato in un unico stabilimento un laboratorio dove impasti e prodotti da forno vengono creati secondo gli antichi valori dell&rsquo;arte bianca.</p>
+        <div class="tradizione-names">
+          <div class="tradizione-name">AMODIO<span>Co-Founder &amp; CEO</span></div>
+          <div class="tradizione-name">VITTORIA<span>Co-Founder &amp; Operations</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUNTI DI FORZA -->
+<section class="forza">
+  <div class="forza-pattern"></div>
+  <div class="container forza-inner">
+    <div class="forza-header reveal">
+      <div>
+        <span class="label" style="color:rgba(221,201,162,.6)">Cosa ci distingue</span>
+        <div class="divider" style="background:var(--grano)"></div>
+        <h2 class="section-title">I NOSTRI<br>PUNTI DI<br>FORZA</h2>
+      </div>
+      <p class="forza-intro">Tutti i nostri prodotti vengono stesi a mano e precotti al 70% nel forno a legna con base in pietra. La catena del freddo come conservante naturale elimina qualsiasi additivo chimico.</p>
+    </div>
+    <div class="forza-grid reveal">
+      <div class="forza-card">
+        <div class="forza-card-num">01</div>
+        <div class="forza-card-title">ANTICA RICETTA</div>
+        <p class="forza-card-text">Lievito madre conservato ininterrottamente dal 1939, dalla nonna Angelina fino a oggi. La stessa pasta madre in ogni impasto.</p>
+      </div>
+      <div class="forza-card">
+        <div class="forza-card-num">02</div>
+        <div class="forza-card-title">LAVORAZIONE A MANO</div>
+        <p class="forza-card-text">Ogni prodotto viene steso a mano dai nostri artigiani. Il fattore umano &egrave; insostituibile nell&rsquo;ottenere un impasto perfetto.</p>
+      </div>
+      <div class="forza-card">
+        <div class="forza-card-num">03</div>
+        <div class="forza-card-title">FORNO A LEGNA</div>
+        <p class="forza-card-text">Precottura al 70% in forno a legna con base in pietra. Profumo, sapore e croccantezza autentici in ogni morso.</p>
+      </div>
+      <div class="forza-card">
+        <div class="forza-card-num">04</div>
+        <div class="forza-card-title">CATENA DEL FREDDO</div>
+        <p class="forza-card-text">Adottiamo la catena del freddo come conservante naturale. Nessun additivo chimico, solo la qualit&agrave; dell&rsquo;artigianale.</p>
+      </div>
+      <div class="forza-card">
+        <div class="forza-card-num">05</div>
+        <div class="forza-card-title">IMPASTI DIGERIBILI</div>
+        <p class="forza-card-text">Analisi e controlli continui del laboratorio interno garantiscono impasti facili da stendere e altamente digeribili.</p>
+      </div>
+      <div class="forza-card">
+        <div class="forza-card-num">06</div>
+        <div class="forza-card-title">FARINE COSTANTI</div>
+        <p class="forza-card-text">Ricerca continua e controlli garantiscono le stesse caratteristiche qualitative durante tutto l&rsquo;anno, in ogni stagione.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GERME DI GRANO -->
+<section class="germe">
+  <div class="germe-watermark">GERME</div>
+
+  <!-- Intro testo + titolo -->
+  <div class="container germe-intro">
+    <div class="germe-intro-grid">
+      <div class="germe-content reveal">
+        <span class="label">La parte più preziosa del chicco</span>
+        <div class="divider"></div>
+        <h2 class="section-title">IL GERME<br>VITALE<br>DEL GRANO</h2>
+        <a href="#prodotti" class="btn">Scopri le farine con germe vitale &#8594;</a>
+      </div>
+      <div class="reveal" style="transition-delay:.15s">
+        <p class="germe-text">Il germe di grano è uno degli integratori alimentari naturali più completi. Un impasto con farina di germe di grano è più buono, più fragrante, più digeribile — e assicura risultati costanti durante tutto l'anno.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Anatomy infographic -->
+  <div class="container germe-anatomy reveal">
+    <span class="germe-anatomy-label">Anatomia del chicco · Sezione trasversale</span>
+
+    <div class="germe-benefits-wrap">
+
+      <!-- Benefici sinistra -->
+      <div class="germe-benefits-left">
+        <div class="germe-benefit">
+          <div class="germe-benefit-num">01</div>
+          <div class="germe-benefit-text">
+            <div class="germe-benefit-title">QUALITÀ COSTANTE</div>
+            <p class="germe-benefit-desc">Le stesse caratteristiche qualitative garantite durante tutto l'arco dell'anno, in ogni stagione.</p>
+          </div>
+        </div>
+        <div class="germe-benefit">
+          <div class="germe-benefit-num">02</div>
+          <div class="germe-benefit-text">
+            <div class="germe-benefit-title">PROFUMO E SAPORE</div>
+            <p class="germe-benefit-desc">Più profumo, sapore, gusto e leggerezza. Il colore dorato inconfondibile del germe di grano.</p>
+          </div>
+        </div>
+        <div class="germe-benefit">
+          <div class="germe-benefit-num">03</div>
+          <div class="germe-benefit-text">
+            <div class="germe-benefit-title">MATURAZIONE COMPLETA</div>
+            <p class="germe-benefit-desc">Favorisce una maturazione completa e uniforme dell'impasto in ogni condizione climatica.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Illustrazione chicco CSS -->
+      <div class="grain-illustration">
+        <div class="grain-shape">
+          <div class="grain-bran"></div>
+          <div class="grain-endosperm"></div>
+          <div class="grain-germ">
+            <span class="grain-germ-label">GERME</span>
+          </div>
+          <span class="grain-layer-label bran">CRUSCA</span>
+          <span class="grain-layer-label endo">ENDOSPERMA</span>
+          <span class="grain-layer-label germ-lbl">GERME VITALE</span>
+        </div>
+      </div>
+
+      <!-- Benefici destra -->
+      <div class="germe-benefits-right">
+        <div class="germe-benefit">
+          <div class="germe-benefit-num">04</div>
+          <div class="germe-benefit-text">
+            <div class="germe-benefit-title">FACILE LAVORAZIONE</div>
+            <p class="germe-benefit-desc">Impasti più facili da stendere, più elastici e più digeribili. Pensati per i professionisti.</p>
+          </div>
+        </div>
+        <div class="germe-benefit">
+          <div class="germe-benefit-num">05</div>
+          <div class="germe-benefit-text">
+            <div class="germe-benefit-title">PROPRIETÀ NUTRITIVE</div>
+            <p class="germe-benefit-desc">Le farine a corpo unico preservano tutte le proprietà nutritive del germe di grano intatte.</p>
+          </div>
+        </div>
+        <div class="germe-benefit">
+          <div class="germe-benefit-num">06</div>
+          <div class="germe-benefit-text">
+            <div class="germe-benefit-title">COLORE DORATO</div>
+            <p class="germe-benefit-desc">L'inconfondibile colore ambrato e dorato che solo il germe vitale può conferire all'impasto.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stat bar in basso -->
+  <div class="germe-stat-bar reveal">
+    <div class="germe-stat-item">
+      <div class="germe-stat-big">24</div>
+      <div class="germe-stat-sub">Passaggi di<br>macinazione lenta</div>
+    </div>
+    <div class="germe-stat-item">
+      <div class="germe-stat-big">100%</div>
+      <div class="germe-stat-sub">Germe di grano<br>vitale preservato</div>
+    </div>
+    <div class="germe-stat-item">
+      <div class="germe-stat-big">0</div>
+      <div class="germe-stat-sub">Additivi chimici<br>in nessun prodotto</div>
+    </div>
+    <div class="germe-stat-item">
+      <div class="germe-stat-big">1939</div>
+      <div class="germe-stat-sub">Anno in cui<br>nasce la ricetta</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <div class="container">
+    <span class="cta-strip-eyebrow">Il tuo partner professionale</span>
+    <h2 class="cta-strip-title">SCOPRI LA LINEA<br>DI PRODOTTI</h2>
+    <p class="cta-strip-sub">Farine professionali, basi artigianali e panetti surgelati. Soluzioni su misura per ogni professionista della ristorazione.</p>
+    <a href="#prodotti" class="btn-primary">Esplora i Prodotti &nbsp;&#8594;</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contatti">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">MOLINO MADRE</div>
+        <div class="footer-brand-sub">Dal 1939 &middot; Calabria</div>
+        <p class="footer-tagline">&ldquo;Il grano macinato lentamente, il lievito madre che fermenta con pazienza.&rdquo;</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigazione</h5>
+        <ul>
+          <li><a href="il-molino.html">Il Mulino</a></li>
+          <li><a href="#">Prodotti</a></li>
+          <li><a href="#">Il Forno del Mulino</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Consulenza</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Prodotti</h5>
+        <ul>
+          <li><a href="#">Farine Pizzeria</a></li>
+          <li><a href="#">Farine Bakery</a></li>
+          <li><a href="#">Basi per Pizza</a></li>
+          <li><a href="#">Panetti Surgelati</a></li>
+          <li><a href="#">I Regionali</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contatti</h5>
+        <ul>
+          <li><a href="mailto:info@molinomadre.it">info@molinomadre.it</a></li>
+          <li><a href="tel:+390000000000">+39 000 000 0000</a></li>
+          <li><a href="#">Calabria, Italia</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Molino Madre S.r.l. &nbsp;&middot;&nbsp; Privacy Policy &nbsp;&middot;&nbsp; Cookie Policy</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link">IG</a>
+        <a href="#" class="footer-social-link">FB</a>
+        <a href="#" class="footer-social-link">LI</a>
+        <a href="#" class="footer-social-link">YT</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY -->
+<div class="sticky-contact">
+  <a href="https://wa.me/39000000000" class="sticky-btn sticky-wa">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.552 4.107 1.516 5.842L0 24l6.336-1.483A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.861 0-3.601-.5-5.1-1.371l-.364-.217-3.762.881.941-3.673-.237-.374A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </a>
+  <a href="mailto:info@molinomadre.it" class="sticky-btn sticky-main">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    Contatti
+  </a>
+</div>
+
+<script>
+const revEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, {threshold: 0.07});
+revEls.forEach(el => obs.observe(el));
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if(id === '#') return;
+    const el = document.querySelector(id);
+    if(el) { e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
+});
+</script>
+</body>
+</html>

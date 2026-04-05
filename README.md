@@ -19,25 +19,20 @@ Molino Madre è il **primo molino italiano produttore di basi per pizza artigian
 ```
 molinomadre/
 │
-├── Demo sito/
-│   └── html/                        # Tutte le pagine HTML del prototipo
-│       ├── Home.html                # Homepage
-│       ├── il molino/
-│       │   └── il-molino.html       # Storia e valori aziendali
-│       ├── farine/
-│       │   └── farine-def.html      # Catalogo farine (versione definitiva)
-│       ├── basi/
-│       │   └── basi.html            # Basi per pizza
-│       ├── panetti/
-│       │   └── panetti.html         # Panetti surgelati
-│       ├── il-forno-del-mulino/
-│       │   └── il-forno-del-mulino.html   # Hub professionale B2B
-│       ├── consulenza/
-│       │   └── consulenza.html      # Servizi di consulenza + form
-│       ├── news/
-│       │   └── news.html            # News e articoli
-│       └── contatti/
-│           └── contatti.html        # Contatti + form
+├── docs/                            # ★ Sito deployato su GitHub Pages
+│   ├── index.html                   # Homepage
+│   ├── il-molino.html               # Storia e valori aziendali
+│   ├── farine.html                  # Catalogo farine
+│   ├── basi.html                    # Basi per pizza
+│   ├── panetti.html                 # Panetti surgelati
+│   ├── il-forno-del-mulino.html     # Hub professionale B2B
+│   ├── consulenza.html              # Servizi di consulenza + form
+│   ├── news.html                    # News e articoli
+│   ├── contatti.html                # Contatti + form
+│   └── images/                      # Tutte le immagini del sito
+│
+├── Demo sito/                       # File di lavoro originali (archivio)
+│   └── html/                        # Versioni precedenti con struttura a sottocartelle
 │
 ├── Logo/                            # Loghi e brand guidelines (PDF)
 ├── Materiali ricevuti/              # Asset forniti dal cliente
@@ -55,19 +50,21 @@ molinomadre/
 
 ---
 
-## Pagine del prototipo
+## Pagine del sito
+
+Tutte le pagine si trovano in `docs/` — struttura piatta, nessuna sottocartella per pagina.
 
 | Pagina | File | Stato |
 |--------|------|-------|
-| Homepage | `Home.html` | ✅ Completata |
-| Il Molino | `il molino/il-molino.html` | ✅ Completata |
-| Farine | `farine/farine-def.html` | ✅ Completata |
-| Basi per Pizza | `basi/basi.html` | ✅ Completata |
-| Panetti Surgelati | `panetti/panetti.html` | ✅ Completata |
-| Il Forno del Mulino | `il-forno-del-mulino/il-forno-del-mulino.html` | ✅ Completata |
-| Consulenza | `consulenza/consulenza.html` | ✅ Completata |
-| News | `news/news.html` | ✅ Completata |
-| Contatti | `contatti/contatti.html` | ✅ Completata |
+| Homepage | `docs/index.html` | ✅ Completata |
+| Il Molino | `docs/il-molino.html` | ✅ Completata |
+| Farine | `docs/farine.html` | ✅ Completata |
+| Basi per Pizza | `docs/basi.html` | ✅ Completata |
+| Panetti Surgelati | `docs/panetti.html` | ✅ Completata |
+| Il Forno del Mulino | `docs/il-forno-del-mulino.html` | ✅ Completata |
+| Consulenza | `docs/consulenza.html` | ✅ Completata |
+| News | `docs/news.html` | ✅ Completata |
+| Contatti | `docs/contatti.html` | ✅ Completata |
 
 ---
 
@@ -110,18 +107,15 @@ Fonte: Google Fonts (caricamento preconnect in ogni pagina).
 
 ---
 
-## Come visualizzare il prototipo
+## Come visualizzare il sito
 
-Il sito è composto da file HTML statici: è sufficiente aprirli nel browser.
+Il sito è composto da file HTML statici in `docs/`.
 
-**Punto di ingresso consigliato:**
-```
-Demo sito/html/Home.html
-```
+**Apertura locale:** apri `docs/index.html` nel browser o usa Live Server puntando alla cartella `docs/`.
 
-Da lì tutti i link di navigazione puntano alle altre pagine con percorsi relativi.
+**GitHub Pages:** attiva nelle impostazioni del repo → Pages → Source: `main` branch, cartella `/docs`. Il sito sarà disponibile all'URL fornito da GitHub.
 
-> I background delle sezioni fotografiche sono al momento placeholder CSS (gradienti di colore). Le immagini reali si trovano in `Materiali ricevuti/Foto/` e vanno integrate nel passaggio di sviluppo successivo.
+Tutti i link interni sono già relativi e funzionano sia in locale che su GitHub Pages senza configurazioni aggiuntive.
 
 ---
 

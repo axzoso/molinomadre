@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulenza – Molino Madre Dal 1939</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rosso:      #8a2432;
+  --terracotta: #a9483d;
+  --grano:      #ddc9a2;
+  --lavanda:    #e3e0e5;
+  --oliva:      #888f64;
+  --bianco:     #f5f2ec;
+  --nero:       #1a1410;
+  --font-d:     'Bebas Neue', sans-serif;
+  --font-s:     'Cormorant Garamond', serif;
+  --font-b:     'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bianco); color: var(--nero); font-family: var(--font-b); overflow-x: hidden; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+.label { font-family: var(--font-b); font-size: 11px; letter-spacing: .25em; text-transform: uppercase; color: var(--terracotta); display: block; margin-bottom: 16px; }
+.divider { display: inline-block; width: 48px; height: 1px; background: var(--terracotta); margin-bottom: 20px; }
+.section-title { font-family: var(--font-d); font-size: clamp(44px,6vw,88px); line-height: .93; letter-spacing: .02em; color: var(--rosso); }
+
+/* ── NAV ──────────────────────────────── */
+nav { position: fixed; top:0; left:0; right:0; z-index:1000; padding:0 40px; height:72px; display:flex; align-items:center; justify-content:space-between; background:rgba(245,242,236,.96); backdrop-filter:blur(12px); border-bottom:1px solid rgba(138,36,50,.1); }
+.nav-logo { font-family:var(--font-d); font-size:22px; letter-spacing:.12em; color:var(--rosso); text-decoration:none; display:flex; flex-direction:column; line-height:1.1; }
+.nav-logo span { font-family:var(--font-s); font-size:10px; letter-spacing:.3em; text-transform:uppercase; opacity:.7; color:var(--nero); }
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a { font-size:11px; letter-spacing:.18em; text-transform:uppercase; text-decoration:none; color:var(--nero); transition:color .3s; font-weight:400; }
+.nav-links a:hover, .nav-links a.active { color:var(--terracotta); }
+.nav-cta { padding:9px 22px; border:1.5px solid var(--rosso); border-radius:2px; font-size:10px; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; color:var(--rosso); transition:all .3s; font-weight:500; }
+.nav-cta:hover { background:var(--rosso); color:#fff; }
+
+/* ── BREADCRUMB ──────────────────────── */
+.breadcrumb { padding:100px 0 0; }
+.breadcrumb-inner { display:flex; align-items:center; gap:10px; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(26,20,16,.35); }
+.breadcrumb-inner a { color:inherit; text-decoration:none; transition:color .3s; }
+.breadcrumb-inner a:hover { color:var(--terracotta); }
+.breadcrumb-sep { color:var(--terracotta); }
+
+/* ── PAGE HERO ───────────────────────── */
+.page-hero { padding:60px 0 100px; }
+.page-hero-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.page-hero-eyebrow { display:flex; align-items:center; gap:16px; margin-bottom:24px; }
+.hero-line { width:48px; height:1px; background:var(--terracotta); }
+.page-hero-eyebrow span { font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--terracotta); opacity:.8; }
+.page-hero-title { font-family:var(--font-d); font-size:clamp(52px,7vw,100px); line-height:.88; letter-spacing:.02em; color:var(--rosso); margin-bottom:24px; }
+.page-hero-title em { font-family:var(--font-s); font-style:italic; font-weight:300; font-size:.52em; color:var(--terracotta); display:block; margin-bottom:4px; }
+.page-hero-intro { font-family:var(--font-s); font-size:18px; font-weight:300; color:#666; line-height:1.8; margin-bottom:36px; }
+.hero-targets { display:flex; flex-direction:column; gap:10px; }
+.hero-target { display:flex; align-items:center; gap:14px; font-family:var(--font-s); font-size:15px; font-weight:300; color:#777; }
+.ht-dot { width:6px; height:6px; border-radius:50%; background:var(--terracotta); flex-shrink:0; }
+.page-hero-aside { display:flex; flex-direction:column; gap:20px; }
+.hero-card { background:var(--nero); padding:40px; position:relative; overflow:hidden; }
+.hero-card-bg { position:absolute; inset:0; background:radial-gradient(ellipse 80% 80% at 90% 10%, rgba(138,36,50,.25) 0%, transparent 60%); }
+.hero-card-inner { position:relative; z-index:2; }
+.hero-card-title { font-family:var(--font-d); font-size:22px; letter-spacing:.1em; color:var(--grano); margin-bottom:14px; }
+.hero-card p { font-family:var(--font-s); font-size:15px; font-weight:300; color:rgba(255,255,255,.5); line-height:1.65; }
+.hero-stat-row { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:4px; }
+.hero-stat-box { background:rgba(255,255,255,.04); padding:20px; text-align:center; }
+.hs-num { font-family:var(--font-d); font-size:36px; letter-spacing:.04em; color:var(--grano); line-height:1; }
+.hs-label { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.3); margin-top:4px; }
+
+/* ── PILASTRI ────────────────────────── */
+.pilastri { padding:90px 0; background:var(--lavanda); }
+.pilastri-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin-top:60px; }
+.pilastro { background:#fff; padding:36px 28px; transition:background .3s; cursor:default; }
+.pilastro:hover { background:var(--bianco); }
+.pilastro-num { font-family:var(--font-d); font-size:52px; color:rgba(138,36,50,.07); line-height:1; margin-bottom:-8px; }
+.pilastro-name { font-family:var(--font-d); font-size:16px; letter-spacing:.1em; color:var(--rosso); margin-bottom:12px; text-transform:uppercase; }
+.pilastro-sep { width:28px; height:1px; background:rgba(138,36,50,.2); margin-bottom:14px; }
+.pilastro-text { font-family:var(--font-s); font-size:14px; font-weight:300; color:#777; line-height:1.65; }
+
+/* ── FORM SECTION ────────────────────── */
+.form-section { background:var(--rosso); padding:100px 0; position:relative; overflow:hidden; }
+.form-pattern { position:absolute; inset:0; background:repeating-linear-gradient(90deg,transparent,transparent 80px,rgba(255,255,255,.025) 80px,rgba(255,255,255,.025) 81px), repeating-linear-gradient(0deg,transparent,transparent 80px,rgba(255,255,255,.025) 80px,rgba(255,255,255,.025) 81px); }
+.form-grid { display:grid; grid-template-columns:1fr 1.2fr; gap:80px; align-items:start; position:relative; z-index:2; }
+.form-left { }
+.form-left .section-title { color:#fff; }
+.form-left-intro { font-family:var(--font-s); font-size:17px; font-weight:300; color:rgba(255,255,255,.55); line-height:1.8; margin:24px 0 44px; max-width:380px; }
+.form-left-guarantees { display:flex; flex-direction:column; gap:18px; }
+.form-guarantee { display:flex; align-items:flex-start; gap:14px; }
+.fg-icon { width:28px; height:28px; border-radius:50%; border:1px solid rgba(221,201,162,.3); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--grano); font-size:11px; margin-top:2px; }
+.fg-body h5 { font-family:var(--font-d); font-size:14px; letter-spacing:.1em; color:var(--grano); margin-bottom:3px; }
+.fg-body p { font-family:var(--font-s); font-size:13px; font-weight:300; color:rgba(255,255,255,.45); line-height:1.55; }
+.form-right { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:3px; padding:52px; }
+.form-title { font-family:var(--font-d); font-size:20px; letter-spacing:.12em; color:var(--grano); margin-bottom:8px; }
+.form-subtitle { font-family:var(--font-s); font-size:14px; font-weight:300; color:rgba(255,255,255,.4); margin-bottom:36px; font-style:italic; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.form-field { display:flex; flex-direction:column; gap:7px; margin-bottom:14px; }
+.form-field.full { grid-column:1/-1; }
+.form-field label { font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.4); }
+.form-field input,
+.form-field select,
+.form-field textarea { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); border-radius:2px; padding:13px 15px; color:#fff; font-size:14px; font-family:var(--font-b); outline:none; transition:border-color .3s; -webkit-appearance:none; width:100%; }
+.form-field textarea { resize:vertical; min-height:100px; }
+.form-field input::placeholder,
+.form-field textarea::placeholder { color:rgba(255,255,255,.25); }
+.form-field select option { background:var(--rosso); }
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus { border-color:var(--grano); }
+.form-privacy { font-size:11px; color:rgba(255,255,255,.3); margin-bottom:14px; line-height:1.5; font-family:var(--font-s); }
+.form-privacy a { color:rgba(255,255,255,.45); }
+.btn-submit { width:100%; padding:16px; background:var(--grano); color:var(--rosso); border:none; font-size:11px; letter-spacing:.25em; text-transform:uppercase; font-weight:600; font-family:var(--font-b); cursor:pointer; transition:background .3s; border-radius:2px; }
+.btn-submit:hover { background:#fff; }
+
+/* ── FOOTER & STICKY ─────────────────── */
+footer { background:var(--nero); padding:80px 0 40px; }
+.footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:56px; border-bottom:1px solid rgba(255,255,255,.05); margin-bottom:36px; }
+.footer-brand-name { font-family:var(--font-d); font-size:30px; letter-spacing:.12em; color:#fff; margin-bottom:4px; }
+.footer-brand-sub { font-family:var(--font-s); font-size:11px; letter-spacing:.28em; color:var(--grano); opacity:.6; text-transform:uppercase; margin-bottom:20px; }
+.footer-tagline { font-family:var(--font-s); font-size:14px; font-weight:300; font-style:italic; color:rgba(255,255,255,.32); line-height:1.6; max-width:240px; }
+.footer-col h5 { font-size:9px; letter-spacing:.28em; text-transform:uppercase; color:var(--grano); opacity:.7; margin-bottom:20px; }
+.footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.footer-col ul li a { font-size:13px; color:rgba(255,255,255,.4); text-decoration:none; transition:color .3s; font-family:var(--font-s); }
+.footer-col ul li a:hover { color:var(--grano); }
+.footer-bottom { display:flex; align-items:center; justify-content:space-between; }
+.footer-copy { font-size:10px; color:rgba(255,255,255,.2); letter-spacing:.06em; }
+.footer-socials { display:flex; gap:12px; }
+.footer-social-link { width:34px; height:34px; border:1px solid rgba(255,255,255,.1); border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; color:rgba(255,255,255,.35); font-size:11px; font-family:var(--font-b); transition:all .3s; }
+.footer-social-link:hover { border-color:var(--grano); color:var(--grano); }
+.sticky-contact { position:fixed; bottom:24px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; align-items:flex-end; }
+.sticky-btn { display:flex; align-items:center; gap:10px; padding:11px 20px; border-radius:40px; font-size:10px; letter-spacing:.14em; text-transform:uppercase; font-weight:500; text-decoration:none; box-shadow:0 4px 20px rgba(0,0,0,.22); transition:transform .3s; font-family:var(--font-b); }
+.sticky-btn:hover { transform:translateY(-2px); }
+.sticky-main { background:var(--rosso); color:var(--grano); }
+.sticky-wa { background:#25D366; color:#fff; }
+.icon-svg { width:14px; height:14px; }
+.reveal { opacity:0; transform:translateY(36px); transition:opacity .85s ease,transform .85s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@media (max-width:1024px) {
+  .page-hero-inner { grid-template-columns:1fr; }
+  .pilastri-grid { grid-template-columns:repeat(3,1fr); }
+  .form-grid { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:768px) {
+  .container { padding:0 20px; }
+  nav { padding:0 20px; }
+  .nav-links { display:none; }
+  .pilastri-grid { grid-template-columns:1fr 1fr; }
+  .footer-top { grid-template-columns:1fr; }
+  .form-row { grid-template-columns:1fr; }
+  .hero-stat-row { grid-template-columns:1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">MOLINO MADRE<span>Dal 1939 · Calabria</span></a>
+  <ul class="nav-links">
+    <li><a href="il-molino.html">Il Mulino</a></li>
+    <li><a href="farine.html">Farine</a></li>
+    <li><a href="basi.html">Basi</a></li>
+    <li><a href="panetti.html">Panetti</a></li>
+    <li><a href="il-forno-del-mulino.html">Il Forno</a></li>
+    <li><a href="consulenza.html" class="active">Consulenza</a></li>
+  </ul>
+  <a href="contatti.html" class="nav-cta">Contatti</a>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">&#8594;</span>
+      <span>Consulenza</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="reveal">
+        <div class="page-hero-eyebrow">
+          <div class="hero-line"></div>
+          <span>Servizio personalizzato &middot; Supporto tecnico &middot; Partnership</span>
+        </div>
+        <h1 class="page-hero-title">
+          <em>Il tuo successo, la nostra missione.</em>
+          CONSULENZA<br>SU MISURA
+        </h1>
+        <p class="page-hero-intro">Da sempre la cultura del nostro Molino &egrave; fondata sul servizio personalizzato al cliente. Ogni professionista viene seguito in un rapporto di vera e propria partnership: tecnica, formativa e imprenditoriale.</p>
+        <div class="hero-targets">
+          <div class="hero-target"><div class="ht-dot"></div>Pizzaioli e panettieri che vogliono migliorare i propri impasti</div>
+          <div class="hero-target"><div class="ht-dot"></div>Ristoranti e catene che cercano soluzioni pronte all&rsquo;uso</div>
+          <div class="hero-target"><div class="ht-dot"></div>Bar e gastronomie che vogliono ampliare l&rsquo;offerta</div>
+          <div class="hero-target"><div class="ht-dot"></div>Buyer e responsabili di catene distributive</div>
+          <div class="hero-target"><div class="ht-dot"></div>Chi sta aprendo un nuovo locale o pizzeria</div>
+        </div>
+      </div>
+      <div class="page-hero-aside reveal">
+        <div class="hero-card">
+          <div class="hero-card-bg"></div>
+          <div class="hero-card-inner">
+            <div class="hero-card-title">LA NOSTRA PROMESSA</div>
+            <p>Un tecnico esperto ti supporter&agrave; passo-passo. Insieme costruiremo un metodo per raggiungere i tuoi obiettivi come professionista. Potrai sempre contare sul nostro supporto costante, anche telefonicamente.</p>
+          </div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-box"><div class="hs-num">80+</div><div class="hs-label">Anni di esperienza</div></div>
+          <div class="hero-stat-box"><div class="hs-num">B2B</div><div class="hs-label">Solo professionisti</div></div>
+          <div class="hero-stat-box" style="grid-column:span 2;"><div class="hs-num" style="font-size:28px;">IFS &amp; BRC</div><div class="hs-label">Certificazioni alimentari</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILASTRI -->
+<section class="pilastri">
+  <div class="container">
+    <div class="reveal">
+      <span class="label">Cosa offriamo</span>
+      <div class="divider"></div>
+      <h2 class="section-title">I NOSTRI<br>SERVIZI</h2>
+    </div>
+    <div class="pilastri-grid reveal">
+      <div class="pilastro">
+        <div class="pilastro-num">01</div>
+        <div class="pilastro-name">Consulenza tecnica</div>
+        <div class="pilastro-sep"></div>
+        <p class="pilastro-text">Ti aiuteremo a scegliere il prodotto pi&ugrave; giusto per le tue specifiche esigenze. Analisi del tuo processo produttivo e raccomandazioni personalizzate.</p>
+      </div>
+      <div class="pilastro">
+        <div class="pilastro-num">02</div>
+        <div class="pilastro-name">Risparmio di tempo e denaro</div>
+        <div class="pilastro-sep"></div>
+        <p class="pilastro-text">Ti aiuteremo a ottimizzare i tempi di servizio e il costo di personale e attrezzature, senza perdere di qualit&agrave; nel prodotto finale.</p>
+      </div>
+      <div class="pilastro">
+        <div class="pilastro-num">03</div>
+        <div class="pilastro-name">Personalizzazione</div>
+        <div class="pilastro-sep"></div>
+        <p class="pilastro-text">Ti aiuteremo a creare la ricetta giusta che rispecchi la tua filosofia e la tua identit&agrave; di brand. Formule esclusive studiate per il tuo locale.</p>
+      </div>
+      <div class="pilastro">
+        <div class="pilastro-num">04</div>
+        <div class="pilastro-name">Supporto costante</div>
+        <div class="pilastro-sep"></div>
+        <p class="pilastro-text">Potrai sempre contare sul supporto dei nostri tecnici, pronti a chiarire ogni dubbio anche telefonicamente. Un partner sempre presente.</p>
+      </div>
+      <div class="pilastro">
+        <div class="pilastro-num">05</div>
+        <div class="pilastro-name">Assistenza start-up</div>
+        <div class="pilastro-sep"></div>
+        <p class="pilastro-text">Per chi apre un nuovo locale o pizzeria: supporto completo dall&rsquo;avvio. Sviluppo dell&rsquo;offerta al cliente e ottimizzazione del processo di produzione.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="form">
+  <div class="form-pattern"></div>
+  <div class="container">
+    <div class="form-grid">
+      <div class="form-left reveal">
+        <span class="label" style="color:rgba(255,255,255,.4);">Parliamo del tuo progetto</span>
+        <div class="divider" style="background:rgba(255,255,255,.2);"></div>
+        <h2 class="section-title" style="color:#fff;">HAI BISOGNO<br>DI SUPPORTO?</h2>
+        <p class="form-left-intro">Contattaci per ricevere una consulenza su misura per la tua attivit&agrave;. I nostri tecnici specializzati ti affiancheranno per ottimizzare i processi produttivi e valorizzare la tua offerta.</p>
+        <div class="form-left-guarantees">
+          <div class="form-guarantee">
+            <div class="fg-icon">01</div>
+            <div class="fg-body"><h5>Risposta entro 24 ore</h5><p>Il nostro team ti risponder&agrave; entro il giorno lavorativo successivo alla richiesta.</p></div>
+          </div>
+          <div class="form-guarantee">
+            <div class="fg-icon">02</div>
+            <div class="fg-body"><h5>Consulenza gratuita</h5><p>Il primo incontro tecnico &egrave; sempre gratuito e senza impegno. Ascoltiamo le tue esigenze.</p></div>
+          </div>
+          <div class="form-guarantee">
+            <div class="fg-icon">03</div>
+            <div class="fg-body"><h5>Supporto continuativo</h5><p>La relazione non finisce al primo ordine: i nostri tecnici restano al tuo fianco nel tempo.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-right reveal">
+        <div class="form-title">RICHIEDI CONSULENZA</div>
+        <div class="form-subtitle">Compila il modulo, ti ricontattiamo entro 24 ore</div>
+        <div class="form-row">
+          <div class="form-field"><label>Nome *</label><input type="text" placeholder="Il tuo nome"></div>
+          <div class="form-field"><label>Cognome *</label><input type="text" placeholder="Il tuo cognome"></div>
+        </div>
+        <div class="form-field full"><label>Nome Attivit&agrave; *</label><input type="text" placeholder="Pizzeria, ristorante, catena..."></div>
+        <div class="form-field full">
+          <label>Come ti qualifichi? *</label>
+          <select>
+            <option value="" disabled selected>Seleziona la tua figura professionale</option>
+            <option>Pizzaiolo</option>
+            <option>Panettiere / Fornaio</option>
+            <option>Pasticcere</option>
+            <option>Titolare dell&rsquo;attivit&agrave;</option>
+            <option>Responsabile di catena / Buyer</option>
+            <option>Chef</option>
+            <option>Altro</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Telefono *</label><input type="tel" placeholder="+39 000 000 0000"></div>
+          <div class="form-field"><label>Email *</label><input type="email" placeholder="email@tuolocale.it"></div>
+        </div>
+        <div class="form-field full">
+          <label>Prodotto di interesse</label>
+          <select>
+            <option value="" disabled selected>Seleziona una categoria</option>
+            <option>Farine professionali</option>
+            <option>Basi per pizza</option>
+            <option>Panetti surgelati</option>
+            <option>Tutto il catalogo</option>
+            <option>Non so ancora — ho bisogno di consulenza</option>
+          </select>
+        </div>
+        <div class="form-field full"><label>Messaggio</label><textarea placeholder="Descrivi brevemente la tua attivit&agrave; e le tue esigenze..."></textarea></div>
+        <p class="form-privacy">Inviando questo modulo accetti la nostra <a href="#">Privacy Policy</a>. I tuoi dati saranno trattati esclusivamente per rispondere alla tua richiesta.</p>
+        <button type="submit" class="btn-submit">Invia Richiesta &#8594;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">MOLINO MADRE</div>
+        <div class="footer-brand-sub">Dal 1939 &middot; Calabria</div>
+        <p class="footer-tagline">&ldquo;Il grano macinato lentamente, il lievito madre che fermenta con pazienza, la tradizione che innova.&rdquo;</p>
+      </div>
+      <div class="footer-col"><h5>Prodotti</h5><ul>
+        <li><a href="farine.html">Farine</a></li>
+        <li><a href="basi.html">Basi per Pizza</a></li>
+        <li><a href="panetti.html">Panetti Surgelati</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Azienda</h5><ul>
+        <li><a href="il-molino.html">Il Molino</a></li>
+        <li><a href="il-forno-del-mulino.html">Il Forno del Mulino</a></li>
+        <li><a href="consulenza.html">Consulenza</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Contatti</h5><ul>
+        <li><a href="mailto:info@molinomadre.it">info@molinomadre.it</a></li>
+        <li><a href="tel:+390000000000">+39 000 000 0000</a></li>
+        <li><a href="#">Calabria, Italia</a></li>
+        <li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Molino Madre S.r.l. &nbsp;&middot;&nbsp; Privacy Policy &nbsp;&middot;&nbsp; Cookie Policy</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link">IG</a><a href="#" class="footer-social-link">FB</a>
+        <a href="#" class="footer-social-link">LI</a><a href="#" class="footer-social-link">YT</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-contact">
+  <a href="https://wa.me/39000000000" class="sticky-btn sticky-wa">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.552 4.107 1.516 5.842L0 24l6.336-1.483A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.861 0-3.601-.5-5.1-1.371l-.364-.217-3.762.881.941-3.673-.237-.374A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </a>
+  <a href="contatti.html" class="sticky-btn sticky-main">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    Contatti
+  </a>
+</div>
+
+<script>
+const revEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+},{threshold:0.08});
+revEls.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

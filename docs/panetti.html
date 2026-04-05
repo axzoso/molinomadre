@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panetti Surgelati – Molino Madre Dal 1939</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rosso:      #8a2432;
+  --terracotta: #a9483d;
+  --grano:      #ddc9a2;
+  --lavanda:    #e3e0e5;
+  --oliva:      #888f64;
+  --bianco:     #f5f2ec;
+  --nero:       #1a1410;
+  --font-d:     'Bebas Neue', sans-serif;
+  --font-s:     'Cormorant Garamond', serif;
+  --font-b:     'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bianco); color: var(--nero); font-family: var(--font-b); overflow-x: hidden; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+.label { font-family: var(--font-b); font-size: 11px; letter-spacing: .25em; text-transform: uppercase; color: var(--terracotta); display: block; margin-bottom: 16px; }
+.divider { display: inline-block; width: 48px; height: 1px; background: var(--terracotta); margin-bottom: 20px; }
+.section-title { font-family: var(--font-d); font-size: clamp(44px,6vw,88px); line-height: .93; letter-spacing: .02em; color: var(--rosso); }
+
+/* ── NAV ──────────────────────────────── */
+nav { position: fixed; top:0; left:0; right:0; z-index: 1000; padding: 0 40px; height: 72px; display: flex; align-items: center; justify-content: space-between; background: rgba(245,242,236,.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(138,36,50,.1); }
+.nav-logo { font-family: var(--font-d); font-size: 22px; letter-spacing: .12em; color: var(--rosso); text-decoration: none; display: flex; flex-direction: column; line-height: 1.1; }
+.nav-logo span { font-family: var(--font-s); font-size: 10px; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; opacity: .7; color: var(--nero); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; color: var(--nero); transition: color .3s; font-weight: 400; }
+.nav-links a:hover, .nav-links a.active { color: var(--terracotta); }
+.nav-cta { padding: 9px 22px; border: 1.5px solid var(--rosso); border-radius: 2px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; color: var(--rosso); transition: all .3s; font-weight: 500; }
+.nav-cta:hover { background: var(--rosso); color: #fff; }
+
+/* ── BREADCRUMB ──────────────────────── */
+.breadcrumb { padding: 100px 0 0; }
+.breadcrumb-inner { display: flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(26,20,16,.35); }
+.breadcrumb-inner a { color: inherit; text-decoration: none; transition: color .3s; }
+.breadcrumb-inner a:hover { color: var(--terracotta); }
+.breadcrumb-sep { color: var(--terracotta); }
+
+/* ── PAGE HERO ───────────────────────── */
+.page-hero { background: var(--bianco); padding: 56px 0 0; position: relative; overflow: hidden; border-bottom: 1px solid rgba(138,36,50,.06); }
+.page-hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: stretch; min-height: 540px; }
+.page-hero-text { padding: 40px 80px 80px 0; display: flex; flex-direction: column; justify-content: center; }
+.page-hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+.hero-line { width: 48px; height: 1px; background: var(--terracotta); }
+.page-hero-eyebrow span { font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--terracotta); opacity: .8; }
+.page-hero-title { font-family: var(--font-d); font-size: clamp(52px,7vw,100px); line-height: .88; letter-spacing: .02em; color: var(--rosso); margin-bottom: 28px; }
+.page-hero-title em { font-family: var(--font-s); font-style: italic; font-weight: 300; font-size: .52em; color: var(--terracotta); display: block; margin-bottom: 4px; }
+.page-hero-intro { font-family: var(--font-s); font-size: 17px; font-weight: 300; color: #666; line-height: 1.8; max-width: 480px; margin-bottom: 44px; }
+.page-hero-stats { display: flex; gap: 40px; padding-top: 32px; border-top: 1px solid rgba(138,36,50,.08); }
+.page-stat-num { font-family: var(--font-d); font-size: 38px; letter-spacing: .04em; color: var(--rosso); line-height: 1; }
+.page-stat-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #aaa; margin-top: 4px; }
+.page-hero-visual { position: relative; background: var(--nero); overflow: hidden; }
+.page-hero-img { position: absolute; inset: 0; background: linear-gradient(145deg, #2a1810 0%, #1a0e08 50%, #0e0804 100%); }
+.page-hero-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--bianco) 0%, transparent 20%); }
+.hero-counter { position: absolute; top: 44px; right: 44px; text-align: right; z-index: 3; }
+.hero-counter-num { font-family: var(--font-d); font-size: 80px; line-height: 1; color: rgba(221,201,162,.12); letter-spacing: .02em; }
+.hero-counter-label { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: rgba(221,201,162,.3); }
+.hero-specs { position: absolute; bottom: 44px; left: 44px; right: 44px; z-index: 3; display: flex; flex-direction: column; gap: 8px; }
+.hero-spec { display: flex; align-items: center; gap: 14px; background: rgba(26,20,16,.6); border: 1px solid rgba(221,201,162,.1); backdrop-filter: blur(8px); padding: 12px 16px; border-radius: 2px; }
+.spec-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--grano); flex-shrink: 0; }
+.spec-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(221,201,162,.5); min-width: 80px; }
+.spec-val { font-family: var(--font-s); font-size: 14px; font-style: italic; color: rgba(255,255,255,.75); }
+
+/* ── TICKER ──────────────────────────── */
+.ticker-wrap { background: var(--oliva); overflow: hidden; padding: 12px 0; }
+.ticker-track { display: flex; white-space: nowrap; animation: marquee 32s linear infinite; }
+.ticker-item { font-family: var(--font-d); font-size: 14px; letter-spacing: .18em; color: rgba(255,255,255,.7); padding: 0 36px; }
+.ticker-sep { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.5); margin-right: 36px; vertical-align: middle; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── PANETTI GRID ────────────────────── */
+.panetti-section { padding: 100px 0; }
+.panetti-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 60px; }
+.panetto-card { background: var(--nero); position: relative; overflow: hidden; padding: 52px 40px; display: flex; flex-direction: column; transition: background .4s; cursor: pointer; }
+.panetto-card::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity .4s; }
+.pc-tenero::before { background: linear-gradient(135deg, rgba(138,36,50,.35) 0%, transparent 60%); }
+.pc-duro::before   { background: linear-gradient(135deg, rgba(136,143,100,.35) 0%, transparent 60%); }
+.pc-integrale::before { background: linear-gradient(135deg, rgba(169,72,61,.35) 0%, transparent 60%); }
+.panetto-card:hover::before { opacity: 1; }
+.panetto-num { font-family: var(--font-d); font-size: 96px; line-height: 1; color: rgba(255,255,255,.04); position: absolute; top: 16px; right: 24px; }
+.panetto-tag { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--grano); opacity: .5; margin-bottom: 10px; }
+.panetto-name { font-family: var(--font-d); font-size: 36px; letter-spacing: .04em; color: #fff; line-height: 1; margin-bottom: 4px; }
+.panetto-subtitle { font-family: var(--font-s); font-size: 14px; font-style: italic; font-weight: 300; color: var(--grano); margin-bottom: 28px; opacity: .75; }
+.panetto-sep { width: 40px; height: 1px; background: rgba(221,201,162,.2); margin-bottom: 22px; }
+.panetto-desc { font-family: var(--font-s); font-size: 15px; font-weight: 300; color: rgba(255,255,255,.5); line-height: 1.7; margin-bottom: 28px; flex-grow: 1; }
+.panetto-meta { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.panetto-meta-row { display: flex; align-items: center; gap: 12px; }
+.pm-label { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.25); min-width: 90px; }
+.pm-val { font-family: var(--font-s); font-size: 14px; color: rgba(255,255,255,.65); font-style: italic; }
+.panetto-link { display: inline-flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--grano); text-decoration: none; margin-top: auto; transition: gap .3s; opacity: .65; }
+.panetto-card:hover .panetto-link { opacity: 1; gap: 18px; }
+.panetto-link::after { content: '→'; }
+
+/* ── USAGE SECTION ───────────────────── */
+.usage { background: var(--nero); padding: 90px 0; position: relative; overflow: hidden; }
+.usage-bg { position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,.012) 40px, rgba(255,255,255,.012) 41px); }
+.usage-inner { position: relative; z-index: 2; }
+.usage-inner .section-title { color: var(--grano); }
+.usage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 60px; }
+.usage-steps { display: flex; flex-direction: column; gap: 0; }
+.usage-step { display: flex; gap: 24px; padding: 26px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+.usage-step:last-child { border-bottom: none; }
+.usage-step-num { font-family: var(--font-d); font-size: 42px; color: rgba(221,201,162,.1); line-height: 1; flex-shrink: 0; width: 50px; }
+.usage-step-body h4 { font-family: var(--font-d); font-size: 18px; letter-spacing: .08em; color: var(--grano); margin-bottom: 8px; }
+.usage-step-body p { font-family: var(--font-s); font-size: 14px; font-weight: 300; color: rgba(255,255,255,.45); line-height: 1.65; }
+.usage-aside { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; }
+.usage-note { background: rgba(221,201,162,.06); border: 1px solid rgba(221,201,162,.12); border-radius: 2px; padding: 28px; }
+.usage-note-title { font-family: var(--font-d); font-size: 14px; letter-spacing: .12em; color: var(--grano); margin-bottom: 10px; opacity: .8; }
+.usage-note p { font-family: var(--font-s); font-size: 14px; font-weight: 300; color: rgba(255,255,255,.4); line-height: 1.65; }
+.usage-note em { color: var(--grano); font-style: italic; opacity: .75; }
+.usage-quote { border-left: 2px solid rgba(138,36,50,.5); padding: 20px 24px; margin-top: 8px; }
+.usage-quote blockquote { font-family: var(--font-s); font-size: 17px; font-style: italic; font-weight: 300; color: rgba(255,255,255,.5); line-height: 1.65; }
+.usage-quote cite { display: block; margin-top: 12px; font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); font-style: normal; opacity: .7; }
+
+/* ── RANGE ───────────────────────────── */
+.range-section { padding: 80px 0; background: var(--lavanda); }
+.range-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 52px; }
+.range-item { background: #fff; padding: 24px 20px; text-align: center; }
+.range-grams { font-family: var(--font-d); font-size: 30px; letter-spacing: .06em; color: var(--rosso); line-height: 1; }
+.range-label { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #aaa; margin-top: 4px; }
+
+/* ── CTA ─────────────────────────────── */
+.cta-section { background: var(--rosso); padding: 90px 0; text-align: center; position: relative; overflow: hidden; }
+.cta-pattern { position: absolute; inset: 0; background: repeating-linear-gradient(90deg,transparent,transparent 80px,rgba(255,255,255,.025) 80px,rgba(255,255,255,.025) 81px), repeating-linear-gradient(0deg,transparent,transparent 80px,rgba(255,255,255,.025) 80px,rgba(255,255,255,.025) 81px); }
+.cta-inner { position: relative; z-index: 2; }
+.cta-label { font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 20px; }
+.cta-title { font-family: var(--font-d); font-size: clamp(36px,5vw,64px); line-height: .95; color: #fff; margin-bottom: 20px; }
+.cta-text { font-family: var(--font-s); font-size: 17px; font-weight: 300; color: rgba(255,255,255,.6); line-height: 1.75; max-width: 520px; margin: 0 auto 40px; }
+.btn-cta { display: inline-flex; align-items: center; gap: 12px; padding: 16px 36px; background: var(--grano); color: var(--rosso); font-family: var(--font-b); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; font-weight: 600; text-decoration: none; border-radius: 2px; transition: background .3s; }
+.btn-cta:hover { background: #fff; }
+
+/* ── FOOTER ──────────────────────────── */
+footer { background: var(--nero); padding: 80px 0 40px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,.05); margin-bottom: 36px; }
+.footer-brand-name { font-family: var(--font-d); font-size: 30px; letter-spacing: .12em; color: #fff; line-height: 1; margin-bottom: 4px; }
+.footer-brand-sub { font-family: var(--font-s); font-size: 11px; letter-spacing: .28em; color: var(--grano); opacity: .6; text-transform: uppercase; margin-bottom: 20px; }
+.footer-tagline { font-family: var(--font-s); font-size: 14px; font-weight: 300; font-style: italic; color: rgba(255,255,255,.32); line-height: 1.6; max-width: 240px; }
+.footer-col h5 { font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--grano); opacity: .7; margin-bottom: 20px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul li a { font-size: 13px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .3s; font-family: var(--font-s); }
+.footer-col ul li a:hover { color: var(--grano); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; }
+.footer-copy { font-size: 10px; color: rgba(255,255,255,.2); letter-spacing: .06em; }
+.footer-socials { display: flex; gap: 12px; }
+.footer-social-link { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: rgba(255,255,255,.35); font-size: 11px; font-family: var(--font-b); transition: all .3s; }
+.footer-social-link:hover { border-color: var(--grano); color: var(--grano); }
+.sticky-contact { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+.sticky-btn { display: flex; align-items: center; gap: 10px; padding: 11px 20px; border-radius: 40px; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; text-decoration: none; box-shadow: 0 4px 20px rgba(0,0,0,.22); transition: transform .3s, box-shadow .3s; font-family: var(--font-b); }
+.sticky-btn:hover { transform: translateY(-2px); }
+.sticky-main { background: var(--rosso); color: var(--grano); }
+.sticky-wa { background: #25D366; color: #fff; }
+.icon-svg { width: 14px; height: 14px; }
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .85s ease, transform .85s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 1024px) {
+  .page-hero-inner { grid-template-columns: 1fr; }
+  .page-hero-visual { display: none; }
+  .panetti-grid { grid-template-columns: 1fr; }
+  .usage-grid { grid-template-columns: 1fr; }
+  .range-grid { grid-template-columns: repeat(3,1fr); }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .footer-top { grid-template-columns: 1fr; }
+  .range-grid { grid-template-columns: repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">MOLINO MADRE<span>Dal 1939 · Calabria</span></a>
+  <ul class="nav-links">
+    <li><a href="il-molino.html">Il Mulino</a></li>
+    <li><a href="farine.html">Farine</a></li>
+    <li><a href="basi.html">Basi</a></li>
+    <li><a href="panetti.html" class="active">Panetti</a></li>
+    <li><a href="il-forno-del-mulino.html">Il Forno</a></li>
+    <li><a href="consulenza.html">Consulenza</a></li>
+  </ul>
+  <a href="contatti.html" class="nav-cta">Contatti</a>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">&#8594;</span>
+      <a href="#">Prodotti</a>
+      <span class="breadcrumb-sep">&#8594;</span>
+      <span>Panetti Surgelati</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="page-hero-text reveal">
+        <div class="page-hero-eyebrow">
+          <div class="hero-line"></div>
+          <span>Impasti tecnici &middot; Pasta madre fresca &middot; Surgelati</span>
+        </div>
+        <h1 class="page-hero-title">
+          <em>La qualit&agrave; artigianale,</em>
+          PANETTI<br>SURGELATI
+        </h1>
+        <p class="page-hero-intro">Impasti tecnici di altissima qualit&agrave; con pasta madre fresca. Una linea innovativa per i professionisti che vogliono unire bont&agrave; a velocit&agrave; di servizio, senza personale specializzato.</p>
+        <div class="page-hero-stats">
+          <div>
+            <div class="page-stat-num">180g</div>
+            <div class="page-stat-label">Grammatura minima</div>
+          </div>
+          <div>
+            <div class="page-stat-num">600g</div>
+            <div class="page-stat-label">Grammatura massima</div>
+          </div>
+          <div>
+            <div class="page-stat-num">5</div>
+            <div class="page-stat-label">Tipologie disponibili</div>
+          </div>
+        </div>
+      </div>
+      <div class="page-hero-visual">
+        <div class="page-hero-img"></div>
+        <div class="hero-counter">
+          <div class="hero-counter-num">1939</div>
+          <div class="hero-counter-label">Anno di fondazione</div>
+        </div>
+        <div class="hero-specs">
+          <div class="hero-spec">
+            <div class="spec-dot"></div>
+            <span class="spec-label">Impasto</span>
+            <span class="spec-val">Pasta madre fresca, farine del Molino Madre</span>
+          </div>
+          <div class="hero-spec">
+            <div class="spec-dot"></div>
+            <span class="spec-label">Tipologie</span>
+            <span class="spec-val">Grano tenero, grano duro, integrale, Tipo 1, multicereali</span>
+          </div>
+          <div class="hero-spec">
+            <div class="spec-dot"></div>
+            <span class="spec-label">Grammature</span>
+            <span class="spec-val">Personalizzabili dai 180 g ai 600 g</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <div class="ticker-item"><span class="ticker-sep"></span>Pasta madre fresca</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Grammature personalizzabili</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Altamente digeribile</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Nessun personale specializzato</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Grano tenero &middot; Grano duro &middot; Integrale &middot; Tipo 1 &middot; Multicereali</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Pasta madre fresca</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Grammature personalizzabili</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Altamente digeribile</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Nessun personale specializzato</div>
+    <div class="ticker-item"><span class="ticker-sep"></span>Grano tenero &middot; Grano duro &middot; Integrale &middot; Tipo 1 &middot; Multicereali</div>
+  </div>
+</div>
+
+<!-- PANETTI GRID -->
+<section class="panetti-section">
+  <div class="container">
+    <div class="reveal">
+      <span class="label">La linea panetti</span>
+      <div class="divider"></div>
+      <h2 class="section-title">IMPASTI TECNICI<br>DI QUALIT&Agrave;</h2>
+      <p style="font-family: var(--font-s); font-size: 17px; font-weight: 300; color: #666; line-height: 1.75; max-width: 600px; margin-top: 16px;">Gli impasti possono arricchire il men&ugrave; con nuove linee di pizze o essere la soluzione unica per ristoranti, alberghi e catene che vogliono un prodotto costante senza personale specializzato.</p>
+    </div>
+    <div class="panetti-grid reveal">
+      <div class="panetto-card pc-tenero">
+        <div class="panetto-num">01</div>
+        <div class="panetto-tag">Grano Tenero</div>
+        <div class="panetto-name">PANETTO<br>DI GRANO TENERO</div>
+        <div class="panetto-subtitle">Per pizza napoletana</div>
+        <div class="panetto-sep"></div>
+        <p class="panetto-desc">Ideale per realizzare pizze stile napoletano con bordi alti e croccanti. Il risultato &egrave; garantito: alveolatura perfetta, profumo inconfondibile, impasto altamente digeribile.</p>
+        <div class="panetto-meta">
+          <div class="panetto-meta-row">
+            <span class="pm-label">Grammature</span>
+            <span class="pm-val">300 g &ndash; 600 g (personalizzabili)</span>
+          </div>
+          <div class="panetto-meta-row">
+            <span class="pm-label">Scongelamento</span>
+            <span class="pm-val">12–16 ore a temperatura ambiente</span>
+          </div>
+          <div class="panetto-meta-row">
+            <span class="pm-label">Fermentazione</span>
+            <span class="pm-val">3–6 ore dopo scongelamento</span>
+          </div>
+        </div>
+        <a href="#" class="panetto-link">Scheda tecnica</a>
+      </div>
+      <div class="panetto-card pc-duro">
+        <div class="panetto-num">02</div>
+        <div class="panetto-tag">Grano Duro</div>
+        <div class="panetto-name">PANETTO<br>DI GRANO DURO</div>
+        <div class="panetto-subtitle">Per pane e focacce</div>
+        <div class="panetto-sep"></div>
+        <p class="panetto-desc">Realizzato con semola di grano duro a lenta macinazione. Colore giallo intenso, profumo di grano autentico, crosta fragrante. Ideale per chi vuole proporre pane artigianale di qualit&agrave;.</p>
+        <div class="panetto-meta">
+          <div class="panetto-meta-row">
+            <span class="pm-label">Grammature</span>
+            <span class="pm-val">180 g &ndash; 600 g (personalizzabili)</span>
+          </div>
+          <div class="panetto-meta-row">
+            <span class="pm-label">Scongelamento</span>
+            <span class="pm-val">12–16 ore a temperatura ambiente</span>
+          </div>
+          <div class="panetto-meta-row">
+            <span class="pm-label">Fermentazione</span>
+            <span class="pm-val">3–6 ore dopo scongelamento</span>
+          </div>
+        </div>
+        <a href="#" class="panetto-link">Scheda tecnica</a>
+      </div>
+      <div class="panetto-card pc-integrale">
+        <div class="panetto-num">03</div>
+        <div class="panetto-tag">Grano Tenero Integrale</div>
+        <div class="panetto-name">PANETTO<br>INTEGRALE</div>
+        <div class="panetto-subtitle">Per pizza, pane e focacce</div>
+        <div class="panetto-sep"></div>
+        <p class="panetto-desc">Alto contenuto di fibra per un prodotto molto digeribile. Ottenuto dalla macinazione del seme intero: pi&ugrave; sostanze nutritive, pi&ugrave; sapore, pi&ugrave; carattere. Adatto a pizzerie che vogliono ampliare l&rsquo;offerta.</p>
+        <div class="panetto-meta">
+          <div class="panetto-meta-row">
+            <span class="pm-label">Grammature</span>
+            <span class="pm-val">180 g &ndash; 600 g (personalizzabili)</span>
+          </div>
+          <div class="panetto-meta-row">
+            <span class="pm-label">Scongelamento</span>
+            <span class="pm-val">12–16 ore in frigo a +4°, poi fuori</span>
+          </div>
+          <div class="panetto-meta-row">
+            <span class="pm-label">Fermentazione</span>
+            <span class="pm-val">3–6 ore a temperatura ambiente</span>
+          </div>
+        </div>
+        <a href="#" class="panetto-link">Scheda tecnica</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRAMMATURE -->
+<section class="range-section">
+  <div class="container">
+    <div class="reveal">
+      <span class="label">Su misura per te</span>
+      <h2 class="section-title">GRAMMATURE<br>PERSONALIZZABILI</h2>
+      <p style="font-family: var(--font-s); font-size: 16px; font-weight: 300; color: #777; max-width: 520px; margin-top: 16px; line-height: 1.75;">Ogni panetto viene prodotto nella grammatura pi&ugrave; adatta alle esigenze del tuo locale. Dalla pizza individuale alla condivisione, ogni formato &egrave; disponibile su richiesta.</p>
+    </div>
+    <div class="range-grid reveal">
+      <div class="range-item"><div class="range-grams">180g</div><div class="range-label">Pizza piccola</div></div>
+      <div class="range-item"><div class="range-grams">220g</div><div class="range-label">Pizza media</div></div>
+      <div class="range-item"><div class="range-grams">300g</div><div class="range-label">Pizza classica</div></div>
+      <div class="range-item"><div class="range-grams">450g</div><div class="range-label">Pizza grande</div></div>
+      <div class="range-item"><div class="range-grams">600g</div><div class="range-label">Maxi / condivisione</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- USAGE INSTRUCTIONS -->
+<section class="usage">
+  <div class="usage-bg"></div>
+  <div class="container usage-inner">
+    <div class="reveal">
+      <span class="label" style="color:var(--grano);opacity:.7;">Semplice da usare</span>
+      <div class="divider" style="background:var(--grano);opacity:.4;"></div>
+      <h2 class="section-title">COME SI USA<br>IL PANETTO</h2>
+    </div>
+    <div class="usage-grid reveal">
+      <div class="usage-steps">
+        <div class="usage-step">
+          <div class="usage-step-num">01</div>
+          <div class="usage-step-body">
+            <h4>Scongela il giorno prima</h4>
+            <p>Scongelare 12&ndash;16 ore prima dell&rsquo;utilizzo in cassette ben infarinate coperte, in modo che l&rsquo;impasto rimanga umido. Il panetto integrale va scongelato in frigo a +4&deg;.</p>
+          </div>
+        </div>
+        <div class="usage-step">
+          <div class="usage-step-num">02</div>
+          <div class="usage-step-body">
+            <h4>Attendi la fermentazione</h4>
+            <p>Dopo lo scongelamento, lascia fermentare a temperatura ambiente per 3&ndash;6 ore (a seconda della grammatura). Il panetto integrale va trasferito dal frigo a temperatura ambiente per questo passaggio.</p>
+          </div>
+        </div>
+        <div class="usage-step">
+          <div class="usage-step-num">03</div>
+          <div class="usage-step-body">
+            <h4>Stendi e inforna</h4>
+            <p>Stendere il panetto a proprio piacimento e infornare. Nessun passaggio tecnico aggiuntivo: la qualit&agrave; artigianale &egrave; gi&agrave; nell&rsquo;impasto.</p>
+          </div>
+        </div>
+      </div>
+      <div class="usage-aside">
+        <div class="usage-note">
+          <div class="usage-note-title">NOTA PER IL PANETTO INTEGRALE</div>
+          <p>Lo scongelamento avviene in frigorifero a <em>+4&deg;</em> per 12&ndash;16 ore. Al termine, trasferire a temperatura ambiente e attendere la fermentazione (3&ndash;6 ore) prima di stendere.</p>
+        </div>
+        <div class="usage-note">
+          <div class="usage-note-title">GRAMMATURE E FERMENTAZIONE</div>
+          <p>Le grammature pi&ugrave; grandi richiedono tempi di fermentazione pi&ugrave; lunghi. Come regola generale: <em>3 ore per i formati piccoli</em> (180&ndash;220 g), <em>fino a 6 ore per i formati grandi</em> (450&ndash;600 g).</p>
+        </div>
+        <div class="usage-quote">
+          <blockquote>&ldquo;Un impasto che porta dentro di s&eacute; tutta la qualit&agrave; del Molino Madre. Lo stendi, lo inforni, e il risultato parla da solo.&rdquo;</blockquote>
+          <cite>Team Tecnico Molino Madre</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-pattern"></div>
+  <div class="cta-inner">
+    <div class="container">
+      <p class="cta-label">Vuoi provare la linea panetti?</p>
+      <h2 class="cta-title">PARLIAMO<br>DEL TUO PROGETTO</h2>
+      <p class="cta-text">Un nostro tecnico ti guider&agrave; nella scelta del panetto pi&ugrave; adatto al tuo menu e alla tua attivit&agrave;. Grammature personalizzate, formati su misura, supporto costante.</p>
+      <a href="consulenza.html" class="btn-cta">Richiedi Consulenza &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">MOLINO MADRE</div>
+        <div class="footer-brand-sub">Dal 1939 &middot; Calabria</div>
+        <p class="footer-tagline">&ldquo;Il grano macinato lentamente, il lievito madre che fermenta con pazienza, la tradizione che innova.&rdquo;</p>
+      </div>
+      <div class="footer-col"><h5>Prodotti</h5><ul>
+        <li><a href="farine.html">Farine</a></li>
+        <li><a href="basi.html">Basi per Pizza</a></li>
+        <li><a href="panetti.html">Panetti Surgelati</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Azienda</h5><ul>
+        <li><a href="il-molino.html">Il Molino</a></li>
+        <li><a href="il-forno-del-mulino.html">Il Forno del Mulino</a></li>
+        <li><a href="consulenza.html">Consulenza</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Contatti</h5><ul>
+        <li><a href="mailto:info@molinomadre.it">info@molinomadre.it</a></li>
+        <li><a href="tel:+390000000000">+39 000 000 0000</a></li>
+        <li><a href="#">Calabria, Italia</a></li>
+        <li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Molino Madre S.r.l. &nbsp;&middot;&nbsp; Privacy Policy &nbsp;&middot;&nbsp; Cookie Policy</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link">IG</a><a href="#" class="footer-social-link">FB</a>
+        <a href="#" class="footer-social-link">LI</a><a href="#" class="footer-social-link">YT</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-contact">
+  <a href="https://wa.me/39000000000" class="sticky-btn sticky-wa">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.552 4.107 1.516 5.842L0 24l6.336-1.483A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.861 0-3.601-.5-5.1-1.371l-.364-.217-3.762.881.941-3.673-.237-.374A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </a>
+  <a href="contatti.html" class="sticky-btn sticky-main">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    Contatti
+  </a>
+</div>
+
+<script>
+const revEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, {threshold:0.08});
+revEls.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
