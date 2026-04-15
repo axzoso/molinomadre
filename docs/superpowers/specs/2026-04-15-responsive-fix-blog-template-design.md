@@ -25,7 +25,7 @@ Il sito Molino Madre è statico (HTML/CSS inline per pagina, nessun build system
 
 **CSS da aggiungere (stessa struttura in tutte le pagine):**
 ```css
-.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
 .nav-hamburger span { display: block; width: 22px; height: 2px; background: currentColor; transition: all .3s; }
 .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(26,20,16,.97); z-index: 1100;
   flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
@@ -36,10 +36,13 @@ Il sito Molino Madre è statico (HTML/CSS inline per pagina, nessun build system
 .mobile-menu-close { position: absolute; top: 24px; right: 24px; font-size: 28px; color: rgba(255,255,255,.5);
   cursor: pointer; background: none; border: none; font-family: var(--font-b); }
 @media (max-width: 768px) {
+  /* Griglia a 3 zone: logo | Contatti | hamburger
+     La nav rimane position:fixed, non usiamo absolute per non romperla */
+  nav { display: grid; grid-template-columns: 1fr auto 1fr; padding: 0 20px; }
+  .nav-logo { grid-column: 1; }
   .nav-links { display: none; }
-  .nav-cta { position: absolute; left: 50%; transform: translateX(-50%); }
-  .nav-hamburger { display: flex; color: currentColor; }
-  nav { position: relative; } /* permette absolute al pulsante Contatti */
+  .nav-cta { grid-column: 2; justify-self: center; }
+  .nav-hamburger { display: flex; grid-column: 3; justify-self: end; align-self: center; color: currentColor; }
 }
 ```
 
