@@ -1,7 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python3 -c ':*)"
+      "Bash(python3 -c ':*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git commit:*)",
+      "Read(//tmp/**)",
+      "Bash(sed -n '215,218p' docs/basi.html)",
+      "Bash(sed -n '226,230p' docs/basi.html)"
     ]
   }
 }
