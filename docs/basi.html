@@ -107,12 +107,15 @@ nav {
 .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 60px; gap: 40px; }
 .section-intro { max-width: 500px; font-family: var(--font-s); font-size: 17px; font-weight: 300; line-height: 1.75; color: #666; }
 
-/* ── PRODUCT CARDS ───────────────────── */
-.products-row { display: grid; gap: 2px; }
-.products-row--3 { grid-template-columns: repeat(3, 1fr); }
-.products-row--2 { grid-template-columns: repeat(2, 1fr); margin-top: 2px; }
-.basi-card { position: relative; aspect-ratio: 3/4; overflow: hidden; cursor: pointer; text-decoration: none; display: block; }
-.basi-card--wide { aspect-ratio: 16/9; }
+/* ── PRODUCT EDITORIAL LAYOUT ────────── */
+.products-editorial { max-width: 1280px; margin: 3px auto 0; padding: 0 40px; }
+.products-feature-row { margin-bottom: 3px; }
+.products-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.products-section-gap { margin-top: 80px; }
+
+.basi-card { position: relative; overflow: hidden; cursor: pointer; text-decoration: none; display: block; }
+.basi-card--cinematic { aspect-ratio: 21/9; }
+.basi-card--landscape { aspect-ratio: 3/2; }
 .basi-card-bg { position: absolute; inset: 0; transition: transform .7s cubic-bezier(.25,.46,.45,.94); background-size: cover; background-position: center; }
 .basi-card:hover .basi-card-bg { transform: scale(1.06); }
 .bc-pinsa .basi-card-bg      { background-color: #4a2210; background-image: linear-gradient(145deg, #5a2812 0%, #3a1808 100%); }
@@ -129,6 +132,13 @@ nav {
 .basi-card-inner { position: absolute; inset: 0; z-index: 2; padding: 32px; display: flex; flex-direction: column; justify-content: flex-end; }
 .bc-cat { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--grano); opacity: .7; margin-bottom: 6px; }
 .bc-name { font-family: var(--font-d); font-size: 32px; letter-spacing: .04em; color: #fff; line-height: 1; margin-bottom: 10px; }
+.basi-card--cinematic .bc-name { font-size: clamp(44px, 4vw, 72px); }
+.basi-card--cinematic .basi-card-inner { flex-direction: row; align-items: flex-end; justify-content: space-between; padding: 40px 48px; }
+.basi-card--cinematic .bc-left { display: flex; flex-direction: column; justify-content: flex-end; }
+.basi-card--cinematic .bc-right { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; flex-shrink: 0; }
+.basi-card--cinematic .bc-desc { max-width: 480px; }
+.basi-card--cinematic .bc-tags { margin-bottom: 0; }
+.bc-divider-v { width: 1px; height: 80px; background: rgba(221,201,162,.18); align-self: flex-end; margin: 0 40px; flex-shrink: 0; }
 .bc-desc { font-family: var(--font-s); font-size: 13px; font-weight: 300; color: rgba(255,255,255,.6); line-height: 1.55; margin-bottom: 20px; max-width: 260px; }
 .bc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
 .bc-tag { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; border: 1px solid rgba(221,201,162,.25); color: var(--grano); padding: 4px 10px; border-radius: 2px; opacity: .8; }
@@ -247,9 +257,12 @@ footer { background: var(--nero); padding: 80px 0 40px; }
   .footer-top { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 860px) {
-  .products-row--3 { grid-template-columns: repeat(3, 1fr); }
-  .basi-card { aspect-ratio: 4/5; }
-  .bc-name { font-size: 24px; }
+  .products-editorial { padding: 0 20px; }
+  .basi-card--cinematic { aspect-ratio: 16/9; }
+  .basi-card--cinematic .basi-card-inner { flex-direction: column; align-items: flex-start; justify-content: flex-end; padding: 28px; }
+  .bc-divider-v { display: none; }
+  .basi-card--cinematic .bc-right { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+  .basi-card--cinematic .bc-name { font-size: 36px; }
   .bc-desc { display: none; }
   .bc-tags { display: none; }
 }
@@ -259,9 +272,11 @@ footer { background: var(--nero); padding: 80px 0 40px; }
   .nav-links { display: none; }
   .nav-cta { grid-column: 2; justify-self: center; }
   .nav-hamburger { display: flex; grid-column: 3; justify-self: end; align-self: center; }
-  .products-row--3, .products-row--2 { grid-template-columns: 1fr; }
-  .basi-card { aspect-ratio: 3/4; }
-  .bc-name { font-size: 32px; }
+  .products-editorial { padding: 0 16px; }
+  .products-duo { grid-template-columns: 1fr; }
+  .basi-card--cinematic { aspect-ratio: 4/3; }
+  .basi-card--landscape { aspect-ratio: 3/2; }
+  .bc-name { font-size: 28px; }
   .bc-desc { display: block; }
   .bc-tags { display: flex; }
   .usp-grid { grid-template-columns: 1fr 1fr; }
@@ -269,6 +284,7 @@ footer { background: var(--nero); padding: 80px 0 40px; }
   .cat-strip { flex-wrap: wrap; }
   .cat-strip-desc { display: none; }
   .page-hero-stats { gap: 28px; }
+  .products-section-gap { margin-top: 48px; }
 }
 </style>
 </head>
@@ -442,110 +458,132 @@ footer { background: var(--nero); padding: 80px 0 40px; }
   <div class="cat-strip-name">PICCOLI FORMATI</div>
   <div class="cat-strip-desc">Ristoranti, pizzerie con posti a sedere, bistrot</div>
 </div>
-<div class="products-row products-row--3">
-  <a href="#" class="basi-card bc-pinsa">
-    <div class="basi-card-bg"></div>
-    <div class="basi-card-overlay"></div>
-    <div class="bc-num">01</div>
-    <div class="basi-card-inner">
-      <div class="bc-cat">Piccoli Formati &middot; Pinsa</div>
-      <div class="bc-name">PINSA</div>
-      <p class="bc-desc">Focaccia gourmettizzata, leggera e friabile. L&rsquo;alternativa alla pizza classica per bistrot e ristoranti che vogliono arricchire l&rsquo;offerta.</p>
-      <div class="bc-tags">
-        <span class="bc-tag">48h lievitazione</span>
-        <span class="bc-tag">Lievito madre</span>
-        <span class="bc-tag">Forno a legna</span>
+<div class="products-editorial reveal">
+  <!-- FEATURED: Pinsa -->
+  <div class="products-feature-row">
+    <a href="#" class="basi-card basi-card--cinematic bc-pinsa">
+      <div class="basi-card-bg"></div>
+      <div class="basi-card-overlay"></div>
+      <div class="bc-num">01</div>
+      <div class="basi-card-inner">
+        <div class="bc-left">
+          <div class="bc-cat">Piccoli Formati &middot; Pinsa</div>
+          <div class="bc-name">PINSA</div>
+          <p class="bc-desc">Focaccia gourmettizzata, leggera e friabile. L&rsquo;alternativa alla pizza classica per bistrot e ristoranti che vogliono arricchire l&rsquo;offerta.</p>
+        </div>
+        <div class="bc-divider-v"></div>
+        <div class="bc-right">
+          <div class="bc-tags">
+            <span class="bc-tag">48h lievitazione</span>
+            <span class="bc-tag">Lievito madre</span>
+            <span class="bc-tag">Forno a legna</span>
+          </div>
+          <div class="bc-arrow">&#8594;</div>
+        </div>
       </div>
-      <div class="bc-arrow">&#8594;</div>
-    </div>
-  </a>
-  <a href="#" class="basi-card bc-tonda">
-    <div class="basi-card-bg"></div>
-    <div class="basi-card-overlay"></div>
-    <div class="bc-num">02</div>
-    <div class="basi-card-inner">
-      <div class="bc-cat">Piccoli Formati &middot; Al piatto</div>
-      <div class="bc-name">PIZZA TONDA</div>
-      <p class="bc-desc">Base precotta al piatto, pasta alveolata e altamente digeribile. Ideale per locali con posti a sedere e pizza da asporto. Cuoce in 3&ndash;4 minuti.</p>
-      <div class="bc-tags">
-        <span class="bc-tag">Stesa a mano</span>
-        <span class="bc-tag">Filiera controllata</span>
-        <span class="bc-tag">3–4 min cottura</span>
+    </a>
+  </div>
+  <!-- DUO: Pizza Tonda + Pizza al Pomodoro -->
+  <div class="products-duo">
+    <a href="#" class="basi-card basi-card--landscape bc-tonda">
+      <div class="basi-card-bg"></div>
+      <div class="basi-card-overlay"></div>
+      <div class="bc-num">02</div>
+      <div class="basi-card-inner">
+        <div class="bc-cat">Piccoli Formati &middot; Al piatto</div>
+        <div class="bc-name">PIZZA TONDA</div>
+        <p class="bc-desc">Base precotta al piatto, pasta alveolata e altamente digeribile. Ideale per locali con posti a sedere. Cuoce in 3&ndash;4 minuti.</p>
+        <div class="bc-tags">
+          <span class="bc-tag">Stesa a mano</span>
+          <span class="bc-tag">Filiera controllata</span>
+          <span class="bc-tag">3–4 min cottura</span>
+        </div>
+        <div class="bc-arrow">&#8594;</div>
       </div>
-      <div class="bc-arrow">&#8594;</div>
-    </div>
-  </a>
-  <a href="#" class="basi-card bc-pomodoro">
-    <div class="basi-card-bg"></div>
-    <div class="basi-card-overlay"></div>
-    <div class="bc-num">03</div>
-    <div class="basi-card-inner">
-      <div class="bc-cat">Piccoli Formati &middot; Al piatto</div>
-      <div class="bc-name">PIZZA AL<br>POMODORO</div>
-      <p class="bc-desc">Pizza al piatto con pomodoro. Farcire e infornare: in pochi minuti si ottiene una pizza di qualit&agrave; artigianale senza personale specializzato.</p>
-      <div class="bc-tags">
-        <span class="bc-tag">Pronta all'uso</span>
-        <span class="bc-tag">12 mesi scadenza</span>
+    </a>
+    <a href="#" class="basi-card basi-card--landscape bc-pomodoro">
+      <div class="basi-card-bg"></div>
+      <div class="basi-card-overlay"></div>
+      <div class="bc-num">03</div>
+      <div class="basi-card-inner">
+        <div class="bc-cat">Piccoli Formati &middot; Al piatto</div>
+        <div class="bc-name">PIZZA AL POMODORO</div>
+        <p class="bc-desc">Pizza al piatto con pomodoro. Farcire e infornare: qualit&agrave; artigianale senza personale specializzato.</p>
+        <div class="bc-tags">
+          <span class="bc-tag">Pronta all'uso</span>
+          <span class="bc-tag">12 mesi scadenza</span>
+        </div>
+        <div class="bc-arrow">&#8594;</div>
       </div>
-      <div class="bc-arrow">&#8594;</div>
-    </div>
-  </a>
+    </a>
+  </div>
 </div>
 
 <!-- FORMATI GRANDI -->
-<div class="cat-strip" style="margin-top: 2px;">
+<div class="cat-strip" style="margin-top: 80px;">
   <div class="cat-strip-line"></div>
   <div class="cat-strip-name">FORMATI GRANDI</div>
   <div class="cat-strip-desc">Take away, bar, locali senza posti a sedere, street food</div>
 </div>
-<div class="products-row products-row--3" style="margin-top: 2px;">
-  <a href="#" class="basi-card bc-teglia">
-    <div class="basi-card-bg"></div>
-    <div class="basi-card-overlay"></div>
-    <div class="bc-num">04</div>
-    <div class="basi-card-inner">
-      <div class="bc-cat">Formati Grandi &middot; In teglia</div>
-      <div class="bc-name">PIZZA IN<br>TEGLIA</div>
-      <p class="bc-desc">Base in teglia artigianale per take away, pizzerie da asporto e bar. Alta produttivit&agrave; senza necessit&agrave; di personale qualificato.</p>
-      <div class="bc-tags">
-        <span class="bc-tag">Take away</span>
-        <span class="bc-tag">Alta produttività</span>
+<div class="products-editorial reveal">
+  <!-- FEATURED: Focaccia Stirata Romana -->
+  <div class="products-feature-row">
+    <a href="#" class="basi-card basi-card--cinematic bc-focaccia">
+      <div class="basi-card-bg"></div>
+      <div class="basi-card-overlay"></div>
+      <div class="bc-num">05</div>
+      <div class="basi-card-inner">
+        <div class="bc-left">
+          <div class="bc-cat">Formati Grandi &middot; Impasto romano</div>
+          <div class="bc-name">FOCACCIA STIRATA ROMANA</div>
+          <p class="bc-desc">Impasto romano versatile: si farcisce sopra o imbottita all&rsquo;interno. Ideale per take away, bar e pizzerie da asporto.</p>
+        </div>
+        <div class="bc-divider-v"></div>
+        <div class="bc-right">
+          <div class="bc-tags">
+            <span class="bc-tag">Impasto romano</span>
+            <span class="bc-tag">Versatile</span>
+            <span class="bc-tag">Imbottita o farcita</span>
+          </div>
+          <div class="bc-arrow">&#8594;</div>
+        </div>
       </div>
-      <div class="bc-arrow">&#8594;</div>
-    </div>
-  </a>
-  <a href="#" class="basi-card bc-focaccia">
-    <div class="basi-card-bg"></div>
-    <div class="basi-card-overlay"></div>
-    <div class="bc-num">05</div>
-    <div class="basi-card-inner">
-      <div class="bc-cat">Formati Grandi &middot; Impasto romano</div>
-      <div class="bc-name">FOCACCIA<br>STIRATA ROMANA</div>
-      <p class="bc-desc">Impasto romano versatile: si farcisce sopra o imbottita all&rsquo;interno. Ideale per take away, bar e pizzerie da asporto.</p>
-      <div class="bc-tags">
-        <span class="bc-tag">Impasto romano</span>
-        <span class="bc-tag">Versatile</span>
-        <span class="bc-tag">Imbottita o farcita</span>
+    </a>
+  </div>
+  <!-- DUO: Pizza in Teglia + Pizza Pala alla Romana -->
+  <div class="products-duo">
+    <a href="#" class="basi-card basi-card--landscape bc-teglia">
+      <div class="basi-card-bg"></div>
+      <div class="basi-card-overlay"></div>
+      <div class="bc-num">04</div>
+      <div class="basi-card-inner">
+        <div class="bc-cat">Formati Grandi &middot; In teglia</div>
+        <div class="bc-name">PIZZA IN TEGLIA</div>
+        <p class="bc-desc">Base in teglia artigianale per take away e bar. Alta produttivit&agrave; senza personale qualificato.</p>
+        <div class="bc-tags">
+          <span class="bc-tag">Take away</span>
+          <span class="bc-tag">Alta produttività</span>
+        </div>
+        <div class="bc-arrow">&#8594;</div>
       </div>
-      <div class="bc-arrow">&#8594;</div>
-    </div>
-  </a>
-  <a href="#" class="basi-card bc-pala">
-    <div class="basi-card-bg"></div>
-    <div class="basi-card-overlay"></div>
-    <div class="bc-num">06</div>
-    <div class="basi-card-inner">
-      <div class="bc-cat">Formati Grandi &middot; Alla romana</div>
-      <div class="bc-name">PIZZA PALA<br>ALLA ROMANA</div>
-      <p class="bc-desc">Impasto molto idratato, altamente digeribile e alveolato. 48 ore di lievitazione naturale. Da street food alla ristorazione commerciale e di alto livello.</p>
-      <div class="bc-tags">
-        <span class="bc-tag">48h lievitazione</span>
-        <span class="bc-tag">Alta idratazione</span>
-        <span class="bc-tag">Multicanale</span>
+    </a>
+    <a href="#" class="basi-card basi-card--landscape bc-pala">
+      <div class="basi-card-bg"></div>
+      <div class="basi-card-overlay"></div>
+      <div class="bc-num">06</div>
+      <div class="basi-card-inner">
+        <div class="bc-cat">Formati Grandi &middot; Alla romana</div>
+        <div class="bc-name">PIZZA PALA ALLA ROMANA</div>
+        <p class="bc-desc">Impasto molto idratato, alveolato, 48h di lievitazione naturale. Dallo street food alla ristorazione di alto livello.</p>
+        <div class="bc-tags">
+          <span class="bc-tag">48h lievitazione</span>
+          <span class="bc-tag">Alta idratazione</span>
+          <span class="bc-tag">Multicanale</span>
+        </div>
+        <div class="bc-arrow">&#8594;</div>
       </div>
-      <div class="bc-arrow">&#8594;</div>
-    </div>
-  </a>
+    </a>
+  </div>
 </div>
 
 <!-- REGIONALI -->
