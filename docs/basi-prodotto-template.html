@@ -157,6 +157,44 @@ footer { background: var(--nero); padding: 80px 0 40px; }
   line-height: 1.4;
 }
 
+/* ── PRODUCT GALLERY ─────────────────── */
+.product-gallery {}
+.gallery-main {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  background: linear-gradient(145deg, #5a2812 0%, #3a1808 100%);
+}
+.gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity .3s;
+}
+.gallery-thumbs { display: flex; gap: 10px; }
+.gallery-thumb {
+  flex: 1;
+  aspect-ratio: 1;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color .25s;
+  background: linear-gradient(145deg, #6a2820 0%, #4a1810 100%);
+}
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.gallery-thumb.active { border-color: var(--terracotta); }
+.gallery-thumb:hover { border-color: rgba(169,72,61,.5); }
+
 /* ── REVEAL ──────────────────────────── */
 .reveal { opacity: 0; transform: translateY(36px); transition: opacity .85s ease, transform .85s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -253,7 +291,26 @@ footer { background: var(--nero); padding: 80px 0 40px; }
         </div>
         <a href="consulenza.html" class="btn">Richiedi Scheda Tecnica &#8594;</a>
       </div>
-      <!-- RIGHT: Gallery — added in Task 3 -->
+      <!-- RIGHT: Gallery -->
+      <div class="product-gallery reveal">
+        <div class="gallery-main">
+          <img id="galleryMain"
+               src="images/basi-pizza-tonda-main.jpg"
+               alt="Pizza Tonda – vista principale"
+               onerror="this.style.display='none'">
+        </div>
+        <div class="gallery-thumbs">
+          <div class="gallery-thumb active" onclick="swapImage(this, 'images/basi-pizza-tonda-main.jpg', 'Pizza Tonda – vista principale')">
+            <img src="images/basi-pizza-tonda-main.jpg" alt="Vista 1" onerror="this.style.display='none'">
+          </div>
+          <div class="gallery-thumb" onclick="swapImage(this, 'images/basi-pizza-tonda-2.jpg', 'Pizza Tonda – dettaglio bordi')">
+            <img src="images/basi-pizza-tonda-2.jpg" alt="Vista 2" onerror="this.style.display='none'">
+          </div>
+          <div class="gallery-thumb" onclick="swapImage(this, 'images/basi-pizza-tonda-3.jpg', 'Pizza Tonda – confezione')">
+            <img src="images/basi-pizza-tonda-3.jpg" alt="Vista 3" onerror="this.style.display='none'">
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
