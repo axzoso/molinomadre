@@ -553,10 +553,11 @@ footer { background: var(--nero); padding: 80px 0 40px; }
 <script>
 // ── GALLERY SWAP ──────────────────
 function swapImage(thumb, src, alt) {
+  const main = document.getElementById('galleryMain');
+  main.src = src;
+  main.alt = alt;
   document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
   thumb.classList.add('active');
-  document.getElementById('galleryMain').src = src;
-  document.getElementById('galleryMain').alt = alt;
 }
 
 // ── REVEAL ON SCROLL ──────────────
@@ -565,9 +566,10 @@ const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
     }
   });
-}, { threshold: .15 });
+}, { threshold: 0.08 });
 reveals.forEach(el => revealObserver.observe(el));
 
 // ── NAV SCROLL ────────────────────
@@ -592,13 +594,6 @@ mobileMenu.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => mobileMenu.classList.remove('open'));
 });
 
-// ── MEDIA QUERIES (hide burger on desktop) ──
-const mediaQuery = window.matchMedia('(max-width: 768px)');
-function handleMediaChange(e) {
-  burger.style.display = e.matches ? 'flex' : 'none';
-}
-mediaQuery.addListener(handleMediaChange);
-handleMediaChange(mediaQuery);
 </script>
 
 </body>
