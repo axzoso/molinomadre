@@ -254,6 +254,71 @@ footer { background: var(--nero); padding: 80px 0 40px; }
   color: #888;
 }
 
+/* ── RESPONSIVE ──────────────────────── */
+
+/* Tablet: 768px – 1024px */
+@media (max-width: 1024px) {
+  .product-hero-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .product-title { font-size: clamp(44px, 7vw, 72px); }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+
+/* Tablet portrait / large mobile: ≤ 768px */
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  nav { padding: 0 20px; display: grid; grid-template-columns: 1fr auto 1fr; }
+  .nav-links { display: none; }
+  .nav-cta { grid-column: 2; justify-self: center; }
+  .nav-hamburger { display: flex; grid-column: 3; justify-self: end; align-self: center; }
+
+  /* Hero: stack — gallery first, then info */
+  .product-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .product-gallery { order: -1; }
+  .product-info { order: 1; }
+
+  .product-title { font-size: clamp(44px, 10vw, 72px); }
+  .product-subtitle { font-size: 16px; max-width: 100%; }
+
+  /* Spec rows: 2-column grid */
+  .product-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; }
+  .spec-row { flex-direction: column; gap: 3px; }
+  .spec-key { min-width: unset; }
+
+  /* Description */
+  .product-description-body { font-size: 16px; }
+
+  /* Table */
+  .product-table-section { padding: 60px 0; }
+
+  /* Footer */
+  .footer-top { grid-template-columns: 1fr; gap: 36px; }
+}
+
+/* Mobile: ≤ 480px */
+@media (max-width: 480px) {
+  .product-hero { padding: 40px 0 60px; }
+  .product-title { font-size: clamp(40px, 12vw, 64px); }
+
+  /* Spec rows: back to single column */
+  .product-specs { grid-template-columns: 1fr; gap: 12px; }
+  .spec-row { flex-direction: row; gap: 12px; }
+  .spec-key { min-width: 90px; }
+
+  /* Gallery thumbnails: show only 2 */
+  .gallery-thumbs { gap: 8px; }
+  .gallery-thumb:last-child { display: none; }
+
+  /* Table: horizontal scroll */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .product-table { min-width: 540px; }
+
+  .product-description { padding: 60px 0; }
+  .cta-section { padding: 60px 0; }
+}
+
 /* ── REVEAL ──────────────────────────── */
 .reveal { opacity: 0; transform: translateY(36px); transition: opacity .85s ease, transform .85s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
