@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layout Approaches</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f0ede8; font-family: 'DM Sans', system-ui, sans-serif; padding: 32px 24px 80px; color: #1a1410; }
+
+  h1 { font-size: 18px; font-weight: 600; margin-bottom: 6px; color: #1a1410; }
+  .subtitle { font-size: 13px; color: #888; margin-bottom: 32px; }
+
+  .cards { display: flex; flex-direction: column; gap: 24px; }
+
+  .card {
+    background: #fff;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .card:hover { border-color: #a9483d; box-shadow: 0 4px 20px rgba(138,36,50,.12); }
+  .card.selected { border-color: #8a2432; box-shadow: 0 4px 24px rgba(138,36,50,.18); }
+
+  .card-label {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 20px;
+    background: #faf8f5;
+    border-bottom: 1px solid #eee;
+  }
+  .card-letter {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #8a2432; color: #fff;
+    font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .card-title { font-size: 14px; font-weight: 600; color: #1a1410; }
+  .card-desc { font-size: 12px; color: #888; margin-top: 2px; }
+
+  .mockup-body { padding: 20px; }
+
+  /* ── MOCKUP A: Split classico ── */
+  .m-a-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .m-breadcrumb { font-size: 9px; color: #aaa; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 12px; }
+  .m-label { font-size: 9px; letter-spacing: .25em; text-transform: uppercase; color: #a9483d; margin-bottom: 6px; }
+  .m-title { font-family: Georgia, serif; font-size: 28px; color: #8a2432; line-height: .95; margin-bottom: 10px; letter-spacing: .02em; font-style: italic; }
+  .m-subtitle { font-size: 11px; color: #888; line-height: 1.5; margin-bottom: 12px; }
+  .m-tag { display: inline-block; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; border: 1px solid rgba(221,201,162,.8); color: #888f64; padding: 3px 8px; border-radius: 2px; margin-right: 4px; margin-bottom: 4px; }
+  .m-divider { height: 1px; background: #e8e4de; margin: 12px 0; }
+  .m-info-row { display: flex; gap: 6px; align-items: flex-start; margin-bottom: 6px; }
+  .m-info-key { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: #aaa; width: 80px; flex-shrink: 0; padding-top: 1px; }
+  .m-info-val { font-size: 11px; color: #444; }
+  .m-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #8a2432; border-bottom: 1.5px solid #8a2432; padding-bottom: 3px; margin-top: 12px; }
+  .m-img-main { background: linear-gradient(145deg, #5a2812 0%, #3a1808 100%); border-radius: 3px; aspect-ratio: 4/3; display: flex; align-items: flex-end; padding: 12px; }
+  .m-img-thumb-row { display: flex; gap: 6px; margin-top: 8px; }
+  .m-img-thumb { flex: 1; aspect-ratio: 1; background: linear-gradient(145deg, #6a2820 0%, #4a1810 100%); border-radius: 2px; }
+  .m-img-stack { display: flex; flex-direction: column; gap: 8px; }
+  .m-img-stack .m-img-main { aspect-ratio: 3/2; }
+
+  .m-section-below { background: #faf8f5; border-radius: 4px; padding: 16px; margin-top: 8px; }
+  .m-section-title { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: #a9483d; margin-bottom: 8px; }
+  .m-text-lines { display: flex; flex-direction: column; gap: 5px; }
+  .m-line { height: 7px; background: #e4dfd9; border-radius: 3px; }
+  .m-line.short { width: 70%; }
+  .m-line.med { width: 85%; }
+  .m-line.full { width: 100%; }
+
+  .m-table-wrap { margin-top: 8px; border: 1px solid #e8e4de; border-radius: 3px; overflow: hidden; }
+  .m-table-row { display: flex; border-bottom: 1px solid #e8e4de; }
+  .m-table-row:last-child { border-bottom: none; }
+  .m-table-cell { flex: 1; padding: 6px 10px; font-size: 9px; }
+  .m-table-cell.head { background: #8a2432; color: #fff; letter-spacing: .1em; text-transform: uppercase; font-size: 8px; }
+  .m-table-cell.even { background: #faf8f5; color: #666; }
+  .m-table-cell.odd { background: #fff; color: #666; }
+
+  /* ── MOCKUP B: Hero grande + sidebar sticky ── */
+  .m-b-hero { position: relative; background: linear-gradient(145deg, #4a2210 0%, #2a1008 100%); border-radius: 4px; height: 120px; margin-bottom: 12px; display: flex; align-items: flex-end; padding: 12px 16px; }
+  .m-b-hero-text { color: rgba(255,255,255,.9); }
+  .m-b-hero-label { font-size: 8px; letter-spacing: .25em; text-transform: uppercase; color: rgba(221,201,162,.7); margin-bottom: 4px; }
+  .m-b-hero-title { font-family: Georgia, serif; font-size: 24px; color: #fff; line-height: 1; }
+  .m-b-layout { display: grid; grid-template-columns: 1fr 200px; gap: 12px; }
+  .m-b-main {}
+  .m-b-sidebar { background: #faf8f5; border-radius: 4px; padding: 12px; }
+  .m-b-sidebar-title { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #a9483d; margin-bottom: 8px; }
+  .m-b-sidebar-item { font-size: 10px; color: #444; border-bottom: 1px solid #eee; padding: 5px 0; }
+  .m-b-cta { background: #8a2432; color: #fff; border-radius: 2px; padding: 8px 12px; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; text-align: center; margin-top: 10px; }
+
+  /* ── MOCKUP C: Editorial minimal ── */
+  .m-c-split { display: grid; grid-template-columns: 5fr 7fr; gap: 16px; margin-bottom: 12px; align-items: start; }
+  .m-c-img-tall { background: linear-gradient(145deg, #5a1818 0%, #3a1010 100%); border-radius: 3px; aspect-ratio: 3/4; }
+  .m-c-img-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; }
+  .m-c-img-small { background: linear-gradient(145deg, #3a2010 0%, #1e1008 100%); border-radius: 2px; aspect-ratio: 1; }
+  .m-c-num { font-family: Georgia, serif; font-size: 60px; color: rgba(138,36,50,.07); line-height: 1; margin-bottom: -12px; }
+
+  .selected-indicator {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #8a2432; color: #fff;
+    padding: 12px 24px; font-size: 12px; letter-spacing: .1em;
+    text-align: center; display: none;
+  }
+  .selected-indicator.visible { display: block; }
+</style>
+</head>
+<body>
+
+<h1>Layout pagina prodotto — Basi</h1>
+<p class="subtitle">Tre approcci per la pagina singola di una base. Clicca su quello che preferisci.</p>
+
+<div class="cards">
+
+  <!-- OPTION A -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-label">
+      <div class="card-letter">A</div>
+      <div>
+        <div class="card-title">Split classico — Info sinistra, Galleria destra</div>
+        <div class="card-desc">Layout e-commerce tradizionale. Facile da replicare in Elementor con widget colonne.</div>
+      </div>
+    </div>
+    <div class="mockup-body">
+      <div class="m-breadcrumb">Home → Basi → Pizza Tonda</div>
+      <div class="m-a-hero">
+        <!-- LEFT: Info -->
+        <div>
+          <div class="m-label">Piccoli Formati · Al piatto</div>
+          <div class="m-title">PIZZA<br>TONDA</div>
+          <div class="m-subtitle">Base precotta al piatto, pasta alveolata. Cuoce in 3–4 minuti. Ideale per ristoranti e pizzerie.</div>
+          <div>
+            <span class="m-tag">48h lievitazione</span>
+            <span class="m-tag">Forno a legna</span>
+            <span class="m-tag">Stesa a mano</span>
+          </div>
+          <div class="m-divider"></div>
+          <div class="m-info-row"><span class="m-info-key">Formato</span><span class="m-info-val">30cm / 33cm / 36cm</span></div>
+          <div class="m-info-row"><span class="m-info-key">Peso</span><span class="m-info-val">250g · 300g · 350g</span></div>
+          <div class="m-info-row"><span class="m-info-key">Cottura</span><span class="m-info-val">3–4 min a 280°C</span></div>
+          <div class="m-info-row"><span class="m-info-key">Scadenza</span><span class="m-info-val">12 mesi (surgelato)</span></div>
+          <div class="m-btn">Richiedi Scheda Tecnica →</div>
+        </div>
+        <!-- RIGHT: Gallery -->
+        <div class="m-img-stack">
+          <div class="m-img-main"></div>
+          <div class="m-img-thumb-row">
+            <div class="m-img-thumb"></div>
+            <div class="m-img-thumb"></div>
+            <div class="m-img-thumb"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Below fold -->
+      <div class="m-section-below">
+        <div class="m-section-title">Descrizione</div>
+        <div class="m-text-lines">
+          <div class="m-line full"></div><div class="m-line med"></div><div class="m-line full"></div><div class="m-line short"></div>
+        </div>
+      </div>
+      <div class="m-table-wrap" style="margin-top:10px;">
+        <div class="m-table-row">
+          <div class="m-table-cell head">Parametro</div>
+          <div class="m-table-cell head">Valore</div>
+          <div class="m-table-cell head">Note</div>
+        </div>
+        <div class="m-table-row">
+          <div class="m-table-cell even">Idratazione</div>
+          <div class="m-table-cell even">72%</div>
+          <div class="m-table-cell even">Alta</div>
+        </div>
+        <div class="m-table-row">
+          <div class="m-table-cell odd">Lievitazione</div>
+          <div class="m-table-cell odd">48 ore</div>
+          <div class="m-table-cell odd">Lievito madre</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION B -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-label">
+      <div class="card-letter">B</div>
+      <div>
+        <div class="card-title">Hero grande + Sidebar informazioni</div>
+        <div class="card-desc">Immagine hero cinematica in alto, poi contenuto con sidebar tecnica a destra. Più editoriale.</div>
+      </div>
+    </div>
+    <div class="mockup-body">
+      <div class="m-breadcrumb">Home → Basi → Pinsa</div>
+      <div class="m-b-hero">
+        <div class="m-b-hero-text">
+          <div class="m-b-hero-label">Piccoli Formati · Pinsa</div>
+          <div class="m-b-hero-title">PINSA</div>
+        </div>
+      </div>
+      <div class="m-b-layout">
+        <div class="m-b-main">
+          <div class="m-section-below" style="margin-top:0;">
+            <div class="m-section-title">Il prodotto</div>
+            <div class="m-text-lines">
+              <div class="m-line full"></div><div class="m-line med"></div><div class="m-line full"></div><div class="m-line short"></div><div class="m-line full"></div>
+            </div>
+          </div>
+          <div class="m-table-wrap" style="margin-top:10px;">
+            <div class="m-table-row">
+              <div class="m-table-cell head">Parametro</div><div class="m-table-cell head">Valore</div>
+            </div>
+            <div class="m-table-row"><div class="m-table-cell even">Formato</div><div class="m-table-cell even">Ovale 25×35 cm</div></div>
+            <div class="m-table-row"><div class="m-table-cell odd">Cottura</div><div class="m-table-cell odd">3–4 min a 280°C</div></div>
+          </div>
+        </div>
+        <div class="m-b-sidebar">
+          <div class="m-b-sidebar-title">Caratteristiche</div>
+          <div class="m-b-sidebar-item">48h lievitazione</div>
+          <div class="m-b-sidebar-item">Lievito madre</div>
+          <div class="m-b-sidebar-item">Forno a legna</div>
+          <div class="m-b-sidebar-item">12 mesi scadenza</div>
+          <div class="m-b-sidebar-item">0 additivi</div>
+          <div class="m-b-cta">Richiedi Info</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION C -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-label">
+      <div class="card-letter">C</div>
+      <div>
+        <div class="card-title">Foto destra grande + Info sinistra compatta</div>
+        <div class="card-desc">L'immagine occupa tutta l'altezza destra. Sinistra: label, numero progressivo, info tecniche. Molto pulito.</div>
+      </div>
+    </div>
+    <div class="mockup-body">
+      <div class="m-breadcrumb">Home → Basi → Focaccia Stirata Romana</div>
+      <div class="m-c-split">
+        <!-- LEFT -->
+        <div>
+          <div class="m-c-num">05</div>
+          <div class="m-label">Formati Grandi · Impasto Romano</div>
+          <div class="m-title" style="font-size:24px;">FOCACCIA<br>STIRATA<br>ROMANA</div>
+          <div class="m-subtitle">Impasto romano versatile: si farcisce sopra o imbottita all'interno.</div>
+          <div style="margin-bottom:10px;">
+            <span class="m-tag">Impasto romano</span>
+            <span class="m-tag">Versatile</span>
+          </div>
+          <div class="m-divider"></div>
+          <div class="m-info-row"><span class="m-info-key">Dimensioni</span><span class="m-info-val">30×40 cm</span></div>
+          <div class="m-info-row"><span class="m-info-key">Peso</span><span class="m-info-val">400g</span></div>
+          <div class="m-info-row"><span class="m-info-key">Cottura</span><span class="m-info-val">4–5 min a 260°C</span></div>
+          <div class="m-btn" style="font-size:9px;">Richiedi Scheda Tecnica →</div>
+        </div>
+        <!-- RIGHT: tall image -->
+        <div>
+          <div class="m-c-img-tall"></div>
+          <div class="m-c-img-duo">
+            <div class="m-c-img-small"></div>
+            <div class="m-c-img-small"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Below -->
+      <div class="m-section-below">
+        <div class="m-section-title">Descrizione completa</div>
+        <div class="m-text-lines">
+          <div class="m-line full"></div><div class="m-line med"></div><div class="m-line full"></div><div class="m-line short"></div>
+        </div>
+      </div>
+      <div class="m-table-wrap" style="margin-top:10px;">
+        <div class="m-table-row">
+          <div class="m-table-cell head">Parametro</div><div class="m-table-cell head">Valore</div><div class="m-table-cell head">Note</div>
+        </div>
+        <div class="m-table-row"><div class="m-table-cell even">Idratazione</div><div class="m-table-cell even">80%</div><div class="m-table-cell even">Molto alta</div></div>
+        <div class="m-table-row"><div class="m-table-cell odd">Lievitazione</div><div class="m-table-cell odd">48 ore</div><div class="m-table-cell odd">Lievito madre</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="selected-indicator" id="indicator">Selezione registrata ✓</div>
+
+<script>
+function toggleSelect(el) {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('indicator').classList.add('visible');
+
+  const choice = el.dataset.choice;
+  const title = el.querySelector('.card-title').textContent;
+
+  // Record selection
+  if (window.recordSelection) {
+    window.recordSelection(choice, title);
+  } else {
+    // Fallback: store in sessionStorage
+    sessionStorage.setItem('lastChoice', JSON.stringify({choice, title, ts: Date.now()}));
+  }
+}
+</script>
+</body>
+</html>
