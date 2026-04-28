@@ -208,6 +208,52 @@ footer { background: var(--nero); padding: 80px 0 40px; }
 }
 .product-description-body p + p { margin-top: 20px; }
 
+/* ── SCHEDA TECNICA TABLE ────────────── */
+.product-table-section { padding: 80px 0; background: #fff; }
+.table-wrap { overflow-x: auto; margin-top: 40px; }
+.product-table {
+  width: 100%;
+  max-width: 860px;
+  border-collapse: collapse;
+  font-family: var(--font-b);
+}
+.product-table thead tr {
+  background: var(--rosso);
+}
+.product-table thead th {
+  padding: 14px 20px;
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 500;
+  text-align: left;
+}
+.product-table tbody tr:nth-child(odd)  { background: var(--bianco); }
+.product-table tbody tr:nth-child(even) { background: #fff; }
+.product-table tbody tr { border-bottom: 1px solid rgba(169,72,61,.07); }
+.product-table tbody td {
+  padding: 13px 20px;
+  font-size: 13px;
+  color: #555;
+  vertical-align: top;
+  line-height: 1.5;
+}
+.product-table tbody td:first-child {
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--nero);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.product-table tbody td:last-child {
+  font-family: var(--font-s);
+  font-size: 14px;
+  font-style: italic;
+  color: #888;
+}
+
 /* ── REVEAL ──────────────────────────── */
 .reveal { opacity: 0; transform: translateY(36px); transition: opacity .85s ease, transform .85s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -341,6 +387,90 @@ footer { background: var(--nero); padding: 80px 0 40px; }
         <p>Ogni base viene stesa a mano, una a una, nel rispetto della tradizione artigianale. La precottura avviene nel forno a legna con base in pietra: il risultato &egrave; un prodotto con una pasta alveolata, bordi irregolari e autentici, e un profumo che ricorda le vere pizzerie italiane.</p>
         <p>La surgelazione immediata con catena del freddo preserva intatte tutte le qualit&agrave; organolettiche. In laboratorio: farcire e infornare. Nessun personale qualificato necessario, risultato garantito ogni volta.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDA TECNICA -->
+<section class="product-table-section">
+  <div class="container">
+    <div class="reveal">
+      <span class="label">Dati Tecnici</span>
+      <div class="divider"></div>
+      <h2 class="section-title">SCHEDA<br>TECNICA</h2>
+    </div>
+    <div class="table-wrap reveal">
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>Parametro</th>
+            <th>Valore</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Formato disponibile</td>
+            <td>30 cm &middot; 33 cm &middot; 36 cm</td>
+            <td>Misura riferita al diametro della base stesa</td>
+          </tr>
+          <tr>
+            <td>Peso</td>
+            <td>250 g &middot; 300 g &middot; 350 g</td>
+            <td>Peso netto per singola base surgelata</td>
+          </tr>
+          <tr>
+            <td>Idratazione impasto</td>
+            <td>72%</td>
+            <td>Alta idratazione per massima alveolatura</td>
+          </tr>
+          <tr>
+            <td>Tipo di farina</td>
+            <td>Tipo 1 con germe di grano</td>
+            <td>Macinazione a 24 passaggi, filiera Molino Madre</td>
+          </tr>
+          <tr>
+            <td>Lievitazione</td>
+            <td>48 ore a temperatura controllata</td>
+            <td>Lievito madre naturale, senza agenti chimici</td>
+          </tr>
+          <tr>
+            <td>Precottura</td>
+            <td>Forno a legna con base in pietra</td>
+            <td>Temperatura 350&ndash;400&deg;C</td>
+          </tr>
+          <tr>
+            <td>Cottura finale</td>
+            <td>3&ndash;4 min a 280&deg;C</td>
+            <td>Forno a legna, elettrico o a gas</td>
+          </tr>
+          <tr>
+            <td>Conservazione</td>
+            <td>Surgelato &mdash;18&deg;C</td>
+            <td>Mantenere la catena del freddo</td>
+          </tr>
+          <tr>
+            <td>Scadenza</td>
+            <td>12 mesi dalla produzione</td>
+            <td>Vedere data impressa sul cartone</td>
+          </tr>
+          <tr>
+            <td>Confezionamento</td>
+            <td>Cartone da 10 basi</td>
+            <td>Pallet disponibile su richiesta</td>
+          </tr>
+          <tr>
+            <td>Additivi</td>
+            <td>Nessuno</td>
+            <td>Conservato naturalmente dal freddo</td>
+          </tr>
+          <tr>
+            <td>Certificazioni</td>
+            <td>IFS Food &middot; BRC Food</td>
+            <td>Audit annuale da ente certificatore terzo</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
