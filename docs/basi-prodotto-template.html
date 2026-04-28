@@ -475,5 +475,131 @@ footer { background: var(--nero); padding: 80px 0 40px; }
   </div>
 </section>
 
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-pattern"></div>
+  <div class="cta-inner">
+    <div class="container">
+      <p class="cta-label">Vuoi distribuire le nostre basi?</p>
+      <h2 class="cta-title">HAI BISOGNO<br>DI UN PARTNER?</h2>
+      <p class="cta-text">Offriamo formati personalizzati, produzione flessibile e distribuzione anche all&rsquo;estero. Parla con un nostro consulente per trovare la soluzione pi&ugrave; adatta alla tua attivit&agrave;.</p>
+      <a href="consulenza.html" class="btn-cta">Richiedi Consulenza &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">MOLINO MADRE</div>
+        <div class="footer-brand-sub">Dal 1939 &middot; Calabria</div>
+        <p class="footer-tagline">&ldquo;Il grano macinato lentamente, il lievito madre che fermenta con pazienza, la tradizione che innova.&rdquo;</p>
+      </div>
+      <div class="footer-col">
+        <h5>Prodotti</h5>
+        <ul>
+          <li><a href="farine.html">Farine</a></li>
+          <li><a href="basi.html">Basi per Pizza</a></li>
+          <li><a href="panetti.html">Panetti Surgelati</a></li>
+          <li><a href="#">I Regionali</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Azienda</h5>
+        <ul>
+          <li><a href="il-molino.html">Il Molino</a></li>
+          <li><a href="il-forno-del-mulino.html">Il Forno del Mulino</a></li>
+          <li><a href="consulenza.html">Consulenza</a></li>
+          <li><a href="news.html">News</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contatti</h5>
+        <ul>
+          <li><a href="mailto:info@molinomadre.it">info@molinomadre.it</a></li>
+          <li><a href="tel:+390000000000">+39 000 000 0000</a></li>
+          <li><a href="#">Calabria, Italia</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Molino Madre S.r.l. &nbsp;&middot;&nbsp; Privacy Policy &nbsp;&middot;&nbsp; Cookie Policy</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link" title="Instagram">IG</a>
+        <a href="#" class="footer-social-link" title="Facebook">FB</a>
+        <a href="#" class="footer-social-link" title="LinkedIn">LI</a>
+        <a href="#" class="footer-social-link" title="YouTube">YT</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY BAR -->
+<div class="sticky-contact">
+  <a href="https://wa.me/39000000000" class="sticky-btn sticky-wa">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.552 4.107 1.516 5.842L0 24l6.336-1.483A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.861 0-3.601-.5-5.1-1.371l-.364-.217-3.762.881.941-3.673-.237-.374A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </a>
+  <a href="contatti.html" class="sticky-btn sticky-main">
+    <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    Contatti
+  </a>
+</div>
+
+<script>
+// ── GALLERY SWAP ──────────────────
+function swapImage(thumb, src, alt) {
+  document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+  document.getElementById('galleryMain').src = src;
+  document.getElementById('galleryMain').alt = alt;
+}
+
+// ── REVEAL ON SCROLL ──────────────
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: .15 });
+reveals.forEach(el => revealObserver.observe(el));
+
+// ── NAV SCROLL ────────────────────
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 40) {
+    nav.style.background = 'rgba(245,242,236,.98)';
+    nav.style.borderBottom = '1px solid rgba(138,36,50,.12)';
+  } else {
+    nav.style.background = 'rgba(245,242,236,.96)';
+    nav.style.borderBottom = '1px solid rgba(138,36,50,.1)';
+  }
+});
+
+// ── HAMBURGER MENU ────────────────
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+const closeMenu = document.getElementById('closeMenu');
+burger.addEventListener('click', () => mobileMenu.classList.add('open'));
+closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+mobileMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+});
+
+// ── MEDIA QUERIES (hide burger on desktop) ──
+const mediaQuery = window.matchMedia('(max-width: 768px)');
+function handleMediaChange(e) {
+  burger.style.display = e.matches ? 'flex' : 'none';
+}
+mediaQuery.addListener(handleMediaChange);
+handleMediaChange(mediaQuery);
+</script>
+
 </body>
 </html>
