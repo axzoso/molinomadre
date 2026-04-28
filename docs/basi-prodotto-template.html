@@ -98,6 +98,66 @@ footer { background: var(--nero); padding: 80px 0 40px; }
 .mobile-menu a:hover { color: var(--terracotta); }
 .mobile-menu-close { position: absolute; top: 24px; right: 24px; font-size: 28px; color: rgba(255,255,255,.5); cursor: pointer; background: none; border: none; font-family: var(--font-b); line-height: 1; }
 
+/* ── PRODUCT HERO ────────────────────── */
+.product-hero { padding: 56px 0 80px; background: var(--bianco); }
+.product-hero-grid {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 72px;
+  align-items: start;
+}
+
+/* Left column */
+.product-info {}
+.product-category { margin-bottom: 8px; }
+.product-title {
+  font-family: var(--font-d);
+  font-size: clamp(52px, 7vw, 96px);
+  line-height: .88;
+  letter-spacing: .02em;
+  color: var(--rosso);
+  margin-bottom: 24px;
+}
+.product-subtitle {
+  font-family: var(--font-s);
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 300;
+  color: #666;
+  line-height: 1.75;
+  margin-bottom: 24px;
+  max-width: 420px;
+}
+.product-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 28px; }
+.product-tag {
+  font-size: 9px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  border: 1px solid rgba(136,143,100,.5);
+  color: var(--oliva);
+  padding: 5px 12px;
+  border-radius: 2px;
+}
+.product-sep { width: 100%; height: 1px; background: rgba(169,72,61,.14); margin-bottom: 28px; }
+.product-specs { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+.spec-row { display: flex; align-items: baseline; gap: 12px; }
+.spec-key {
+  font-family: var(--font-b);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(26,20,16,.35);
+  min-width: 100px;
+  flex-shrink: 0;
+}
+.spec-val {
+  font-family: var(--font-s);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--nero);
+  line-height: 1.4;
+}
+
 /* ── REVEAL ──────────────────────────── */
 .reveal { opacity: 0; transform: translateY(36px); transition: opacity .85s ease, transform .85s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -146,6 +206,59 @@ footer { background: var(--nero); padding: 80px 0 40px; }
     </div>
   </div>
 </div>
+
+<!-- PRODUCT HERO -->
+<section class="product-hero">
+  <div class="container">
+    <div class="product-hero-grid">
+
+      <!-- LEFT: Info -->
+      <div class="product-info reveal">
+        <span class="label product-category">Piccoli Formati &middot; Al piatto</span>
+        <div class="divider"></div>
+        <h1 class="product-title">PIZZA<br>TONDA</h1>
+        <p class="product-subtitle">Base precotta al piatto, pasta alveolata e altamente digeribile. Ideale per locali con posti a sedere. Cuoce in soli 3&ndash;4 minuti.</p>
+        <div class="product-tags">
+          <span class="product-tag">48h lievitazione</span>
+          <span class="product-tag">Lievito madre</span>
+          <span class="product-tag">Forno a legna</span>
+          <span class="product-tag">Stesa a mano</span>
+          <span class="product-tag">Filiera controllata</span>
+        </div>
+        <div class="product-sep"></div>
+        <div class="product-specs">
+          <div class="spec-row">
+            <span class="spec-key">Formato</span>
+            <span class="spec-val">30 cm &middot; 33 cm &middot; 36 cm</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Peso</span>
+            <span class="spec-val">250 g &middot; 300 g &middot; 350 g</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Cottura</span>
+            <span class="spec-val">3&ndash;4 min a 280&deg;C (forno a legna o elettrico)</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Conservazione</span>
+            <span class="spec-val">Surgelato &mdash; catena del freddo</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Scadenza</span>
+            <span class="spec-val">12 mesi dalla produzione</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Confez.</span>
+            <span class="spec-val">Cartone da 10 basi &middot; pallet disponibile</span>
+          </div>
+        </div>
+        <a href="consulenza.html" class="btn">Richiedi Scheda Tecnica &#8594;</a>
+      </div>
+      <!-- RIGHT: Gallery — added in Task 3 -->
+
+    </div>
+  </div>
+</section>
 
 </body>
 </html>
