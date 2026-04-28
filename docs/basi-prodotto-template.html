@@ -195,6 +195,19 @@ footer { background: var(--nero); padding: 80px 0 40px; }
 .gallery-thumb.active { border-color: var(--terracotta); }
 .gallery-thumb:hover { border-color: rgba(169,72,61,.5); }
 
+/* ── PRODUCT DESCRIPTION ─────────────── */
+.product-description { padding: 80px 0; background: var(--bianco); }
+.product-description-inner { max-width: 720px; }
+.product-description-body {
+  font-family: var(--font-s);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(26,20,16,.55);
+  margin-top: 4px;
+}
+.product-description-body p + p { margin-top: 20px; }
+
 /* ── REVEAL ──────────────────────────── */
 .reveal { opacity: 0; transform: translateY(36px); transition: opacity .85s ease, transform .85s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -312,6 +325,22 @@ footer { background: var(--nero); padding: 80px 0 40px; }
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT DESCRIPTION -->
+<section class="product-description">
+  <div class="container">
+    <div class="product-description-inner reveal">
+      <span class="label">Il Prodotto</span>
+      <div class="divider"></div>
+      <h2 class="section-title">IL PRODOTTO</h2>
+      <div class="product-description-body">
+        <p>La Pizza Tonda &egrave; la base per pizza al piatto che nasce dall&rsquo;esperienza trentennale di Molino Madre nella macinazione delle farine. L&rsquo;impasto, realizzato con la nostra Farina Tipo 1 con germe di grano, viene lavorato con lievito madre e lasciato maturare per 48 ore a temperatura controllata.</p>
+        <p>Ogni base viene stesa a mano, una a una, nel rispetto della tradizione artigianale. La precottura avviene nel forno a legna con base in pietra: il risultato &egrave; un prodotto con una pasta alveolata, bordi irregolari e autentici, e un profumo che ricorda le vere pizzerie italiane.</p>
+        <p>La surgelazione immediata con catena del freddo preserva intatte tutte le qualit&agrave; organolettiche. In laboratorio: farcire e infornare. Nessun personale qualificato necessario, risultato garantito ogni volta.</p>
+      </div>
     </div>
   </div>
 </section>
