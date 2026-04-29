@@ -1,0 +1,233 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+.mm-404 {
+  --rosso:      #8a2432;
+  --terracotta: #a9483d;
+  --grano:      #ddc9a2;
+  --nero:       #1a1410;
+  --bianco:     #f5f2ec;
+  --font-d: 'Bebas Neue', sans-serif;
+  --font-s: 'Cormorant Garamond', serif;
+  --font-b: 'DM Sans', sans-serif;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 40px 64px;
+  overflow: hidden;
+  font-family: var(--font-b);
+  color: var(--nero);
+}
+
+.mm-404::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 80%, rgba(221,201,162,.22) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 85% 20%, rgba(221,201,162,.15) 0%, transparent 70%);
+}
+
+.mm-404 * { box-sizing: border-box; }
+
+/* flour puffs */
+.mm-404 .fp {
+  position: absolute; border-radius: 50%;
+  background: rgba(221,201,162,.35);
+  filter: blur(18px); pointer-events: none;
+  animation: mm404-float 6s ease-in-out infinite;
+}
+.mm-404 .fp:nth-child(1) { width:80px; height:80px; top:22%; left:8%;  animation-delay:0s;   }
+.mm-404 .fp:nth-child(2) { width:50px; height:50px; top:65%; left:18%; animation-delay:1.5s; }
+.mm-404 .fp:nth-child(3) { width:65px; height:65px; top:18%; right:10%;animation-delay:.8s;  }
+.mm-404 .fp:nth-child(4) { width:40px; height:40px; top:55%; right:16%;animation-delay:2.2s; }
+.mm-404 .fp:nth-child(5) { width:30px; height:30px; top:78%; left:48%; animation-delay:3s;   }
+
+@keyframes mm404-float {
+  0%,100% { transform: translateY(0)    scale(1);   opacity: .5; }
+  50%      { transform: translateY(-14px) scale(1.1); opacity: .9; }
+}
+
+/* 404 row */
+.mm-404 .mm-row {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(10px, 3vw, 36px);
+  margin-bottom: 8px;
+  animation: mm404-up .7s ease both;
+}
+
+.mm-404 .mm-digit {
+  font-family: var(--font-d);
+  font-size: clamp(130px, 20vw, 280px);
+  line-height: 0.9;
+  color: var(--rosso);
+  letter-spacing: .02em;
+  user-select: none;
+}
+
+/* panetto */
+.mm-404 .mm-ball {
+  display: flex; align-items: center; justify-content: center;
+  width: clamp(100px, 16vw, 215px);
+  height: clamp(100px, 16vw, 215px);
+  flex-shrink: 0; position: relative; top: -4px;
+  animation: mm404-bounce 2.4s cubic-bezier(.36,.07,.19,.97) infinite;
+}
+@keyframes mm404-bounce {
+  0%,100% { transform: translateY(0)    scaleX(1)    scaleY(1);    }
+  18%      { transform: translateY(-14%) scaleX(.95)  scaleY(1.05); }
+  36%      { transform: translateY(0)    scaleX(1.06) scaleY(.94);  }
+  54%      { transform: translateY(-7%)  scaleX(.98)  scaleY(1.02); }
+  72%      { transform: translateY(0)    scaleX(1.02) scaleY(.99);  }
+}
+.mm-404 .mm-ball svg {
+  width: 100%; height: 100%;
+  filter: drop-shadow(0 12px 28px rgba(26,20,16,.18)) drop-shadow(0 4px 8px rgba(26,20,16,.10));
+}
+
+/* text */
+.mm-404 .mm-body {
+  position: relative; z-index: 1;
+  animation: mm404-up .7s .15s ease both;
+}
+.mm-404 .mm-divider {
+  display: inline-block; width: 48px; height: 1px;
+  background: var(--terracotta); margin-bottom: 20px;
+}
+.mm-404 .mm-label {
+  font-family: var(--font-b); font-size: 11px;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--terracotta); display: block; margin-bottom: 16px;
+}
+.mm-404 .mm-title {
+  font-family: var(--font-s);
+  font-size: clamp(20px, 2.6vw, 30px);
+  font-weight: 300; font-style: italic;
+  color: var(--nero); line-height: 1.45;
+  max-width: 500px; margin: 0 auto 10px;
+}
+.mm-404 .mm-sub {
+  font-size: 13px; font-weight: 300;
+  color: rgba(26,20,16,.45); margin-bottom: 36px;
+}
+.mm-404 .mm-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-b); font-size: 11px; font-weight: 500;
+  letter-spacing: .22em; text-transform: uppercase; text-decoration: none;
+  color: var(--rosso); border-bottom: 1.5px solid var(--rosso);
+  padding-bottom: 4px; transition: gap .3s;
+}
+.mm-404 .mm-btn:hover { gap: 20px; }
+
+.mm-404 .mm-links {
+  margin-top: 48px; position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  gap: 24px; flex-wrap: wrap;
+  animation: mm404-up .6s .28s ease both;
+}
+.mm-404 .mm-links a {
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(26,20,16,.3); text-decoration: none; transition: color .3s;
+}
+.mm-404 .mm-links a:hover { color: var(--terracotta); }
+.mm-404 .mm-links span { color: rgba(26,20,16,.15); font-size: 8px; }
+
+@keyframes mm404-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .mm-404 { padding: 48px 24px 48px; }
+  .mm-404 .mm-digit { font-size: clamp(90px, 24vw, 150px); }
+}
+</style>
+
+<div class="mm-404">
+  <div class="fp"></div><div class="fp"></div><div class="fp"></div>
+  <div class="fp"></div><div class="fp"></div>
+
+  <div class="mm-row">
+    <span class="mm-digit">4</span>
+
+    <div class="mm-ball">
+      <svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="mm404-dough" cx="42%" cy="36%" r="62%">
+            <stop offset="0%"   stop-color="#f2e8d4"/>
+            <stop offset="45%"  stop-color="#e8d8b8"/>
+            <stop offset="100%" stop-color="#c9b48a"/>
+          </radialGradient>
+          <radialGradient id="mm404-crust" cx="50%" cy="30%" r="55%">
+            <stop offset="0%"   stop-color="#d4be94" stop-opacity="0"/>
+            <stop offset="70%"  stop-color="#b89860" stop-opacity=".45"/>
+            <stop offset="100%" stop-color="#a07840" stop-opacity=".7"/>
+          </radialGradient>
+          <radialGradient id="mm404-shine" cx="38%" cy="30%" r="35%">
+            <stop offset="0%"   stop-color="#fffdf6" stop-opacity=".75"/>
+            <stop offset="100%" stop-color="#fffdf6" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="mm404-shadow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stop-color="#5a3e1a" stop-opacity=".28"/>
+            <stop offset="100%" stop-color="#5a3e1a" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="mm404-soft" x="-10%" y="-10%" width="120%" height="120%">
+            <feGaussianBlur stdDeviation="1.5"/>
+          </filter>
+          <filter id="mm404-floury" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+        </defs>
+        <ellipse cx="110" cy="198" rx="62" ry="12" fill="url(#mm404-shadow)"/>
+        <circle cx="110" cy="104" r="88" fill="url(#mm404-dough)"/>
+        <ellipse cx="110" cy="104" rx="88" ry="85" fill="url(#mm404-dough)" filter="url(#mm404-floury)" opacity=".55"/>
+        <circle cx="110" cy="104" r="88" fill="url(#mm404-crust)"/>
+        <ellipse cx="82"  cy="78"  rx="18" ry="11" fill="#fffef8" opacity=".38" transform="rotate(-20 82 78)"  filter="url(#mm404-soft)"/>
+        <ellipse cx="135" cy="92"  rx="12" ry="7"  fill="#fffef8" opacity=".28" transform="rotate(12 135 92)"  filter="url(#mm404-soft)"/>
+        <ellipse cx="98"  cy="128" rx="9"  ry="5"  fill="#fffef8" opacity=".22" transform="rotate(-8 98 128)"  filter="url(#mm404-soft)"/>
+        <ellipse cx="122" cy="70"  rx="7"  ry="4"  fill="#fffef8" opacity=".32" transform="rotate(25 122 70)"  filter="url(#mm404-soft)"/>
+        <path d="M72 88 Q95 74 118 82 Q140 90 155 108 Q160 118 148 124 Q130 130 110 126 Q88 122 74 110 Q64 100 72 88 Z"
+              fill="none" stroke="#b8935a" stroke-width="1.2" stroke-opacity=".35" filter="url(#mm404-soft)"/>
+        <ellipse cx="110" cy="38" rx="14" ry="8" fill="#c9a870" opacity=".55" filter="url(#mm404-soft)"/>
+        <ellipse cx="110" cy="38" rx="7"  ry="4" fill="#b8935a" opacity=".4"  filter="url(#mm404-soft)"/>
+        <ellipse cx="88" cy="76" rx="26" ry="18" fill="url(#mm404-shine)" transform="rotate(-15 88 76)"/>
+        <circle cx="76"  cy="95"  r="2.5" fill="#fffef5" opacity=".55"/>
+        <circle cx="148" cy="82"  r="1.8" fill="#fffef5" opacity=".45"/>
+        <circle cx="92"  cy="140" r="2"   fill="#fffef5" opacity=".40"/>
+        <circle cx="130" cy="128" r="1.5" fill="#fffef5" opacity=".35"/>
+        <circle cx="62"  cy="116" r="1.8" fill="#fffef5" opacity=".30"/>
+        <circle cx="155" cy="105" r="1.2" fill="#fffef5" opacity=".28"/>
+        <path d="M60 115 Q90 138 140 130" stroke="#a07840" stroke-width=".8" stroke-opacity=".2" fill="none" stroke-linecap="round" filter="url(#mm404-soft)"/>
+        <path d="M80 72  Q110 60 140 74"  stroke="#a07840" stroke-width=".7" stroke-opacity=".15" fill="none" stroke-linecap="round" filter="url(#mm404-soft)"/>
+      </svg>
+    </div>
+
+    <span class="mm-digit">4</span>
+  </div>
+
+  <div class="mm-body">
+    <span class="mm-divider"></span>
+    <span class="mm-label">Ops — pagina non trovata</span>
+    <p class="mm-title">Questo panetto si è perso<br>prima di arrivare in forno.</p>
+    <p class="mm-sub">La pagina che cerchi non esiste (o è stata spostata).</p>
+    <a href="/" class="mm-btn">
+      Torna alla home
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
+        <path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="mm-links">
+    <a href="/farine">Farine</a><span>·</span>
+    <a href="/basi">Basi</a><span>·</span>
+    <a href="/panetti">Panetti</a><span>·</span>
+    <a href="/il-molino">Il Mulino</a><span>·</span>
+    <a href="/contatti">Contatti</a>
+  </div>
+</div>

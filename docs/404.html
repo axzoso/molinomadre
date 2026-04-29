@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pagina non trovata – Molino Madre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rosso:      #8a2432;
+  --terracotta: #a9483d;
+  --grano:      #ddc9a2;
+  --lavanda:    #e3e0e5;
+  --oliva:      #888f64;
+  --bianco:     #f5f2ec;
+  --nero:       #1a1410;
+  --font-d: 'Bebas Neue', sans-serif;
+  --font-s: 'Cormorant Garamond', serif;
+  --font-b: 'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--nero);
+  color: var(--bianco);
+  font-family: var(--font-b);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── GRAIN OVERLAY ────────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: .35;
+}
+
+/* ── NAV ──────────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000; padding: 0 40px; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background .4s, backdrop-filter .4s;
+}
+nav.scrolled {
+  background: rgba(245,242,236,.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(138,36,50,.1);
+}
+.nav-logo {
+  font-family: var(--font-d); font-size: 22px;
+  letter-spacing: .12em; color: #fff; text-decoration: none;
+  display: flex; flex-direction: column; line-height: 1.1; transition: color .4s;
+}
+nav.scrolled .nav-logo { color: var(--rosso); }
+.nav-logo span {
+  font-family: var(--font-s); font-size: 10px; letter-spacing: .3em;
+  text-transform: uppercase; opacity: .7;
+}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  text-decoration: none; color: rgba(255,255,255,.85); transition: color .3s;
+}
+nav.scrolled .nav-links a { color: var(--nero); }
+.nav-links a:hover { color: var(--terracotta) !important; }
+.nav-cta {
+  padding: 9px 22px; border: 1.5px solid rgba(255,255,255,.6);
+  border-radius: 2px; font-size: 10px; letter-spacing: .2em;
+  text-transform: uppercase; text-decoration: none; color: #fff;
+  transition: all .3s; font-weight: 500;
+}
+nav.scrolled .nav-cta { border-color: var(--rosso); color: var(--rosso); }
+.nav-cta:hover { background: var(--rosso); border-color: var(--rosso); color: #fff !important; }
+
+/* ── HAMBURGER ───────────────────────────────────────────────── */
+.nav-hamburger {
+  display: none; flex-direction: column; gap: 5px; background: none;
+  border: none; cursor: pointer; padding: 4px; color: #fff;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 1.5px;
+  background: currentColor; transition: all .3s;
+}
+nav.scrolled .nav-hamburger { color: var(--nero); }
+
+/* ── MAIN 404 ─────────────────────────────────────────────────── */
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  padding: 120px 40px 80px;
+  text-align: center;
+}
+
+.four-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.four-zero-four {
+  font-family: var(--font-d);
+  font-size: clamp(180px, 28vw, 380px);
+  line-height: 0.85;
+  letter-spacing: .04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(221,201,162,.18);
+  user-select: none;
+  display: block;
+  position: relative;
+}
+
+.four-zero-four::after {
+  content: '404';
+  position: absolute; inset: 0;
+  font-family: var(--font-d);
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  background: linear-gradient(160deg, var(--rosso) 0%, var(--terracotta) 55%, rgba(138,36,50,.4) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0;
+  opacity: .9;
+}
+
+.error-content {
+  margin-top: -20px;
+  position: relative;
+  z-index: 2;
+}
+
+.error-divider {
+  display: inline-block; width: 48px; height: 1px;
+  background: var(--terracotta); margin-bottom: 24px;
+}
+
+.error-label {
+  font-family: var(--font-b);
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  display: block;
+  margin-bottom: 20px;
+}
+
+.error-title {
+  font-family: var(--font-s);
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(245,242,236,.85);
+  line-height: 1.4;
+  max-width: 520px;
+  margin: 0 auto 12px;
+}
+
+.error-sub {
+  font-family: var(--font-b);
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(245,242,236,.35);
+  letter-spacing: .04em;
+  margin-bottom: 40px;
+}
+
+.btn-home {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--font-b); font-size: 11px; font-weight: 500;
+  letter-spacing: .22em; text-transform: uppercase; text-decoration: none;
+  color: var(--grano); border-bottom: 1.5px solid rgba(221,201,162,.4);
+  padding-bottom: 5px; transition: gap .3s, border-color .3s;
+}
+.btn-home:hover { gap: 22px; border-color: var(--grano); }
+.btn-home svg { flex-shrink: 0; transition: transform .3s; }
+.btn-home:hover svg { transform: translateX(4px); }
+
+.quick-links {
+  margin-top: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.quick-links a {
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(245,242,236,.25);
+  text-decoration: none;
+  transition: color .3s;
+}
+.quick-links a:hover { color: rgba(245,242,236,.6); }
+.quick-links span { color: rgba(245,242,236,.12); font-size: 8px; }
+
+/* ── FOOTER ───────────────────────────────────────────────────── */
+footer {
+  position: relative; z-index: 1;
+  background: rgba(255,255,255,.03);
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 32px 40px;
+}
+.footer-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-copy {
+  font-size: 10px; color: rgba(255,255,255,.2); letter-spacing: .06em;
+}
+.footer-socials { display: flex; gap: 10px; }
+.footer-social-link {
+  width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.1);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  text-decoration: none; color: rgba(255,255,255,.3);
+  font-size: 10px; font-family: var(--font-b); transition: all .3s;
+}
+.footer-social-link:hover { border-color: var(--grano); color: var(--grano); }
+
+/* ── RESPONSIVE ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-cta { display: none; }
+  main { padding: 100px 24px 64px; }
+  footer { padding: 28px 24px; }
+}
+
+/* ── FADE IN ──────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.four-zero-four { animation: fadeUp .8s ease both; }
+.error-content  { animation: fadeUp .8s .2s ease both; }
+.quick-links    { animation: fadeUp .6s .4s ease both; }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">MOLINO MADRE<span>Dal 1939 · Calabria</span></a>
+  <ul class="nav-links">
+    <li><a href="il-molino.html">Il Mulino</a></li>
+    <li><a href="farine.html">Farine</a></li>
+    <li><a href="basi.html">Basi</a></li>
+    <li><a href="panetti.html">Panetti</a></li>
+    <li><a href="il-forno-del-mulino.html">Il Forno</a></li>
+    <li><a href="consulenza.html">Consulenza</a></li>
+  </ul>
+  <a href="contatti.html" class="nav-cta">Contatti</a>
+  <button class="nav-hamburger" id="burger" aria-label="Apri menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main>
+  <div>
+    <span class="four-zero-four" aria-hidden="true">404</span>
+
+    <div class="error-content">
+      <span class="error-divider"></span>
+      <span class="error-label">Pagina non trovata</span>
+
+      <p class="error-title">
+        Questa farina non esiste nel nostro catalogo.
+      </p>
+      <p class="error-sub">
+        La pagina che cerchi si è smarrita lungo il percorso — proprio come un chicco di grano.
+      </p>
+
+      <a href="index.html" class="btn-home">
+        Torna alla home
+        <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
+          <path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+      <div class="quick-links">
+        <a href="farine.html">Farine</a>
+        <span>·</span>
+        <a href="basi.html">Basi</a>
+        <span>·</span>
+        <a href="panetti.html">Panetti</a>
+        <span>·</span>
+        <a href="il-molino.html">Il Mulino</a>
+        <span>·</span>
+        <a href="contatti.html">Contatti</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-copy">&copy; 2025 Molino Madre S.r.l. &nbsp;&middot;&nbsp; Privacy Policy &nbsp;&middot;&nbsp; Cookie Policy</p>
+    <div class="footer-socials">
+      <a href="#" class="footer-social-link">IG</a>
+      <a href="#" class="footer-social-link">FB</a>
+      <a href="#" class="footer-social-link">LI</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+</script>
+</body>
+</html>

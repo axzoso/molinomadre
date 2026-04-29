@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pagina non trovata – Molino Madre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rosso:      #8a2432;
+  --terracotta: #a9483d;
+  --grano:      #ddc9a2;
+  --lavanda:    #e3e0e5;
+  --oliva:      #888f64;
+  --bianco:     #f5f2ec;
+  --nero:       #1a1410;
+  --font-d: 'Bebas Neue', sans-serif;
+  --font-s: 'Cormorant Garamond', serif;
+  --font-b: 'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bianco);
+  color: var(--nero);
+  font-family: var(--font-b);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── flour dust bg ───────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 80%, rgba(221,201,162,.22) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 85% 20%, rgba(221,201,162,.15) 0%, transparent 70%);
+}
+
+/* ── NAV ──────────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000; padding: 0 40px; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(245,242,236,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(138,36,50,.08);
+}
+.nav-logo {
+  font-family: var(--font-d); font-size: 22px;
+  letter-spacing: .12em; color: var(--rosso); text-decoration: none;
+  display: flex; flex-direction: column; line-height: 1.1;
+}
+.nav-logo span {
+  font-family: var(--font-s); font-size: 10px; letter-spacing: .3em;
+  text-transform: uppercase; opacity: .6; color: var(--nero);
+}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  text-decoration: none; color: var(--nero); transition: color .3s;
+}
+.nav-links a:hover { color: var(--terracotta); }
+.nav-cta {
+  padding: 9px 22px; border: 1.5px solid var(--rosso);
+  border-radius: 2px; font-size: 10px; letter-spacing: .2em;
+  text-transform: uppercase; text-decoration: none; color: var(--rosso);
+  transition: all .3s; font-weight: 500;
+}
+.nav-cta:hover { background: var(--rosso); color: #fff; }
+.nav-hamburger {
+  display: none; flex-direction: column; gap: 5px; background: none;
+  border: none; cursor: pointer; padding: 4px; color: var(--nero);
+}
+.nav-hamburger span { display: block; width: 22px; height: 1.5px; background: currentColor; }
+
+/* ── MAIN ─────────────────────────────────────────────────────── */
+main {
+  flex: 1; position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 120px 40px 60px;
+  text-align: center;
+  gap: 0;
+}
+
+/* ── FLOUR PUFFS ──────────────────────────────────────────────── */
+.flour-puff {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(221,201,162,.35);
+  filter: blur(18px);
+  pointer-events: none;
+  animation: floatPuff 6s ease-in-out infinite;
+}
+.flour-puff:nth-child(1) { width:80px; height:80px; top:28%; left:10%; animation-delay:0s; }
+.flour-puff:nth-child(2) { width:50px; height:50px; top:60%; left:20%; animation-delay:1.5s; }
+.flour-puff:nth-child(3) { width:65px; height:65px; top:20%; right:12%; animation-delay:.8s; }
+.flour-puff:nth-child(4) { width:40px; height:40px; top:55%; right:18%; animation-delay:2.2s; }
+.flour-puff:nth-child(5) { width:30px; height:30px; top:75%; left:45%; animation-delay:3s; }
+
+@keyframes floatPuff {
+  0%, 100% { transform: translateY(0) scale(1); opacity: .5; }
+  50%       { transform: translateY(-14px) scale(1.1); opacity: .9; }
+}
+
+/* ── THE 404 ROW ──────────────────────────────────────────────── */
+.error-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 40px);
+  margin-bottom: 8px;
+  animation: fadeUp .7s ease both;
+}
+
+.digit {
+  font-family: var(--font-d);
+  font-size: clamp(140px, 22vw, 300px);
+  line-height: 0.9;
+  color: var(--rosso);
+  letter-spacing: .02em;
+  user-select: none;
+}
+
+/* ── PANETTO ──────────────────────────────────────────────────── */
+.panetto-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(110px, 17vw, 230px);
+  height: clamp(110px, 17vw, 230px);
+  animation: bounce 2.4s cubic-bezier(.36,.07,.19,.97) infinite;
+  flex-shrink: 0;
+  position: relative;
+  top: -4px;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0) scaleX(1) scaleY(1); }
+  18%       { transform: translateY(-14%) scaleX(.95) scaleY(1.05); }
+  36%       { transform: translateY(0) scaleX(1.06) scaleY(.94); }
+  54%       { transform: translateY(-7%)  scaleX(.98) scaleY(1.02); }
+  72%       { transform: translateY(0) scaleX(1.02) scaleY(.99); }
+}
+
+.panetto-wrap svg {
+  width: 100%; height: 100%;
+  filter: drop-shadow(0 12px 28px rgba(26,20,16,.18)) drop-shadow(0 4px 8px rgba(26,20,16,.10));
+}
+
+/* ── TEXT CONTENT ─────────────────────────────────────────────── */
+.error-content {
+  animation: fadeUp .7s .15s ease both;
+}
+.error-label {
+  font-family: var(--font-b); font-size: 11px;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--terracotta); display: block; margin-bottom: 16px;
+}
+.error-title {
+  font-family: var(--font-s);
+  font-size: clamp(20px, 2.6vw, 30px);
+  font-weight: 300; font-style: italic;
+  color: var(--nero); line-height: 1.45;
+  max-width: 500px; margin: 0 auto 10px;
+}
+.error-sub {
+  font-size: 13px; font-weight: 300;
+  color: rgba(26,20,16,.45); margin-bottom: 36px;
+}
+.divider {
+  display: inline-block; width: 48px; height: 1px;
+  background: var(--terracotta); margin-bottom: 20px;
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-b); font-size: 11px; font-weight: 500;
+  letter-spacing: .22em; text-transform: uppercase; text-decoration: none;
+  color: var(--rosso); border-bottom: 1.5px solid var(--rosso);
+  padding-bottom: 4px; transition: gap .3s;
+}
+.btn:hover { gap: 20px; }
+
+.quick-links {
+  margin-top: 48px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 24px; flex-wrap: wrap;
+  animation: fadeUp .6s .28s ease both;
+}
+.quick-links a {
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(26,20,16,.3); text-decoration: none; transition: color .3s;
+}
+.quick-links a:hover { color: var(--terracotta); }
+.quick-links span { color: rgba(26,20,16,.15); font-size: 8px; }
+
+/* ── FOOTER ───────────────────────────────────────────────────── */
+footer {
+  position: relative; z-index: 1;
+  background: var(--nero);
+  padding: 28px 40px;
+}
+.footer-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-copy { font-size: 10px; color: rgba(255,255,255,.2); letter-spacing: .06em; }
+.footer-socials { display: flex; gap: 10px; }
+.footer-social-link {
+  width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.1);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  text-decoration: none; color: rgba(255,255,255,.3);
+  font-size: 10px; font-family: var(--font-b); transition: all .3s;
+}
+.footer-social-link:hover { border-color: var(--grano); color: var(--grano); }
+
+/* ── RESPONSIVE ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+  main { padding: 96px 24px 48px; }
+  footer { padding: 24px 20px; }
+  .digit { font-size: clamp(100px, 26vw, 160px); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">MOLINO MADRE<span>Dal 1939 · Calabria</span></a>
+  <ul class="nav-links">
+    <li><a href="il-molino.html">Il Mulino</a></li>
+    <li><a href="farine.html">Farine</a></li>
+    <li><a href="basi.html">Basi</a></li>
+    <li><a href="panetti.html">Panetti</a></li>
+    <li><a href="il-forno-del-mulino.html">Il Forno</a></li>
+    <li><a href="consulenza.html">Consulenza</a></li>
+  </ul>
+  <a href="contatti.html" class="nav-cta">Contatti</a>
+  <button class="nav-hamburger" id="burger" aria-label="Apri menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main>
+  <!-- flour atmosphere -->
+  <div class="flour-puff"></div>
+  <div class="flour-puff"></div>
+  <div class="flour-puff"></div>
+  <div class="flour-puff"></div>
+  <div class="flour-puff"></div>
+
+  <div class="error-row">
+    <span class="digit">4</span>
+
+    <!-- PANETTO SVG -->
+    <div class="panetto-wrap">
+      <svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- base dough gradient -->
+          <radialGradient id="dough" cx="42%" cy="36%" r="62%">
+            <stop offset="0%"   stop-color="#f2e8d4"/>
+            <stop offset="45%"  stop-color="#e8d8b8"/>
+            <stop offset="100%" stop-color="#c9b48a"/>
+          </radialGradient>
+          <!-- crust top rim -->
+          <radialGradient id="crust" cx="50%" cy="30%" r="55%">
+            <stop offset="0%"   stop-color="#d4be94" stop-opacity=".0"/>
+            <stop offset="70%"  stop-color="#b89860" stop-opacity=".45"/>
+            <stop offset="100%" stop-color="#a07840" stop-opacity=".7"/>
+          </radialGradient>
+          <!-- soft inner highlight -->
+          <radialGradient id="shine" cx="38%" cy="30%" r="35%">
+            <stop offset="0%"   stop-color="#fffdf6" stop-opacity=".75"/>
+            <stop offset="100%" stop-color="#fffdf6" stop-opacity="0"/>
+          </radialGradient>
+          <!-- shadow under ball -->
+          <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stop-color="#5a3e1a" stop-opacity=".28"/>
+            <stop offset="100%" stop-color="#5a3e1a" stop-opacity="0"/>
+          </radialGradient>
+          <!-- flour dust filter -->
+          <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+            <feGaussianBlur stdDeviation="1.5"/>
+          </filter>
+          <filter id="floury" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+        </defs>
+
+        <!-- cast shadow -->
+        <ellipse cx="110" cy="198" rx="62" ry="12" fill="url(#shadow)"/>
+
+        <!-- main dough ball body -->
+        <circle cx="110" cy="104" r="88" fill="url(#dough)"/>
+
+        <!-- surface organic irregularity (slight squish) -->
+        <ellipse cx="110" cy="104" rx="88" ry="85" fill="url(#dough)" filter="url(#floury)" opacity=".55"/>
+
+        <!-- crust / toasted rim overlay -->
+        <circle cx="110" cy="104" r="88" fill="url(#crust)"/>
+
+        <!-- flour dusting patches -->
+        <ellipse cx="82"  cy="78"  rx="18" ry="11" fill="#fffef8" opacity=".38" transform="rotate(-20 82 78)"  filter="url(#soft)"/>
+        <ellipse cx="135" cy="92"  rx="12" ry="7"  fill="#fffef8" opacity=".28" transform="rotate(12 135 92)"  filter="url(#soft)"/>
+        <ellipse cx="98"  cy="128" rx="9"  ry="5"  fill="#fffef8" opacity=".22" transform="rotate(-8 98 128)"  filter="url(#soft)"/>
+        <ellipse cx="122" cy="70"  rx="7"  ry="4"  fill="#fffef8" opacity=".32" transform="rotate(25 122 70)"  filter="url(#soft)"/>
+
+        <!-- dough fold seam -->
+        <path d="M72 88 Q95 74 118 82 Q140 90 155 108 Q160 118 148 124 Q130 130 110 126 Q88 122 74 110 Q64 100 72 88 Z"
+              fill="none" stroke="#b8935a" stroke-width="1.2" stroke-opacity=".35" filter="url(#soft)"/>
+
+        <!-- pinch point top -->
+        <ellipse cx="110" cy="38" rx="14" ry="8" fill="#c9a870" opacity=".55" filter="url(#soft)"/>
+        <ellipse cx="110" cy="38" rx="7"  ry="4" fill="#b8935a" opacity=".4"  filter="url(#soft)"/>
+
+        <!-- specular highlight -->
+        <ellipse cx="88" cy="76" rx="26" ry="18" fill="url(#shine)" transform="rotate(-15 88 76)"/>
+
+        <!-- tiny flour specks -->
+        <circle cx="76"  cy="95"  r="2.5" fill="#fffef5" opacity=".55"/>
+        <circle cx="148" cy="82"  r="1.8" fill="#fffef5" opacity=".45"/>
+        <circle cx="92"  cy="140" r="2"   fill="#fffef5" opacity=".40"/>
+        <circle cx="130" cy="128" r="1.5" fill="#fffef5" opacity=".35"/>
+        <circle cx="62"  cy="116" r="1.8" fill="#fffef5" opacity=".30"/>
+        <circle cx="155" cy="105" r="1.2" fill="#fffef5" opacity=".28"/>
+
+        <!-- faint weight crease lines -->
+        <path d="M60 115 Q90 138 140 130" stroke="#a07840" stroke-width=".8" stroke-opacity=".2" fill="none" stroke-linecap="round" filter="url(#soft)"/>
+        <path d="M80 72  Q110 60 140 74"  stroke="#a07840" stroke-width=".7" stroke-opacity=".15" fill="none" stroke-linecap="round" filter="url(#soft)"/>
+      </svg>
+    </div>
+
+    <span class="digit">4</span>
+  </div>
+
+  <div class="error-content">
+    <span class="divider"></span>
+    <span class="error-label">Ops — pagina non trovata</span>
+    <p class="error-title">
+      Questo panetto si è perso<br>prima di arrivare in forno.
+    </p>
+    <p class="error-sub">La pagina che cerchi non esiste (o è stata spostata).</p>
+
+    <a href="index.html" class="btn">
+      Torna alla home
+      <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
+        <path d="M1 5h14M10 1l5 4-5 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+    <div class="quick-links">
+      <a href="farine.html">Farine</a>
+      <span>·</span>
+      <a href="basi.html">Basi</a>
+      <span>·</span>
+      <a href="panetti.html">Panetti</a>
+      <span>·</span>
+      <a href="il-molino.html">Il Mulino</a>
+      <span>·</span>
+      <a href="contatti.html">Contatti</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-copy">&copy; 2025 Molino Madre S.r.l. &nbsp;&middot;&nbsp; Privacy Policy &nbsp;&middot;&nbsp; Cookie Policy</p>
+    <div class="footer-socials">
+      <a href="#" class="footer-social-link">IG</a>
+      <a href="#" class="footer-social-link">FB</a>
+      <a href="#" class="footer-social-link">LI</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
